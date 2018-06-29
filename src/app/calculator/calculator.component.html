@@ -26,3 +26,28 @@
     </ng-template>
   </div>
 </div>
+
+<div *ngIf="isObject(sku[0])">
+  <div *ngIf="sku[0].values[0].image;else noImage">
+    <mat-tab-group>
+      <mat-tab *ngFor="let val of sku[0].values">
+        <ng-template mat-tab-label>
+          <img class="border border-secondary rounded" [src]="val.image" height="40px" width="40px">
+        </ng-template>
+        <div *ngFor="let co of sku[1].values">
+          {{co.desc}}<app-qtypicker></app-qtypicker>
+        </div>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+  <ng-template #noImage>
+      <mat-tab-group>
+          <mat-tab *ngFor="let val of sku[0].values">
+            <ng-template mat-tab-label>
+              {{val.desc}}
+            </ng-template>
+            calculator
+          </mat-tab>
+        </mat-tab-group>
+  </ng-template>
+</div>
