@@ -1,0 +1,30 @@
+
+.navbar-center {
+  flex: 1 1 auto;
+}
+
+.v-align {
+  vertical-align: middle;
+}
+
+.roundimg {
+  border-radius: 50%;
+}
+
+.mat-toolbar.mat-primary{
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 9;
+}
+
+.content {
+  padding-top: 20px;
+  /*overflow: auto;*/
+  height: 100%;    
+}
+
+.sidenav {
+  width: 200px;
+}

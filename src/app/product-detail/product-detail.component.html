@@ -1,0 +1,86 @@
+<div class="box" *ngIf="showSpinner">
+  <app-loading-spinner></app-loading-spinner>
+</div>
+<div *ngIf="product.name" class="container">
+  <div class="row">
+    <div class="preview col-md-6">
+      <div class="preview-pic tab-content">
+        <div class="tab-pane" *ngFor="let img of product.images; let k = index" [class.active]="!k" [id]="k">
+          <img [src]="img">
+        </div>
+      </div>
+      <ul class="preview-thumbnail nav nav-tabs">
+        <li *ngFor="let img of product.images; let j = index" [class.active]="!j">
+          <a [attr.data-target]="'#'+j" data-toggle="tab">
+            <img [src]="img">
+          </a>
+        </li>
+      </ul>
+    </div>
+    <div class="details col-md-6">
+      <h5 class="product-title">{{product.name}}</h5>
+      <table class="table table-sm table-hover">
+        <tbody>
+          <tr>
+            <th scope="row">ราคา</th>
+            <td *ngFor="let info of product.trade_info">{{toNum(info.price)}}</td>
+          </tr>
+          <tr>
+            <th scope="row">ปริมาณ</th>
+            <td *ngFor="let info of product.trade_info">>={{info.min_num}} pcs</td>
+          </tr>
+        </tbody>
+      </table>
+      <div *ngIf="isObject(product.sku[0])">
+        <div *ngFor="let sku of product.sku" class="p-1">
+          <div *ngIf="sku.values[0].image; else noImage">
+            <div class="card">
+              <div class="card-header">
+                {{sku.label}}
+              </div>
+              <div class="card-body">
+                <span *ngFor="let val of sku.values" class="mr-1">
+                  <img class="border border-secondary rounded" [src]="val.image" height="40px" width="40px">
+                </span>
+              </div>
+            </div>
+          </div>
+          <ng-template #noImage>
+            <div class="card">
+              <div class="card-header">
+                {{sku.label}}
+              </div>
+              <div class="card-body">
+                <span *ngFor="let val of sku.values" class="mr-1">
+                  <button type="button" class="btn btn-outline-secondary btn-sm">{{val.desc}}</button>
+                </span>
+              </div>
+            </div>
+          </ng-template>
+        </div>
+      </div>
+      <div class="input-group input-group-sm p-1">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="inputGroup-sizing-sm">Quantity</span>
+        </div>
+        <input type="number" [value]="product.trade_info[0].min_num" [min]="product.trade_info[0].min_num" class="form-control" aria-label="Small"
+          aria-describedby="inputGroup-sizing-sm">
+      </div>
+      <div class="p-1">
+        <button type="button" class="btn btn-success btn-sm btn-block">
+          <i class="fas fa-cart-plus"></i>Add to Cart</button>
+      </div>
+      <div class="p-1">
+        <app-calculator [sku]="product.sku"></app-calculator>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="product.detail" class="p-1">
+    <hr class="line">
+    <div class="row">
+      <div *ngFor="let img of product.detail" class="col-4">
+        <img [src]="img">
+      </div>
+    </div>
+  </div>
+</div>

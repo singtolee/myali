@@ -1,0 +1,28 @@
+<div *ngIf="isObject(sku[0])">
+  <div *ngFor="let s of sku" class="p-1">
+    <div *ngIf="s.values[0].image; else noImage">
+      <div class="card">
+        <div class="card-header">
+          {{s.label}}
+        </div>
+        <div class="card-body">
+          <span *ngFor="let val of s.values" class="mr-1">
+            <img class="border border-secondary rounded" [src]="val.image" height="40px" width="40px">
+          </span>
+        </div>
+      </div>
+    </div>
+    <ng-template #noImage>
+      <div class="card">
+        <div class="card-header">
+          {{s.label}}
+        </div>
+        <div class="card-body">
+          <span *ngFor="let val of s.values" class="mr-1">
+            <button type="button" class="btn btn-outline-secondary btn-sm">{{val.desc}}</button>
+          </span>
+        </div>
+      </div>
+    </ng-template>
+  </div>
+</div>

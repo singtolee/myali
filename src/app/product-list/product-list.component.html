@@ -1,0 +1,23 @@
+<div class="container">
+  <div class="row" *ngIf="prds">
+    <div *ngFor="let prd of prds | async" class="col-sm-12 col-md-4 col-lg-3 mb-2 bg-light" (click)="passPrd(prd)" [routerLink]="['/product',prd.pid]">
+      <div class="card">
+        <div>
+          <img class="card-img-top" [src]="prd.images[0]">
+        </div>
+        <div class="pt-1 pl-2 pr-2">
+          <span class="text-danger font-weight-bold">{{toNum(prd.price)}}</span>
+          <span class="float-right badge badge-success">{{prd.sales_count}}sold</span>
+        </div>
+        <p class="text-info font-weight-light pl-2">สั่งซื้อขั้นต่ำ:{{prd.trade_info[0].min_num}} pcs</p>
+        <p class="clip pl-2 pr-2 font-weight-light">
+          <small>{{prd.name}}</small>
+        </p>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="isLoading">
+    <app-loading-spinner></app-loading-spinner>
+  </div>
+  <button (click)="loadmore()" type="button" class="btn btn-primary btn-lg btn-block">LOAD MORE</button>
+</div>

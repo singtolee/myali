@@ -1,0 +1,7 @@
+<div *ngIf="auth.user | async as user; else elseBlock ">
+  <img routerLink="/userPage" class="v-align roundimg" [src]="user.photoURL" onError="this.src='./assets/user.png'" width="30" height="30">
+  <button mat-button (click)="auth.signOut()">SIGN OUT</button>
+</div>
+<ng-template #elseBlock>
+    <button mat-button (click)="openDialog()">SIGN IN</button>
+</ng-template>
