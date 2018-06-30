@@ -35,7 +35,7 @@
           <img class="border border-secondary rounded" [src]="val.image" height="40px" width="40px">
         </ng-template>
         <div *ngFor="let co of sku[1].values">
-          {{co.desc}}<app-qtypicker></app-qtypicker>
+          <app-qtypicker [size]="co.desc" [color]="val.desc"></app-qtypicker>
         </div>
       </mat-tab>
     </mat-tab-group>
@@ -46,7 +46,9 @@
             <ng-template mat-tab-label>
               {{val.desc}}
             </ng-template>
-            calculator
+            <div *ngFor="let co of sku[1].values">
+              <app-qtypicker [size]="co.desc" [color]="val.desc"></app-qtypicker>
+            </div>
           </mat-tab>
         </mat-tab-group>
   </ng-template>

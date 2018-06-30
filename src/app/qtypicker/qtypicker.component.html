@@ -1,1 +1,15 @@
-<span>Number picker</span>
+<div class="d-flex align-items-center m-1">
+    <div>{{size}}</div>
+    <div class="dc"></div>
+    <div class="">
+        <div class="input-group input-group sm">
+            <div class="input-group-prepend">
+                <button type="button" (click)="des()" class="btn btn-outline-success btn-sm btt">-</button>
+            </div>
+            <input class="qty" type="number" [(ngModel)]="qty" >
+            <div class="input-group-append">
+                    <button type="button" (click)="inc()" class="btn btn-outline-success btn-sm btt">+</button>
+            </div>
+        </div>
+    </div>
+</div>

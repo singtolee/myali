@@ -31,45 +31,6 @@
           </tr>
         </tbody>
       </table>
-      <div *ngIf="isObject(product.sku[0])">
-        <div *ngFor="let sku of product.sku" class="p-1">
-          <div *ngIf="sku.values[0].image; else noImage">
-            <div class="card">
-              <div class="card-header">
-                {{sku.label}}
-              </div>
-              <div class="card-body">
-                <span *ngFor="let val of sku.values" class="mr-1">
-                  <img class="border border-secondary rounded" [src]="val.image" height="40px" width="40px">
-                </span>
-              </div>
-            </div>
-          </div>
-          <ng-template #noImage>
-            <div class="card">
-              <div class="card-header">
-                {{sku.label}}
-              </div>
-              <div class="card-body">
-                <span *ngFor="let val of sku.values" class="mr-1">
-                  <button type="button" class="btn btn-outline-secondary btn-sm">{{val.desc}}</button>
-                </span>
-              </div>
-            </div>
-          </ng-template>
-        </div>
-      </div>
-      <div class="input-group input-group-sm p-1">
-        <div class="input-group-prepend">
-          <span class="input-group-text" id="inputGroup-sizing-sm">Quantity</span>
-        </div>
-        <input type="number" [value]="product.trade_info[0].min_num" [min]="product.trade_info[0].min_num" class="form-control" aria-label="Small"
-          aria-describedby="inputGroup-sizing-sm">
-      </div>
-      <div class="p-1">
-        <button type="button" class="btn btn-success btn-sm btn-block">
-          <i class="fas fa-cart-plus"></i>Add to Cart</button>
-      </div>
       <div class="p-1">
         <app-calculator [sku]="product.sku"></app-calculator>
       </div>

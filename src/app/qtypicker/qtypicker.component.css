@@ -1,0 +1,11 @@
+.dc {
+    flex: 1 1 auto;
+  }
+.btt {
+    width: 40px;
+}
+.iii {width: 60;}
+input.qty {
+    width: 45px;
+    text-align: center;
+}
