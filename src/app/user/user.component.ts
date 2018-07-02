@@ -16,7 +16,7 @@ export class UserComponent implements OnInit {
 
   openDialog():void {
     let dialogRef = this.dialog.open(LoginDialog,{
-      width: '400px',
+      width: '450px',
       height: '600px',
     });
 

@@ -35,7 +35,7 @@
           <img class="border border-secondary rounded" [src]="val.image" height="40px" width="40px">
         </ng-template>
         <div *ngFor="let co of sku[1].values">
-          <app-qtypicker [size]="co.desc" [color]="val.desc"></app-qtypicker>
+          <app-qtypicker [size]="co" [color]="val"></app-qtypicker>
         </div>
       </mat-tab>
     </mat-tab-group>
@@ -47,9 +47,17 @@
               {{val.desc}}
             </ng-template>
             <div *ngFor="let co of sku[1].values">
-              <app-qtypicker [size]="co.desc" [color]="val.desc"></app-qtypicker>
+              <app-qtypicker [size]="co" [color]="val"></app-qtypicker>
             </div>
           </mat-tab>
         </mat-tab-group>
   </ng-template>
+</div>
+<div>
+  <ul>
+    <li *ngFor="let item of items">{{item.sku.desc}}@{{item.size.desc}}****{{item.qty}}</li>
+  </ul>
+</div>
+<div>
+ My total is: {{total}}
 </div>

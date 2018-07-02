@@ -1,7 +1,7 @@
 import { Desc } from './Desc';
 export class Item {
-  specification?:Desc;
-  size?:string;
+  sku?:Desc;
+  size?:Desc;
   qty:number;
   
 }

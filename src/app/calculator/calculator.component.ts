@@ -1,5 +1,7 @@
 import { Component, OnInit, Input, ViewEncapsulation } from '@angular/core';
-//import { Sku } from '../tools/Sku';
+import { AuthService } from '../auth.service';
+import { PassSkuService } from '../pass-sku.service';
+import { take, map, tap, reduce } from 'rxjs/operators'
 
 @Component({
   selector: 'app-calculator',
@@ -10,10 +12,16 @@ import { Component, OnInit, Input, ViewEncapsulation } from '@angular/core';
 export class CalculatorComponent implements OnInit {
 
   @Input() public sku;
+  @Input() public pid;
+  uid;
+  items;
+  total=0;
 
-  constructor() { }
+  constructor(private auth:AuthService,private psku:PassSkuService) { }
 
   ngOnInit() {
+    this.psku.itemSource.length = 0;
+    this.psku.items.subscribe(i=>this.items=i)
   }
 
   isObject(sth){
