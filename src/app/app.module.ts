@@ -32,6 +32,7 @@ import { BannerComponent } from './banner/banner.component';
 import { ProductDetailComponent } from './product-detail/product-detail.component';
 import { CalculatorComponent } from './calculator/calculator.component';
 import { QtypickerComponent } from './qtypicker/qtypicker.component';
+import { Cny2thbPipe } from './cny2thb.pipe';
 export const firebaseConfig = environment.firebaseConfig;
 
 @NgModule({
@@ -51,7 +52,8 @@ export const firebaseConfig = environment.firebaseConfig;
     BannerComponent,
     ProductDetailComponent,
     CalculatorComponent,
-    QtypickerComponent
+    QtypickerComponent,
+    Cny2thbPipe
   ],
   imports: [
     BrowserModule,

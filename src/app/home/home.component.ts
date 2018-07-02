@@ -38,15 +38,6 @@ export class HomeComponent implements OnInit {
     this.store.dispatch(new LoadMore({key:'isHomePagePrd',cate:'home'})).subscribe(() => this.isLoading = false);
   }
 
-  toNum(str){
-
-    if(typeof str === 'string'){
-      var nums = str.split(/\-+/);
-      return Math.ceil(Number(nums[0])*6) + '~' + Math.ceil(Number(nums[1])*6) + ' THB';
-    }
-    return Math.ceil(str*6) + ' THB';
-  }
-
   passPrd(prd:Product){
     this.data.changeProduct(prd);
   }

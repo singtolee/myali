@@ -46,18 +46,4 @@ export class ProductDetailComponent implements OnInit {
     return typeof sth === 'object';
   }
 
-  toNum(str){
-
-    if(typeof str === 'string'){
-      var nums = str.split(/\-+/);
-      if(nums.length==1){
-        return Math.ceil(Number(nums[0])*6) + 'THB';
-      }else {
-        return Math.ceil(Number(nums[0])*6) + '~' + Math.ceil(Number(nums[1])*6) + ' THB';
-      }
-      
-    }
-    return Math.ceil(str*6) + ' THB';
-  }
-
 }

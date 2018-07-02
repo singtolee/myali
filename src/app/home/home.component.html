@@ -14,7 +14,7 @@
         </div>
         
         <div class="pt-1 pl-2 pr-2">
-            <span class="text-danger font-weight-bold">{{toNum(prd.price)}}</span>
+            <span class="text-danger font-weight-bold">{{prd.price | cny2thb}}</span>
             <span class="float-right badge badge-success">{{prd.sales_count}}sold</span>
         </div>
         <p class="text-info font-weight-light pl-2">สั่งซื้อขั้นต่ำ:{{prd.trade_info[0].min_num}} pcs</p>

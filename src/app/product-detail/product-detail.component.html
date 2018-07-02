@@ -23,7 +23,7 @@
         <tbody>
           <tr>
             <th scope="row">ราคา</th>
-            <td *ngFor="let info of product.trade_info">{{toNum(info.price)}}</td>
+            <td *ngFor="let info of product.trade_info">{{info.price | cny2thb}}</td>
           </tr>
           <tr>
             <th scope="row">ปริมาณ</th>

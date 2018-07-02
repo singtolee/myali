@@ -40,15 +40,6 @@ constructor(private route: ActivatedRoute, private data: PassPrdObjectService,pr
     this.store.dispatch(new LoadMore({key:'keyword',cate:this.category})).subscribe(() => this.isLoading = false);
   }
 
-  toNum(str){
-
-    if(typeof str === 'string'){
-      var nums = str.split(/\-+/);
-      return Math.ceil(Number(nums[0])*6) + '~' + Math.ceil(Number(nums[1])*6) + ' THB';
-    }
-    return Math.ceil(str*6) + ' THB';
-  }
-
   passPrd(prd:Product){
     this.data.changeProduct(prd);
   }
