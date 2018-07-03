@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
+import { AngularFirestore } from 'angularfire2/firestore';
 import { PayLoad } from './tools/pay-load'
 import { PayLoad2 } from './tools/pay-load2'
 import { Product } from './tools/Product';

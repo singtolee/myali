@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { of } from 'rxjs';
 import { Item } from './tools/Item';
-import { reduce } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +15,10 @@ export class PassSkuService {
 
   addItem(i:Item){
     this.itemSource.push(i)
+  }
+
+  reset(){
+    this.itemSource.length = 0;
   }
 
   findItem(i:Item){

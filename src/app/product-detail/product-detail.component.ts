@@ -3,6 +3,7 @@ import { ActivatedRoute, ParamMap } from '@angular/router';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { Product } from '../tools/Product';
 import { PassPrdObjectService } from '../pass-prd-object.service';
+import { take } from 'rxjs/operators'
 
 @Component({
   selector: 'app-product-detail',
@@ -18,16 +19,16 @@ export class ProductDetailComponent implements OnInit {
   constructor(private route: ActivatedRoute,private data:PassPrdObjectService,private db:AngularFirestore) { }
 
   ngOnInit() {
-    this.data.currentProduct.subscribe(prd =>this.product = prd);
+    this.data.currentProduct.pipe(take(1)).subscribe(prd =>this.product = prd);
 
     if(!this.product.name){
       this.showSpinner = true;
-      this.route.paramMap.subscribe((para:ParamMap)=>{
+      this.route.paramMap.pipe(take(1)).subscribe((para:ParamMap)=>{
       this.id = para.get('id');
       
       this.db.collection<Product>('PRODUCTS',ref=>{
         return ref.where("pid", "==", Number(this.id)) //this.id typeof is string, so convert to number
-      }).valueChanges().subscribe((data)=>{
+      }).valueChanges().pipe(take(1)).subscribe((data)=>{
         this.product = data[0];
         this.showSpinner = false;
       })

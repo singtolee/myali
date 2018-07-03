@@ -41,23 +41,36 @@
     </mat-tab-group>
   </div>
   <ng-template #noImage>
-      <mat-tab-group>
-          <mat-tab *ngFor="let val of sku[0].values">
-            <ng-template mat-tab-label>
-              {{val.desc}}
-            </ng-template>
-            <div *ngFor="let co of sku[1].values">
-              <app-qtypicker [size]="co" [color]="val"></app-qtypicker>
-            </div>
-          </mat-tab>
-        </mat-tab-group>
+    <mat-tab-group>
+      <mat-tab *ngFor="let val of sku[0].values">
+        <ng-template mat-tab-label>
+          {{val.desc}}
+        </ng-template>
+        <div *ngFor="let co of sku[1].values">
+          <app-qtypicker [size]="co" [color]="val"></app-qtypicker>
+        </div>
+      </mat-tab>
+    </mat-tab-group>
   </ng-template>
 </div>
-<div>
-  <ul>
-    <li *ngFor="let item of items">{{item.sku.desc}}@{{item.size.desc}}****{{item.qty}}</li>
-  </ul>
+<hr class="line">
+<div *ngIf="!overMin(); else over">
+  <p class="text-danger">Minimun order is {{info[0].min_num}} pcs</p>
 </div>
+<ng-template #over>
+  <div>
+    <p class="text-right small text-success">{{pc().qty}} pcs * {{pc().cp}} THB/pcs = {{pc().price}} THB</p>
+    <p class="text-right small text-success">Estimated shipping cost = 400 THB</p>
+    <p class="text-right small text-danger">Suggested sell price {{pc().cp*2}} THB*{{pc().qty}} pcs = {{pc().price*2}} THB</p>
+    <p class="text-right small text-info">potential earning is
+      <span class="badge badge-danger">{{pc().price-400}}</span> THB</p>
+  </div>
+</ng-template>
+<hr class="line">
 <div>
- My total is: {{total}}
+  <div class="d-flex">
+    <button type="button" [disabled]="!overMin()" class="btn btn-primary flex-fill mr-1" (click)="add2cart()">Add Cart</button>
+    <button type="button" [disabled]="!overMin()" class="btn btn-success flex-fill ml-1" (click)="buynow()">Buy Now</button>
+  </div>
+  <span *ngIf="!islogin" class="text-warning">Login first</span>
 </div>
