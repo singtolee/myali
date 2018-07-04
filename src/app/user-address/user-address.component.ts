@@ -12,23 +12,44 @@ import { Address } from '../tools/Address'
 export class UserAddressComponent implements OnInit, OnDestroy {
 
   address:Address
+  user
   sub:Subscription
+  usub:Subscription
+  displayup:boolean = false
 
-  constructor(public auth:AuthService) {
+  constructor(public auth:AuthService, private db:AngularFirestore) {
     this.address = new Address()
     console.log('Here you are:' + this.address)
   }
 
   ngOnInit() {
+    this.usub = this.auth.user.subscribe(user => this.user = user)
     this.sub = this.auth.address.subscribe(a=>{
       if(a){
-        console.log("I am not null")
         this.address = a
+        this.displayup = true
       }
     })
   }
   ngOnDestroy(){
     this.sub.unsubscribe()
+    this.usub.unsubscribe()
+  }
+
+  togediting(){
+    this.displayup = !this.displayup
+  }
+
+  saveAddress(formData){
+    if(formData.valid){
+      if(this.user){
+        const ref:AngularFirestoreDocument<any> = this.db.doc(`ADDRESSES/${this.user.uid}`);
+        ref.set(Object.assign({}, this.address),{merge:true}).then(()=>{
+        }).catch((err)=>{
+          console.log('update with error'+err)
+        })
+      }
+    }
   }
 
   
