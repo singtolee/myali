@@ -1,0 +1,16 @@
+.roundimg {
+    border-radius: 50%;
+  }
+img.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+.dc {
+    flex: 1 1 auto;
+  }

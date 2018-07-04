@@ -30,9 +30,10 @@ import { FooterComponent } from './footer/footer.component';
 import { LoadingSpinnerComponent } from './loading-spinner/loading-spinner.component';
 import { BannerComponent } from './banner/banner.component';
 import { ProductDetailComponent } from './product-detail/product-detail.component';
-import { CalculatorComponent } from './calculator/calculator.component';
+import { CalculatorComponent, Add2CartDialog, LoginFirstDialog } from './calculator/calculator.component';
 import { QtypickerComponent } from './qtypicker/qtypicker.component';
 import { Cny2thbPipe } from './cny2thb.pipe';
+import { UserProfileComponent } from './user-profile/user-profile.component';
 export const firebaseConfig = environment.firebaseConfig;
 
 @NgModule({
@@ -52,8 +53,11 @@ export const firebaseConfig = environment.firebaseConfig;
     BannerComponent,
     ProductDetailComponent,
     CalculatorComponent,
+    Add2CartDialog,
+    LoginFirstDialog,
     QtypickerComponent,
-    Cny2thbPipe
+    Cny2thbPipe,
+    UserProfileComponent
   ],
   imports: [
     BrowserModule,
@@ -77,7 +81,9 @@ export const firebaseConfig = environment.firebaseConfig;
     MatTabsModule
   ],
   entryComponents:[
-    LoginDialog
+    LoginDialog,
+    Add2CartDialog,
+    LoginFirstDialog
   ],
   providers: [],
   bootstrap: [AppComponent]

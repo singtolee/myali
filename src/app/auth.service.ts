@@ -13,12 +13,21 @@ interface User {
   displayName?:string;
 }
 
+interface Address {
+  consignee:string;
+  phone:string;
+  postCode:string;
+  city:string;
+  address:string;
+}
+
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
   user:Observable<User>;
+  address:Observable<Address>;
 
   constructor(private afAuth: AngularFireAuth,private afs: AngularFirestore,public router: Router) {
     this.user = this.afAuth.authState.pipe(switchMap(user=>{
@@ -28,6 +37,16 @@ export class AuthService {
         return of(null)
       }
     }))
+
+    this.address = this.afAuth.authState.pipe(switchMap(user=>{
+      if(user){
+        return this.afs.doc<Address>(`ADDRESSES/${user.uid}`).valueChanges()
+      }else{
+        return of(null)
+      }
+    }))
+
+
   }
 
   googleLogin(){
