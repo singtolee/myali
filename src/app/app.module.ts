@@ -34,6 +34,7 @@ import { CalculatorComponent, Add2CartDialog, LoginFirstDialog } from './calcula
 import { QtypickerComponent } from './qtypicker/qtypicker.component';
 import { Cny2thbPipe } from './cny2thb.pipe';
 import { UserProfileComponent } from './user-profile/user-profile.component';
+import { UserAddressComponent } from './user-address/user-address.component';
 export const firebaseConfig = environment.firebaseConfig;
 
 @NgModule({
@@ -57,7 +58,8 @@ export const firebaseConfig = environment.firebaseConfig;
     LoginFirstDialog,
     QtypickerComponent,
     Cny2thbPipe,
-    UserProfileComponent
+    UserProfileComponent,
+    UserAddressComponent
   ],
   imports: [
     BrowserModule,
