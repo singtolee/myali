@@ -107,7 +107,8 @@ export class CalculatorComponent implements OnInit, OnDestroy {
         time: new Date(),
         items: this.items,
         price: p.cp,
-        total: p.price
+        total: p.price,
+        qty: p.qty
         
       }
       this.afs.collection('CARTS').add(data).then(() => {

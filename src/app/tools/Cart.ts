@@ -6,5 +6,6 @@ export class Cart {
   uid:string;
   price:number;
   total:number;
+  qty:number;
 
 }

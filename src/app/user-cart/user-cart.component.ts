@@ -33,6 +33,10 @@ export class UserCartComponent implements OnInit, OnDestroy {
     this.sub.unsubscribe()
   }
 
+  convert(a){
+    return a.toDate()
+  }
+
   loadCart(uid:string){
     return this.db.collection<Cart>(this.dir,ref=>{
       return ref.where('uid','==',uid)

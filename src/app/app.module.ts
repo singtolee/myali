@@ -1,5 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { registerLocaleData } from '@angular/common';
+import lcoaleTh from '@angular/common/locales/th';
+
+registerLocaleData(lcoaleTh);
+import { NgModule, LOCALE_ID } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { environment } from '../environments/environment';
 import { AngularFireModule } from 'angularfire2'
@@ -91,7 +95,7 @@ export const firebaseConfig = environment.firebaseConfig;
     Add2CartDialog,
     LoginFirstDialog
   ],
-  providers: [],
+  providers: [{provide:LOCALE_ID,useValue:'th'}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
