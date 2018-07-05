@@ -100,11 +100,15 @@ export class CalculatorComponent implements OnInit, OnDestroy {
   }
   add2cart() {
     if (this.user) {
+      const p = this.pc()
       const data = {
         uid: this.user.uid,
         pid: this.pid,
         time: new Date(),
         items: this.items,
+        price: p.cp,
+        total: p.price
+        
       }
       this.afs.collection('CARTS').add(data).then(() => {
         this.dialog.open(Add2CartDialog,{

@@ -1,0 +1,36 @@
+<div *ngIf="(carts | async)?.length === 0">
+  <div class="card text-center">
+    <div class="card-header">
+      <i class="fas fa-shopping-cart"></i>
+    </div>
+    <div class="card-body">
+      <p>
+        <i class="fas fa-list-ul fa-2x"></i>
+      </p>
+      <small>Cart is empty...</small>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div *ngFor="let cart of carts | async" class="col-sm-12 col-md-6">
+    <div class="card m-1">
+      <div class="card-header">
+        <div class="d-flex align-items-center">
+          <div><i class="fas fa-tags mr-1"></i>{{cart.total}} THB</div>
+          <div class="dc"></div>
+          <div><i class="fas fa-calendar-alt"></i><small>{{cart.time}}</small></div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div *ngFor="let item of cart.items">
+          <div *ngIf="item.sku.image;else desc">
+            <img [src]="item.sku.image" height="40px" width="40px">{{item.size.desc}}{{item.qty}}{{cart.price}}
+          </div>
+          <ng-template #desc>
+            {{item.sku.desc}}{{item.size.desc}}{{item.qty}}{{cart.price}}
+          </ng-template>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

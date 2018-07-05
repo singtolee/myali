@@ -11,17 +11,22 @@
           </div>
         </div>
       </div>
-      <div *ngIf="auth.address | async" class="card-body">
+      <div *ngIf="auth.address | async as add; else noaddress" class="card-body">
         <p class="card-text">
-          <small><strong>Recipient:</strong> {{address.consignee}}</small>
+          <small><strong>Recipient:</strong> {{add.consignee}}</small>
         </p>
         <p class="card-text">
-          <small><strong>Phone:</strong> {{address.phone}}</small>
+          <small><strong>Phone:</strong> {{add.phone}}</small>
         </p>
         <p class="card-text">
-          <small><strong>Address:</strong> {{address.address}},{{address.city}},{{address.postCode}}</small>
+          <small><strong>Address:</strong> {{add.address}},{{add.city}},{{add.postCode}}</small>
         </p>
       </div>
+      <ng-template #noaddress>
+        <p class="card-text text-center">
+          <small>Don't have shipping address yet.</small>
+        </p>
+      </ng-template>
     </div>
   </div>
 </div>

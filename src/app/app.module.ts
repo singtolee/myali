@@ -20,6 +20,7 @@ import { LayoutModule } from '@angular/cdk/layout';
 import { MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule } from '@angular/material';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatExpansionModule } from '@angular/material/expansion';
 import { CategoryListComponent } from './category-list/category-list.component';
 import { ProductListComponent } from './product-list/product-list.component';
 import { UserPageComponent } from './user-page/user-page.component';
@@ -35,6 +36,7 @@ import { QtypickerComponent } from './qtypicker/qtypicker.component';
 import { Cny2thbPipe } from './cny2thb.pipe';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { UserAddressComponent } from './user-address/user-address.component';
+import { UserCartComponent } from './user-cart/user-cart.component';
 export const firebaseConfig = environment.firebaseConfig;
 
 @NgModule({
@@ -59,7 +61,8 @@ export const firebaseConfig = environment.firebaseConfig;
     QtypickerComponent,
     Cny2thbPipe,
     UserProfileComponent,
-    UserAddressComponent
+    UserAddressComponent,
+    UserCartComponent
   ],
   imports: [
     BrowserModule,
@@ -77,6 +80,7 @@ export const firebaseConfig = environment.firebaseConfig;
     MatToolbarModule,
     MatButtonModule,
     MatSidenavModule,
+    MatExpansionModule,
     MatIconModule,
     MatListModule,
     MatDialogModule,

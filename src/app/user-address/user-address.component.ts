@@ -19,7 +19,6 @@ export class UserAddressComponent implements OnInit, OnDestroy {
 
   constructor(public auth:AuthService, private db:AngularFirestore) {
     this.address = new Address()
-    console.log('Here you are:' + this.address)
   }
 
   ngOnInit() {
