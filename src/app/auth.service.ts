@@ -4,7 +4,7 @@ import * as firebase from 'firebase/app';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFirestore, AngularFirestoreDocument } from 'angularfire2/firestore';
 import { Observable, of } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
+import { switchMap, map } from 'rxjs/operators';
 
 interface User {
   uid:string;
@@ -28,10 +28,12 @@ export class AuthService {
 
   user:Observable<User>;
   address:Observable<Address>;
+  cartCount:Observable<number>;
 
   constructor(private afAuth: AngularFireAuth,private afs: AngularFirestore,public router: Router) {
     this.user = this.afAuth.authState.pipe(switchMap(user=>{
       if(user){
+        this.cartCount = this.getCount(user.uid)
         return this.afs.doc<User>(`USERS/${user.uid}`).valueChanges()
       }else{
         return of(null)
@@ -95,5 +97,11 @@ export class AuthService {
       this.router.navigate(['/home']);
     })
 
+  }
+
+  getCount(uid:string){
+    return this.afs.collection('CARTS',ref=>{
+      return ref.where('uid','==',uid)
+    }).valueChanges().pipe(map(a=>{return a.length}))
   }
 }

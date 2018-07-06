@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { AuthService } from '../auth.service';
-import { Observable, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { map } from 'rxjs/operators'
 import { Cart } from '../tools/Cart';
 
@@ -37,13 +37,6 @@ export class UserCartComponent implements OnInit, OnDestroy {
     return a.toDate()
   }
 
-  loadCart(uid:string){
-    return this.db.collection<Cart>(this.dir,ref=>{
-      return ref.where('uid','==',uid)
-      .orderBy('time','desc')
-    }).valueChanges()
-  }
-
   loadCart2(uid:string){
     return this.db.collection(this.dir, ref=>{
       return ref.where('uid','==',uid)
@@ -59,18 +52,9 @@ export class UserCartComponent implements OnInit, OnDestroy {
 
   del(id:string){
     this.db.doc(this.dir + '/' + id).delete().then(()=>{
-      console.log('this is del: ' + id)
     }).catch((e)=>{
       console.log(e)
     })
-    /*
-    this.db.collection(this.dir).doc(id).delete().then(()=>{
-      console.log('this is del: ' + id)
-    }).catch((e)=>{
-      console.log(e)
-    })
-
-    */
   }
 
 }

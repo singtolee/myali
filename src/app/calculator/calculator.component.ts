@@ -87,20 +87,20 @@ export class CalculatorComponent implements OnInit, OnDestroy {
     return typeof sth === 'object';
   }
 
-  buynow() {
+  buynow(ele) {
     if (this.user) {
      //add to cart and go to user page to checkout
+     ele.textContent = "submmiting"
     } else {
       this.dialog.open(LoginFirstDialog, {
         width: '250px',
         data:{msg:'Please login first.'}
       });
-
     }
-
   }
-  add2cart() {
+  add2cart(ele) {
     if (this.user) {
+      ele.textContent = "Submmiting..."
       const p = this.pc()
       const data = {
         uid: this.user.uid,
@@ -114,6 +114,7 @@ export class CalculatorComponent implements OnInit, OnDestroy {
         
       }
       this.afs.collection('CARTS').add(data).then(() => {
+        ele.textContent = "Add Cart"
         this.dialog.open(Add2CartDialog,{
           width:'250px',
           data:{qty:this.getTot()}

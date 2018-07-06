@@ -11,18 +11,14 @@ export class UserComponent implements OnInit {
 
   constructor(public auth: AuthService, public dialog: MatDialog) { }
 
-  ngOnInit() {
-  }
-
-  openDialog():void {
-    let dialogRef = this.dialog.open(LoginDialog,{
+  ngOnInit() { }
+  openDialog(): void {
+    let dialogRef = this.dialog.open(LoginDialog, {
       width: '450px',
       height: '600px',
     });
-
     dialogRef.afterClosed().subscribe();
   }
-
 }
 
 @Component({
@@ -32,18 +28,16 @@ export class UserComponent implements OnInit {
 })
 export class LoginDialog {
 
-  currentJustify='fill';
+  currentJustify = 'fill';
   isCollapsed = true;
-
-   //for login
-   email;
-   password;
-   //reset password
-   emailp;
-   //for sign up
-   emails;
-   passwords;
-
+  //for login
+  email;
+  password;
+  //reset password
+  emailp;
+  //for sign up
+  emails;
+  passwords;
   loginerror;
 
   resetSuccessMsg;
@@ -54,52 +48,51 @@ export class LoginDialog {
 
 
 
-  constructor(public dialogRef: MatDialogRef<LoginDialog>,public sAuth: AuthService){}
-  fblogin(){
+  constructor(public dialogRef: MatDialogRef<LoginDialog>, public sAuth: AuthService) { }
+  fblogin() {
     this.sAuth.facebookLogin();
     this.dialogRef.close();
   }
-  googlelogin(){
+  googlelogin() {
     this.sAuth.googleLogin();
     this.dialogRef.close();
   }
 
-  loginWithEmail(formData){
-    if(formData.valid){
-     this.sAuth.emailLogin(formData.value.email,formData.value.password).then((cred)=>{
-       this.sAuth.updateUserData(cred.user);
-       this.dialogRef.close();
-     }).catch((err)=>{
-       this.loginerror = err
-     })
-     
+  loginWithEmail(formData) {
+    if (formData.valid) {
+      this.sAuth.emailLogin(formData.value.email, formData.value.password).then((cred) => {
+        this.sAuth.updateUserData(cred.user);
+        this.dialogRef.close();
+      }).catch((err) => {
+        this.loginerror = err
+      })
     }
   }
 
-  resetpassword(emailData){
-    if(emailData.valid){
-      this.sAuth.resetpassword(emailData.value.emailp).then(()=>{
+  resetpassword(emailData) {
+    if (emailData.valid) {
+      this.sAuth.resetpassword(emailData.value.emailp).then(() => {
         this.resetError = "";
         this.resetSuccessMsg = "Check your inbox(Spam or Trash) to reset password."
-      }).catch(err=>{
+      }).catch(err => {
         this.resetError = err;
       })
     }
   }
 
-  signup(signupData){
-    if(signupData.valid){
-      this.sAuth.signup(signupData.value.emails,signupData.value.passwords).then((cred)=>{
+  signup(signupData) {
+    if (signupData.valid) {
+      this.sAuth.signup(signupData.value.emails, signupData.value.passwords).then((cred) => {
         this.sAuth.updateUserData(cred.user);
         this.signupError = ""
         this.signupSuccessMsg = "Account created."
-      }).catch(err=>{
+      }).catch(err => {
         this.signupError = err
       })
     }
   }
 
-  onNoClick():void {
+  onNoClick(): void {
     this.dialogRef.close();
   }
 }

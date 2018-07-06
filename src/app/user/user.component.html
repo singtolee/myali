@@ -1,6 +1,6 @@
 <div *ngIf="auth.user | async as user; else elseBlock ">
   <div routerLink="/userPage">
-    <i class="fas fa-shopping-cart v-align"></i>
+    <i class="fas fa-shopping-cart v-align" matBadge="{{auth.cartCount | async}}" matBadgeColor="warn"></i>
     <img 
     class="v-align roundimg ml-3" 
     [src]="user.photoURL" onError="this.src='./assets/user.png'" 
