@@ -16,6 +16,7 @@ export class CalculatorComponent implements OnInit, OnDestroy {
   @Input() public sku;
   @Input() public pid;
   @Input() public info;
+  @Input() public image;
   user;
   items;
   sub: Subscription;
@@ -108,7 +109,8 @@ export class CalculatorComponent implements OnInit, OnDestroy {
         items: this.items,
         price: p.cp,
         total: p.price,
-        qty: p.qty
+        qty: p.qty,
+        imageUrl:this.image
         
       }
       this.afs.collection('CARTS').add(data).then(() => {

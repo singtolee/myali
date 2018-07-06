@@ -12,6 +12,8 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AngularFireStorageModule } from 'angularfire2/storage';
 import { AppRoutingModule, routingComponents } from './app-routing.module';
 
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
 import { NgxsModule } from '@ngxs/store';
 import { PrdState } from './state/prd.state';
 import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
@@ -90,7 +92,8 @@ export const firebaseConfig = environment.firebaseConfig;
     MatIconModule,
     MatListModule,
     MatDialogModule,
-    MatTabsModule
+    MatTabsModule,
+    NgbModule.forRoot()
   ],
   entryComponents:[
     LoginDialog,

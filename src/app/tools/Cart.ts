@@ -7,5 +7,6 @@ export class Cart {
   price:number;
   total:number;
   qty:number;
+  imageUrl:string;
 
 }

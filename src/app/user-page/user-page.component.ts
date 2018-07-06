@@ -12,6 +12,7 @@ export class UserPageComponent implements OnInit, OnDestroy {
   user;
   usub: Subscription;
   asub:Subscription;
+  currentJustify = 'fill';
 
   constructor(public auth: AuthService,private db:AngularFirestore) {
    }

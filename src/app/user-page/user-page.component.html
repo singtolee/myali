@@ -5,21 +5,24 @@
       <app-user-address></app-user-address>
     </div>
     <div class="col-md-8">
-      <mat-tab-group mt-1>
-        <mat-tab>
-          <ng-template mat-tab-label>
-            <i class="fas fa-shopping-cart mr-1"></i> Shopping cart
-          </ng-template>
-          <app-user-cart></app-user-cart>
-        </mat-tab>
-
-        <mat-tab>
-          <ng-template mat-tab-label>
-              <i class="fas fa-list-ul mr-1"></i> Order History
-          </ng-template>
-          <app-user-order-history></app-user-order-history>
-        </mat-tab>
-      </mat-tab-group>
+      <div class="mt-1">
+        <ngb-tabset type="pills" [justify]="currentJustify">
+          <ngb-tab>
+            <ng-template ngbTabTitle>
+              <i class="fas fa-shopping-cart"></i> Shopping Cart</ng-template>
+            <ng-template ngbTabContent>
+              <app-user-cart></app-user-cart>
+            </ng-template>
+          </ngb-tab>
+          <ngb-tab>
+            <ng-template ngbTabTitle>
+              <i class="fas fa-list-ul"></i> Order History</ng-template>
+            <ng-template ngbTabContent>
+              <app-user-order-history></app-user-order-history>
+            </ng-template>
+          </ngb-tab>
+        </ngb-tabset>
+      </div>
     </div>
   </div>
 </div>

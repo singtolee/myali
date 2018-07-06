@@ -32,6 +32,9 @@ export class UserComponent implements OnInit {
 })
 export class LoginDialog {
 
+  currentJustify='fill';
+  isCollapsed = true;
+
    //for login
    email;
    password;

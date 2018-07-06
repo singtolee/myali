@@ -16,7 +16,6 @@ export class UserCartComponent implements OnInit, OnDestroy {
   user;
   sub:Subscription;
   dir = "CARTS";
-  //carts: Observable<Cart[]>;
   carts:any
 
   constructor(private auth: AuthService,private db: AngularFirestore) {
