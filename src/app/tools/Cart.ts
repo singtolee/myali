@@ -8,5 +8,6 @@ export class Cart {
   total:number;
   qty:number;
   imageUrl:string;
+  checked:boolean;
 
 }

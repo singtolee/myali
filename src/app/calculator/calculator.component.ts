@@ -110,7 +110,8 @@ export class CalculatorComponent implements OnInit, OnDestroy {
         price: p.cp,
         total: p.price,
         qty: p.qty,
-        imageUrl:this.image
+        imageUrl:this.image,
+        checked:true
         
       }
       this.afs.collection('CARTS').add(data).then(() => {

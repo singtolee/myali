@@ -26,6 +26,7 @@ import { LayoutModule } from '@angular/cdk/layout';
 import { MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule } from '@angular/material';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatBadgeModule } from '@angular/material/badge';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { CategoryListComponent } from './category-list/category-list.component';
@@ -88,6 +89,7 @@ export const firebaseConfig = environment.firebaseConfig;
     LayoutModule,
     MatToolbarModule,
     MatBadgeModule,
+    MatCheckboxModule,
     MatButtonModule,
     MatSidenavModule,
     MatExpansionModule,

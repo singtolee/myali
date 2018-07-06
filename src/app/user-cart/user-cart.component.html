@@ -3,12 +3,10 @@
     <div *ngFor="let cart of items" class="col-12">
       <div class="card mt-1">
         <div class="card-header">
-          <div class="d-flex align-items-center">
-            <span class="badge badge-success">
-              <div>
-                <i class="fas fa-tags mr-1"></i>
-                <small>{{cart.data.qty}}pcs*{{cart.data.price}}THB/pcs={{cart.data.total}} THB</small>
-              </div>
+          <div class="d-flex v-align">
+            <mat-checkbox color="warn" [(ngModel)]="cart.data.ckecked" (click)="log()"></mat-checkbox>
+            <span class="badge badge-success ml-2">
+              <small>{{cart.data.qty}}pcs*{{cart.data.price}}THB/pcs={{cart.data.total}} THB</small>
             </span>
             <div class="dc"></div>
             <div>
