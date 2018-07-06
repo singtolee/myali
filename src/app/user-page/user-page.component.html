@@ -5,7 +5,21 @@
       <app-user-address></app-user-address>
     </div>
     <div class="col-md-8">
-      <app-user-cart></app-user-cart>
+      <mat-tab-group mt-1>
+        <mat-tab>
+          <ng-template mat-tab-label>
+            <i class="fas fa-shopping-cart mr-1"></i> Shopping cart
+          </ng-template>
+          <app-user-cart></app-user-cart>
+        </mat-tab>
+
+        <mat-tab>
+          <ng-template mat-tab-label>
+              <i class="fas fa-list-ul mr-1"></i> Order History
+          </ng-template>
+          <app-user-order-history></app-user-order-history>
+        </mat-tab>
+      </mat-tab-group>
     </div>
   </div>
 </div>

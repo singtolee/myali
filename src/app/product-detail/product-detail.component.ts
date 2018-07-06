@@ -11,7 +11,7 @@ import { take } from 'rxjs/operators'
   styleUrls: ['./product-detail.component.css']
 })
 export class ProductDetailComponent implements OnInit {
-  id; //use this id to get Product
+  id;
   showSpinner:boolean = false;
   product:Product;
 
@@ -19,16 +19,16 @@ export class ProductDetailComponent implements OnInit {
   constructor(private route: ActivatedRoute,private data:PassPrdObjectService,private db:AngularFirestore) { }
 
   ngOnInit() {
-    this.data.currentProduct.pipe(take(1)).subscribe(prd =>this.product = prd);
+    this.data.currentProduct.subscribe(prd =>this.product = prd);
 
     if(!this.product.name){
       this.showSpinner = true;
-      this.route.paramMap.pipe(take(1)).subscribe((para:ParamMap)=>{
+      this.route.paramMap.subscribe((para:ParamMap)=>{
       this.id = para.get('id');
       
       this.db.collection<Product>('PRODUCTS',ref=>{
         return ref.where("pid", "==", Number(this.id)) //this.id typeof is string, so convert to number
-      }).valueChanges().pipe(take(1)).subscribe((data)=>{
+      }).valueChanges().subscribe((data)=>{
         this.product = data[0];
         this.showSpinner = false;
       })

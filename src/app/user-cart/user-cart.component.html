@@ -1,5 +1,6 @@
+<!--
 <div *ngIf="(carts | async)?.length === 0">
-  <div class="card text-center">
+  <div class="card text-center mt-1">
     <div class="card-header">
       <i class="fas fa-shopping-cart"></i>
     </div>
@@ -11,25 +12,26 @@
     </div>
   </div>
 </div>
+-->
 <div class="row">
-  <div *ngFor="let cart of carts | async" class="col-sm-12">
+  <div *ngFor="let cart of carts | async" class="col-12">
     <div class="card mt-1">
       <div class="card-header">
         <div class="d-flex align-items-center">
-          <span class="badge badge-success"><div><i class="fas fa-tags mr-1"></i><small>{{cart.qty}}pcs*{{cart.price}}THB/pcs={{cart.total}} THB</small></div></span>
+          <span class="badge badge-success"><div><i class="fas fa-tags mr-1"></i><small>{{cart.data.qty}}pcs*{{cart.data.price}}THB/pcs={{cart.data.total}} THB</small></div></span>
           <div class="dc"></div>
-          <div><i class="fas fa-calendar-alt"></i><small>{{convert(cart.time) | date:'medium':'th'}}</small></div>
+          <div><i class="fas fa-calendar-alt"></i><small>{{convert(cart.data.time) | date:'short':'th'}}</small><small (click)="del(cart.id)"><i class="fas fa-trash mr-1 ml-3"></i>Del</small></div>
         </div>
       </div>
       <div class="row">
-        <div *ngFor="let item of cart.items" class="col-6 col-md-4 col-lg-3 m-1">
+        <div *ngFor="let item of cart.data.items" class="col-6 col-md-4 col-lg-3 mt-1">
           <div *ngIf="item.sku.image;else desc">
-            <img [src]="item.sku.image" class="rounded" height="40px" width="40px" 
+            <img [src]="item.sku.image" class="rounded" height="35px" width="35px" 
             [routerLink]="['/product',cart.pid]">
-            <span class="badge badge-danger"><small>{{item.size.desc}}*{{item.qty}} pcs</small></span>
+            <span class="badge badge-danger ml-1"><small>{{item.size.desc}}*{{item.qty}} pcs</small></span>
           </div>
           <ng-template #desc>
-            {{item.sku.desc}}<span class="badge badge-danger"><small>{{item.size.desc}}*{{item.qty}} pcs</small></span>
+            {{item.sku.desc}}<span class="badge badge-danger ml-1"><small>{{item.size.desc}}*{{item.qty}} pcs</small></span>
           </ng-template>
         </div>
       </div>

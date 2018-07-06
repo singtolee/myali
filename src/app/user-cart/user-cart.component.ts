@@ -2,8 +2,8 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { AuthService } from '../auth.service';
 import { Observable, Subscription } from 'rxjs';
+import { map } from 'rxjs/operators'
 import { Cart } from '../tools/Cart';
-import { toDate, formatDate } from '@angular/common/src/i18n/format_date';
 
 
 @Component({
@@ -16,7 +16,8 @@ export class UserCartComponent implements OnInit, OnDestroy {
   user;
   sub:Subscription;
   dir = "CARTS";
-  carts: Observable<Cart[]>;
+  //carts: Observable<Cart[]>;
+  carts:any
 
   constructor(private auth: AuthService,private db: AngularFirestore) {
   }
@@ -25,7 +26,7 @@ export class UserCartComponent implements OnInit, OnDestroy {
     this.sub = this.auth.user.subscribe((user)=>{
       this.user = user;
       if(user){
-        this.carts = this.loadCart(user.uid)
+        this.carts = this.loadCart2(user.uid)
       }
     })
   }
@@ -42,6 +43,35 @@ export class UserCartComponent implements OnInit, OnDestroy {
       return ref.where('uid','==',uid)
       .orderBy('time','desc')
     }).valueChanges()
+  }
+
+  loadCart2(uid:string){
+    return this.db.collection(this.dir, ref=>{
+      return ref.where('uid','==',uid)
+      .orderBy('time','desc')
+    }).snapshotChanges().pipe(map(actions=>{
+      return actions.map(a=>{
+        const data = a.payload.doc.data() as Cart;
+        const id = a.payload.doc.id;
+        return {id,data};
+      })
+    }))
+  }
+
+  del(id:string){
+    this.db.doc(this.dir + '/' + id).delete().then(()=>{
+      console.log('this is del: ' + id)
+    }).catch((e)=>{
+      console.log(e)
+    })
+    /*
+    this.db.collection(this.dir).doc(id).delete().then(()=>{
+      console.log('this is del: ' + id)
+    }).catch((e)=>{
+      console.log(e)
+    })
+
+    */
   }
 
 }

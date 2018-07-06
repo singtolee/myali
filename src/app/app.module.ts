@@ -41,6 +41,7 @@ import { Cny2thbPipe } from './cny2thb.pipe';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { UserAddressComponent } from './user-address/user-address.component';
 import { UserCartComponent } from './user-cart/user-cart.component';
+import { UserOrderHistoryComponent } from './user-order-history/user-order-history.component';
 export const firebaseConfig = environment.firebaseConfig;
 
 @NgModule({
@@ -66,7 +67,8 @@ export const firebaseConfig = environment.firebaseConfig;
     Cny2thbPipe,
     UserProfileComponent,
     UserAddressComponent,
-    UserCartComponent
+    UserCartComponent,
+    UserOrderHistoryComponent
   ],
   imports: [
     BrowserModule,
