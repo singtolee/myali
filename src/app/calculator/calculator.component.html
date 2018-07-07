@@ -60,10 +60,10 @@
 <ng-template #over>
   <div>
     <p class="text-right small text-success">{{pc().qty}} pcs * {{pc().cp}} THB/pcs = {{pc().price}} THB</p>
-    <p class="text-right small text-success">Estimated shipping cost = 400 THB</p>
-    <p class="text-right small text-danger">Suggested sell price {{pc().cp*2}} THB*{{pc().qty}} pcs = {{pc().price*2}} THB</p>
+    <p class="text-right small text-success">Shipping cost = {{pc().qty*30}} THB</p>
+    <p class="text-right small text-danger">Suggested sell price {{pc().cp | sugPrice}} THB*{{pc().qty}} pcs = {{pc().qty*(pc().cp | sugPrice)}} THB</p>
     <p class="text-right small text-info">potential earning is
-      <span class="badge badge-danger">{{pc().price-400}}</span> THB</p>
+      <span class="badge badge-danger">{{pc().qty* (pc().cp | sugPrice) - pc().price-pc().qty*30}}</span> THB</p>
   </div>
 </ng-template>
 <hr class="line">

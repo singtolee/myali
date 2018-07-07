@@ -25,5 +25,11 @@
   <div *ngIf="isLoading">
     <app-loading-spinner></app-loading-spinner>
   </div>
-  <button (click)="loadmore()" type="button" class="btn btn-primary btn-sm btn-block"><i class="fas fa-download mr-2"></i>Load more...</button>
+  <div class="container">
+      <div class="row justify-content-md-center">
+          <div class="col col-12 col-md-8">
+            <button (click)="loadmore()" type="button" class="btn btn-primary btn-sm btn-block mb-2"><i class="fas fa-download mr-2"></i>Load more...</button>
+          </div>
+      </div>
+  </div>
 </div>

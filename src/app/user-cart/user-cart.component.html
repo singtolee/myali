@@ -4,8 +4,8 @@
       <div class="card mt-1">
         <div class="card-header">
           <div class="d-flex v-align">
-            <mat-checkbox color="warn" [(ngModel)]="cart.data.ckecked" (click)="log()"></mat-checkbox>
-            <span class="badge badge-success ml-2">
+            <mat-checkbox color="warn" [(ngModel)]="cart.data.checked"></mat-checkbox>
+            <span class="badge badge-success ml-1">
               <small>{{cart.data.qty}}pcs*{{cart.data.price}}THB/pcs={{cart.data.total}} THB</small>
             </span>
             <div class="dc"></div>
@@ -13,7 +13,7 @@
               <i class="fas fa-calendar-alt"></i>
               <small>{{convert(cart.data.time) | date:'short':'th'}}</small>
               <small (click)="del(cart.id)">
-                <i class="fas fa-trash mr-1 ml-3"></i>Del</small>
+                <i class="fas fa-trash mr-1 ml-3"></i></small>
             </div>
           </div>
         </div>
@@ -32,6 +32,16 @@
               </span>
             </ng-template>
           </div>
+        </div>
+      </div>
+    </div>
+    <div class="container mt-2">
+      <div class="row justify-content-md-center">
+        <div class="col col-12 col md-8">
+          {{items.length}}
+        </div>
+        <div class="col col-12 col-md-8">
+          <button type="button" class="btn btn-success btn-sm btn-block">Ckeck Out</button>
         </div>
       </div>
     </div>

@@ -17,7 +17,6 @@ export class UserCartComponent implements OnInit, OnDestroy {
   sub:Subscription;
   dir = "CARTS";
   carts:any
-  checked;
 
   constructor(private auth: AuthService,private db: AngularFirestore) {
   }
@@ -58,8 +57,8 @@ export class UserCartComponent implements OnInit, OnDestroy {
     })
   }
 
-  log(){
-    console.log("666666" + this.checked)
+  log(e){
+    console.log("666666" + e)
   }
 
 }
