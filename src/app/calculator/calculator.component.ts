@@ -17,6 +17,8 @@ export class CalculatorComponent implements OnInit, OnDestroy {
   @Input() public pid;
   @Input() public info;
   @Input() public image;
+  //@Input() public USC;
+  USC:number = 20;
   user;
   items;
   sub: Subscription;
@@ -52,7 +54,10 @@ export class CalculatorComponent implements OnInit, OnDestroy {
     var p
     for (var j = 0; j < this.info.length; j++) {
       if (tot >= this.str2num(this.info[j].min_num)) {
-        p = { qty: tot, price: tot * this.str2prc(this.info[j].price), cp: this.str2prc(this.info[j].price) }
+        p = { qty: tot, 
+          price: tot * this.str2prc(this.info[j].price), 
+          cp: this.str2prc(this.info[j].price),
+          sugPrice: Math.ceil(this.str2prc(this.info[j].price)*2/100)*100-1, }
       }
     }
     return p
@@ -110,7 +115,10 @@ export class CalculatorComponent implements OnInit, OnDestroy {
         price: p.cp,
         total: p.price,
         qty: p.qty,
+        shippingCost: p.qty*this.USC,
         imageUrl:this.image,
+        sugPrice: p.sugPrice,
+        earn:p.qty*(p.sugPrice-p.cp-this.USC),
         checked:true
         
       }

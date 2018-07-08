@@ -5,15 +5,12 @@
         <div class="card-header">
           <div class="d-flex v-align">
             <mat-checkbox color="warn" [(ngModel)]="cart.data.checked"></mat-checkbox>
-            <span class="badge badge-success ml-1">
-              <small>{{cart.data.qty}}pcs*{{cart.data.price}}THB/pcs={{cart.data.total}} THB</small>
-            </span>
             <div class="dc"></div>
             <div>
               <i class="fas fa-calendar-alt"></i>
-              <small>{{convert(cart.data.time) | date:'short':'th'}}</small>
+              <small>{{convert(cart.data.time) | date:'medium':'th'}}</small>
               <small (click)="del(cart.id)">
-                <i class="fas fa-trash mr-1 ml-3"></i></small>
+                <i class="fas fa-trash mr-1 ml-3"></i>Remove</small>
             </div>
           </div>
         </div>
@@ -31,6 +28,13 @@
                 <small>{{item.size.desc}}*{{item.qty}} pcs</small>
               </span>
             </ng-template>
+          </div>
+        </div>
+        <div class="card-footer">
+          <div>
+            <span class="badge badge-success ml-1">
+              <small>Grand Total:{{cart.data.total+cart.data.shippingCost}} THB, profit:{{cart.data.earn}} THB</small>
+            </span>
           </div>
         </div>
       </div>

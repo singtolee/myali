@@ -58,12 +58,12 @@
   <p class="text-danger">Minimun order is {{info[0].min_num}} pcs</p>
 </div>
 <ng-template #over>
-  <div>
-    <p class="text-right small text-success">{{pc().qty}} pcs * {{pc().cp}} THB/pcs = {{pc().price}} THB</p>
-    <p class="text-right small text-success">Shipping cost = {{pc().qty*30}} THB</p>
-    <p class="text-right small text-danger">Suggested sell price {{pc().cp | sugPrice}} THB*{{pc().qty}} pcs = {{pc().qty*(pc().cp | sugPrice)}} THB</p>
+  <div *ngIf="pc(); let p">
+    <p class="text-right small text-success">{{p.qty}} pcs * {{p.cp}} THB/pcs = {{p.price}} THB</p>
+    <p class="text-right small text-success">Shipping cost = {{p.qty*USC}} THB</p>
+    <p class="text-right small text-danger">Suggested sell price {{p.sugPrice}} THB*{{p.qty}} pcs = {{p.sugPrice*p.qty}} THB</p>
     <p class="text-right small text-info">potential earning is
-      <span class="badge badge-danger">{{pc().qty* (pc().cp | sugPrice) - pc().price-pc().qty*30}}</span> THB</p>
+      <span class="badge badge-danger">{{p.qty*(p.sugPrice-p.cp-USC)}}</span> THB</p>
   </div>
 </ng-template>
 <hr class="line">

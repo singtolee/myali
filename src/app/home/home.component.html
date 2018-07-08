@@ -11,12 +11,12 @@
           <img class="card-img-top" [src]="prd.images[0]">
         </div>
 
-        <div class="pt-1 pl-2 pr-2">
+        <div class="card-title pl-1 pr-1 pt-1">
           <span class="text-danger font-weight-bold">{{prd.price | cny2thb}}</span>
           <span class="float-right badge badge-success">{{prd.sales_count}}sold</span>
         </div>
-        <p class="text-info font-weight-light pl-2">สั่งซื้อขั้นต่ำ:{{prd.trade_info[0].min_num}} pcs</p>
-        <p class="clip pl-2 pr-2 font-weight-light">
+        <p class="text-info card-subtitle pl-1 pr-1">สั่งซื้อขั้นต่ำ:{{prd.trade_info[0].min_num}} pcs</p>
+        <p class="clip card-text font-weight-light pl-1 pr-1">
           <small>{{prd.name}}</small>
         </p>
       </div>
