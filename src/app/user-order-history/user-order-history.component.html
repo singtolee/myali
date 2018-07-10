@@ -7,13 +7,13 @@
               <span class="badge badge-success">
                 <div>
                   <i class="fas fa-tags mr-1"></i>
-                  <small>{{cart.qty}}pcs*{{cart.price}}THB/pcs={{cart.total}} THB</small>
+                  <small>{{cart.grandTotal}} THB</small>
                 </div>
               </span>
               <div class="dc"></div>
               <div>
                 <i class="fas fa-calendar-alt"></i>
-                <small>{{convert(cart.time) | date:'short':'th'}}</small>
+                <small>{{convert(cart.time) | date:'medium':'th'}}</small>
               </div>
             </div>
           </div>

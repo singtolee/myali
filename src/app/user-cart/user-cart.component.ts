@@ -53,7 +53,6 @@ export class UserCartComponent implements OnInit, OnDestroy {
 
       this.db.collection('ORDERS').add(data).then(() => {
         this.spinning = false
-        //delete from cart
         for(var i=0;i<data.cartArray.length;i++){
           this.set2true(data.cartArray[i])
         }

@@ -2,7 +2,16 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { AuthService } from '../auth.service';
 import { Observable, Subscription } from 'rxjs';
-import { Order } from '../tools/Order';
+//import { Order } from '../tools/Order';
+
+interface Order {
+  grandTotal:number;
+  shippingCost:number;
+  time:Date;
+  total:number;
+  uid:string;
+  cartArray:string[];
+}
 
 @Component({
   selector: 'app-user-order-history',
