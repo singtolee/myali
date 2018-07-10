@@ -48,6 +48,7 @@ import { UserCartComponent } from './user-cart/user-cart.component';
 import { UserOrderHistoryComponent } from './user-order-history/user-order-history.component';
 import { SugPricePipe } from './sug-price.pipe';
 import { FloorPipe } from './floor.pipe';
+import { CartbyidComponent } from './cartbyid/cartbyid.component';
 export const firebaseConfig = environment.firebaseConfig;
 
 @NgModule({
@@ -76,7 +77,8 @@ export const firebaseConfig = environment.firebaseConfig;
     UserCartComponent,
     UserOrderHistoryComponent,
     SugPricePipe,
-    FloorPipe
+    FloorPipe,
+    CartbyidComponent
   ],
   imports: [
     BrowserModule,
