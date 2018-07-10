@@ -20,4 +20,5 @@ export class Product {
   keyword: string;
   score:number;
   comment_count:number;
+  uw:number;
 }

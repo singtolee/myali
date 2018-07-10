@@ -2,6 +2,7 @@ import { Component, Inject, OnInit, Input, ViewEncapsulation, OnDestroy } from '
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { AuthService } from '../auth.service';
+import { CmsService } from '../cms.service';
 import { PassSkuService } from '../pass-sku.service';
 import { Subscription } from 'rxjs';
 
@@ -17,19 +18,35 @@ export class CalculatorComponent implements OnInit, OnDestroy {
   @Input() public pid;
   @Input() public info;
   @Input() public image;
-  //@Input() public USC;
-  USC:number = 20;
+  @Input() public uw;
   user;
   items;
   sub: Subscription;
   usub: Subscription;
+  cssub:Subscription;
+  costSheet;
 
-  constructor(private auth: AuthService, private psku: PassSkuService, private afs: AngularFirestore, public dialog: MatDialog) { }
+  constructor(private auth: AuthService, private psku: PassSkuService, private afs: AngularFirestore, public dialog: MatDialog, private cs: CmsService) { }
 
   ngOnInit() {
     this.psku.reset();
+    this.cssub = this.cs.costSheet.subscribe(cs=>this.costSheet=cs)
+    
+
     this.sub = this.psku.items.subscribe(i => this.items = i);
     this.usub = this.auth.user.subscribe(u => this.user = u);
+  }
+  skuType(){
+    if(this.sku.length == 2){
+      return 'typeone'
+    }
+    if(this.sku.length == 1){
+      if(this.isObject(this.sku[0])){
+        return 'typetwo'
+      }else{
+        return 'typethree'
+      }
+    }
   }
 
   overMin() {
@@ -55,6 +72,7 @@ export class CalculatorComponent implements OnInit, OnDestroy {
     for (var j = 0; j < this.info.length; j++) {
       if (tot >= this.str2num(this.info[j].min_num)) {
         p = { qty: tot, 
+          sc: tot * this.uw * this.costSheet.land>199? tot * this.uw * this.costSheet.land:199,
           price: tot * this.str2prc(this.info[j].price), 
           cp: this.str2prc(this.info[j].price),
           sugPrice: Math.ceil(this.str2prc(this.info[j].price)*2/100)*100-1, }
@@ -86,6 +104,7 @@ export class CalculatorComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.sub.unsubscribe();
     this.usub.unsubscribe();
+    this.cssub.unsubscribe();
   }
 
   isObject(sth) {
@@ -115,13 +134,13 @@ export class CalculatorComponent implements OnInit, OnDestroy {
         price: p.cp,
         total: p.price,
         qty: p.qty,
-        shippingCost: p.qty*this.USC,
+        shippingCost:p.sc,
         imageUrl:this.image,
         sugPrice: p.sugPrice,
-        earn:p.qty*(p.sugPrice-p.cp-this.USC),
+        earn:p.qty*(p.sugPrice-p.cp-this.uw*this.costSheet.land),
         checked:true
-        
       }
+
       this.afs.collection('CARTS').add(data).then(() => {
         ele.textContent = "Add Cart"
         this.dialog.open(Add2CartDialog,{
@@ -135,6 +154,7 @@ export class CalculatorComponent implements OnInit, OnDestroy {
           data:{msg:err}
         });
       })
+      
     } else {
       this.dialog.open(LoginFirstDialog, {
         width: '250px',

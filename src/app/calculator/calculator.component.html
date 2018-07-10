@@ -27,31 +27,45 @@
   </div>
 </div>
 
-<div *ngIf="isObject(sku[0])">
-  <div *ngIf="sku[0].values[0].image;else noImage">
-    <mat-tab-group>
-      <mat-tab *ngFor="let val of sku[0].values">
-        <ng-template mat-tab-label>
-          <img class="border border-secondary rounded" [src]="val.image" height="40px" width="40px">
-        </ng-template>
-        <div *ngFor="let co of sku[1].values">
-          <app-qtypicker [size]="co" [color]="val"></app-qtypicker>
+<div [ngSwitch]="skuType()">
+  <div *ngSwitchCase="'typeone'">
+      <div *ngIf="sku[0].values[0].image;else noImage">
+          <mat-tab-group>
+            <mat-tab *ngFor="let val of sku[0].values">
+              <ng-template mat-tab-label>
+                <img class="border border-secondary rounded" [src]="val.image" height="40px" width="40px">
+              </ng-template>
+              <div *ngFor="let co of sku[1].values">
+                <app-qtypicker [size]="co" [color]="val"></app-qtypicker>
+              </div>
+            </mat-tab>
+          </mat-tab-group>
         </div>
-      </mat-tab>
-    </mat-tab-group>
+        <ng-template #noImage>
+          <mat-tab-group>
+            <mat-tab *ngFor="let val of sku[0].values">
+              <ng-template mat-tab-label>
+                {{val.desc}}
+              </ng-template>
+              <div *ngFor="let co of sku[1].values">
+                <app-qtypicker [size]="co" [color]="val"></app-qtypicker>
+              </div>
+            </mat-tab>
+          </mat-tab-group>
+        </ng-template>
   </div>
-  <ng-template #noImage>
-    <mat-tab-group>
-      <mat-tab *ngFor="let val of sku[0].values">
-        <ng-template mat-tab-label>
-          {{val.desc}}
-        </ng-template>
-        <div *ngFor="let co of sku[1].values">
-          <app-qtypicker [size]="co" [color]="val"></app-qtypicker>
-        </div>
-      </mat-tab>
-    </mat-tab-group>
-  </ng-template>
+  <div *ngSwitchCase="'typetwo'">
+    <div *ngFor="let val of sku[0].values">
+      <app-qtypicker [size]="val" [color]="val"></app-qtypicker>
+    </div>
+
+  </div>
+  <div *ngSwitchCase="'typethree'">
+    <app-qtypicker [size]="{desc:'one size'}" [color]="{desc:'one color'}"></app-qtypicker>
+  </div>
+  <div *ngSwitchDefault>
+    error msg
+  </div>
 </div>
 <hr class="line">
 <div *ngIf="!overMin(); else over">
@@ -60,10 +74,10 @@
 <ng-template #over>
   <div *ngIf="pc(); let p">
     <p class="text-right small text-success">{{p.qty}} pcs * {{p.cp}} THB/pcs = {{p.price}} THB</p>
-    <p class="text-right small text-success">Shipping cost = {{p.qty*USC}} THB</p>
+    <p class="text-right small text-success">Shipping cost(<span class="text-danger">*min is 199 Baht</span>) = {{p.sc | ceil}} THB</p>
     <p class="text-right small text-danger">Suggested sell price {{p.sugPrice}} THB*{{p.qty}} pcs = {{p.sugPrice*p.qty}} THB</p>
     <p class="text-right small text-info">potential earning is
-      <span class="badge badge-danger">{{p.qty*(p.sugPrice-p.cp-USC)}}</span> THB</p>
+      <span class="badge badge-danger">{{p.qty*(p.sugPrice-p.cp-costSheet.land*uw) | ceil}}</span> THB</p>
   </div>
 </ng-template>
 <hr class="line">

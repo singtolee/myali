@@ -32,14 +32,14 @@
         </tbody>
       </table>
       <div class="p-1">
-        <app-calculator [sku]="product.sku" [pid]="product.pid" [info]="product.trade_info" [image]="product.images[0]"></app-calculator>
+        <app-calculator [sku]="product.sku" [pid]="product.pid" [info]="product.trade_info" [image]="product.images[0]" [uw]="product.uw"></app-calculator>
       </div>
     </div>
   </div>
   <div *ngIf="product.detail" class="p-1">
     <hr class="line">
     <div class="row">
-      <div *ngFor="let img of product.detail" class="col-4">
+      <div *ngFor="let img of product.detail" class="col-12">
         <img [src]="img">
       </div>
     </div>
