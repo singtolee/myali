@@ -1,38 +1,43 @@
 <div *ngIf="orders | async; let items">
-    <div class="row">
-      <div *ngFor="let cart of items" class="col-12">
-        <div class="card mt-1">
-          <div class="card-header">
-            <div class="d-flex align-items-center">
-              <span class="badge badge-success">
-                <div>
-                  <i class="fas fa-tags mr-1"></i>
-                  <small>{{cart.grandTotal}} THB</small>
-                </div>
-              </span>
-              <div class="dc"></div>
-              <div>
-                <i class="fas fa-calendar-alt"></i>
-                <small>{{convert(cart.time) | date:'medium':'th'}}</small>
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div *ngFor="let cid of cart.cartArray" class="col-12">
-              <app-cartbyid [id]="cid"></app-cartbyid>
-            </div>
-          </div>
+  <div class="row">
+    <div *ngFor="let cart of items" class="col-12">
+      <div class="card mt-1">
+        <div class="card-header">
+          <app-status-bar [status]="cart.status"></app-status-bar>
         </div>
-      </div>
-    </div>
-    <div *ngIf="items.length === 0">
-      <div class="card text-center mt-1">
         <div class="card-body">
-          <p>
-            <i class="fas fa-list-ul fa-2x"></i>
-          </p>
-          <small>Order history is empty...</small>
+          <ul *ngFor="let cid of cart.cartArray" class="list-group list-group-flush">
+            <li class="list-group-item">
+              <app-cartbyid [id]="cid"></app-cartbyid>
+            </li>
+          </ul>
+        </div>
+        <div class="card-footer">
+          <div class="d-flex align-items-center">
+            <span class="badge badge-success">
+              <div>
+                <i class="fas fa-tags mr-1"></i>
+                <small>{{cart.grandTotal}} THB</small>
+              </div>
+            </span>
+            <div class="dc"></div>
+            <div>
+              <i class="fas fa-calendar-alt"></i>
+              <small>{{convert(cart.time) | date:'medium':'th'}}</small>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
+  <div *ngIf="items.length === 0">
+    <div class="card text-center mt-1">
+      <div class="card-body">
+        <p>
+          <i class="fas fa-list-ul fa-2x"></i>
+        </p>
+        <small>Order history is empty...</small>
+      </div>
+    </div>
+  </div>
+</div>

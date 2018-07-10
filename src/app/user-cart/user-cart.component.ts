@@ -48,7 +48,8 @@ export class UserCartComponent implements OnInit, OnDestroy {
         total: cal.t,
         shippingCost: cal.s,
         cartArray:cal.arr,
-        grandTotal: cal.t + cal.s
+        grandTotal: cal.t + cal.s,
+        status:{confirmed:true}
       }
 
       this.db.collection('ORDERS').add(data).then(() => {

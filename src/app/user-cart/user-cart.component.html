@@ -14,31 +14,39 @@
             </div>
           </div>
         </div>
-        <div class="row">
-          <div *ngFor="let item of cart.data.items" class="col-6 col-md-4 col-lg-3 mt-1 mb-1">
-            <div *ngIf="item.sku.image;else desc">
-              <img [src]="item.sku.image" class="rounded" height="35px" width="35px" [routerLink]="['/product',cart.pid]">
-              <span class="badge badge-danger ml-1">
-                <small>{{item.size.desc}}*{{item.qty}} pcs</small>
-              </span>
-            </div>
-            <ng-template #desc>
-              <img [src]="cart.data.imageUrl" class="rounded" height="35px" width="35px" [routerLink]="['/product',cart.pid]">{{item.sku.desc}}
-              <span class="badge badge-danger ml-1">
-                <small>{{item.size.desc}}*{{item.qty}} pcs</small>
-              </span>
-            </ng-template>
-          </div>
+        <div class="card-body">
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+              <div class="row">
+                <div *ngFor="let item of cart.data.items" class="col-6 col-md-4 col-lg-3">
+                  <div *ngIf="item.sku.image;else desc">
+                    <img [src]="item.sku.image" class="rounded" height="35px" width="35px" [routerLink]="['/product',cart.pid]">
+                    <span class="badge badge-danger ml-1">
+                      <small>{{item.size.desc}}*{{item.qty}} pcs</small>
+                    </span>
+                  </div>
+                  <ng-template #desc>
+                    <img [src]="cart.data.imageUrl" class="rounded" height="35px" width="35px" [routerLink]="['/product',cart.pid]">{{item.sku.desc}}
+                    <span class="badge badge-danger ml-1">
+                      <small>{{item.size.desc}}*{{item.qty}} pcs</small>
+                    </span>
+                  </ng-template>
+                </div>
+              </div>
+            </li>
+          </ul>
         </div>
         <div class="card-footer">
           <div>
             <span class="badge badge-success">
               <small>Total:{{cart.data.total}} THB</small>
             </span>
-            <span class="badge badge-info">
-                <small>Shipping Cost:{{cart.data.shippingCost}} THB</small>
-              </span>
-            <span class="badge badge-danger ml-1"><small>Estimated Profit:{{cart.data.earn}} THB</small></span>
+            <span class="badge badge-info ml-1">
+              <small>Shipping Cost:{{cart.data.shippingCost}} THB</small>
+            </span>
+            <span class="badge badge-danger ml-1">
+              <small>Estimated Profit:{{cart.data.earn}} THB</small>
+            </span>
           </div>
         </div>
       </div>
