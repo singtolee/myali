@@ -16,7 +16,9 @@ export class UserCartComponent implements OnInit, OnDestroy {
   user;
   sub:Subscription;
   dir = "CARTS";
-  carts:any
+  carts:any;
+  cartSub:Subscription;
+  spinning:boolean=false;
 
   constructor(private auth: AuthService,private db: AngularFirestore) {
   }
@@ -25,12 +27,63 @@ export class UserCartComponent implements OnInit, OnDestroy {
     this.sub = this.auth.user.subscribe((user)=>{
       this.user = user;
       if(user){
-        this.carts = this.loadCart2(user.uid)
+        this.cartSub = this.loadCart2(user.uid).subscribe(c=>this.carts=c)
       }
     })
   }
   ngOnDestroy(){
     this.sub.unsubscribe()
+    if(this.cartSub){
+      this.cartSub.unsubscribe()
+    }
+  }
+
+  checkout(){
+    if(this.user){
+      this.spinning = true
+      var cal = this.cal()
+      const data = {
+        uid: this.user.uid,
+        time: new Date(),
+        total: cal.t,
+        shippingCost: cal.s,
+        cartArray:cal.arr,
+        grandTotal: cal.t + cal.s
+      }
+
+      this.db.collection('ORDERS').add(data).then(() => {
+        this.spinning = false
+        //delete from cart
+        for(var i=0;i<data.cartArray.length;i++){
+          this.set2true(data.cartArray[i])
+        }
+        
+      }).catch(err=>{
+        this.spinning = false
+        //show err msg
+      })
+    }
+  }
+
+  cal(){
+    var total = 0;
+    var sc = 0;
+    var arr = [];
+    for(var i=0;i<this.carts.length;i++){
+      if(this.carts[i].data.checked){
+        total = total + this.carts[i].data.total
+        sc = sc + this.carts[i].data.shippingCost
+        arr.push(this.carts[i].id)
+      }
+    }
+
+    return {t:total,s:sc>199? sc:199, arr:arr}
+  }
+  cartChecked(){
+    var c = this.cal()
+    if(c.t>0){
+      return true
+    }else return false
   }
 
   convert(a){
@@ -40,6 +93,7 @@ export class UserCartComponent implements OnInit, OnDestroy {
   loadCart2(uid:string){
     return this.db.collection(this.dir, ref=>{
       return ref.where('uid','==',uid)
+      .where('ordered','==',false)
       .orderBy('time','desc')
     }).snapshotChanges().pipe(map(actions=>{
       return actions.map(a=>{
@@ -57,8 +111,8 @@ export class UserCartComponent implements OnInit, OnDestroy {
     })
   }
 
-  log(e){
-    console.log("666666" + e)
+  set2true(id:string){
+    this.db.doc(this.dir + '/' + id).update({ordered:true})
   }
 
 }

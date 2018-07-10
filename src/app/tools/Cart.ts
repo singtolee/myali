@@ -9,5 +9,9 @@ export class Cart {
   qty:number;
   imageUrl:string;
   checked:boolean;
+  earn:number;
+  shippingCost:number;
+  sugPrice:number;
+  
 
 }

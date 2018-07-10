@@ -102,6 +102,7 @@ export class AuthService {
   getCount(uid:string){
     return this.afs.collection('CARTS',ref=>{
       return ref.where('uid','==',uid)
+      .where('ordered','==',false)
     }).valueChanges().pipe(map(a=>{return a.length}))
   }
 }

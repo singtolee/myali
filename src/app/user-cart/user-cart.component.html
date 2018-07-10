@@ -1,4 +1,4 @@
-<div *ngIf="carts | async; let items">
+<div *ngIf="carts; let items">
   <div class="row">
     <div *ngFor="let cart of items" class="col-12">
       <div class="card mt-1">
@@ -33,8 +33,11 @@
         <div class="card-footer">
           <div>
             <span class="badge badge-success">
-              <small>Total(include shipping):{{cart.data.total+cart.data.shippingCost}} THB</small>
+              <small>Total:{{cart.data.total}} THB</small>
             </span>
+            <span class="badge badge-info">
+                <small>Shipping Cost:{{cart.data.shippingCost}} THB</small>
+              </span>
             <span class="badge badge-danger ml-1"><small>Estimated Profit:{{cart.data.earn}} THB</small></span>
           </div>
         </div>
@@ -42,11 +45,16 @@
     </div>
     <div *ngIf="items.length >0" class="container mt-2">
       <div class="row justify-content-md-center">
-        <div class="col col-12 col md-8">
-          {{items.length}}
+        <div *ngIf="cartChecked()" class="col col-12 col md-8">
+          <p class="text-right text-danger">*Minimiu shipping cost is 199 Baht.</p>
+          <p class="text-right text-info">Total: {{cal().t}} Baht</p>
+          <p class="text-right text-info">Shipping Cost: {{cal().s}} Baht</p>
+          <hr>
+          <p class="text-right text-danger">Grand Total: {{cal().t +cal().s}} Baht</p>
         </div>
-        <div class="col col-12 col-md-8">
-          <button type="button" class="btn btn-success btn-sm btn-block">Ckeck Out</button>
+        <div class="col col-12 col-md-8 mb-2">
+          <button type="button" [disabled]="!cartChecked()" class="btn btn-success btn-sm btn-block" (click)="checkout()">Ckeck Out</button>
+          <app-loading-spinner *ngIf="spinning"></app-loading-spinner>
         </div>
       </div>
     </div>

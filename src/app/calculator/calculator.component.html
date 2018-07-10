@@ -77,7 +77,7 @@
     <p class="text-right small text-success">Shipping cost(<span class="text-danger">*min is 199 Baht</span>) = {{p.sc | ceil}} THB</p>
     <p class="text-right small text-danger">Suggested sell price {{p.sugPrice}} THB*{{p.qty}} pcs = {{p.sugPrice*p.qty}} THB</p>
     <p class="text-right small text-info">potential earning is
-      <span class="badge badge-danger">{{p.qty*(p.sugPrice-p.cp-costSheet.land*uw) | ceil}}</span> THB</p>
+      <span class="badge badge-danger">{{p.qty*(p.sugPrice-p.cp)-p.sc | ceil}}</span> THB</p>
   </div>
 </ng-template>
 <hr class="line">
