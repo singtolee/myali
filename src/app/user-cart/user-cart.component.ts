@@ -49,7 +49,7 @@ export class UserCartComponent implements OnInit, OnDestroy {
         shippingCost: cal.s,
         cartArray:cal.arr,
         grandTotal: cal.t + cal.s,
-        status:{confirmed:true}
+        status:{s1:{time:new Date(),title:'confirmed'},s2:{time:new Date(),title:'waiting for payment'}}
       }
 
       this.db.collection('ORDERS').add(data).then(() => {

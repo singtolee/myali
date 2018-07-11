@@ -1,3 +1,6 @@
-<p>
-  {{status | json}}
-</p>
+<span *ngFor="let ss of status | keyvalue">
+    <small class="badge badge-pill badge-success mr-1" 
+    [class.badge-danger]="ss.value.title == 'cancelled'"
+    [class.badge-warning]="ss.value.title == 'done'"
+     >{{ss.value.title}}</small>
+</span>

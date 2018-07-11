@@ -12,5 +12,14 @@ export class StatusBarComponent implements OnInit {
 
   ngOnInit() {
   }
+  convert(a){
+    return a.toDate()
+  }
+
+  isCancelled(){
+    if(this.status.s3.title){
+      return true
+    }else return false
+  }
 
 }

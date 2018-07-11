@@ -3,10 +3,16 @@
     <div *ngFor="let cart of items" class="col-12">
       <div class="card mt-1">
         <div class="card-header">
-          <app-status-bar [status]="cart.status"></app-status-bar>
+          <app-status-bar [status]="cart.data.status"></app-status-bar>
+          <div ngbDropdown class="d-inline-block">
+              <i class="fas fa-cog" id="dropdownBasic1" ngbDropdownToggle></i>
+              <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                <button class="dropdown-item" (click)="editStatus(cart)">Cancel this order</button>
+              </div>
+            </div>
         </div>
         <div class="card-body">
-          <ul *ngFor="let cid of cart.cartArray" class="list-group list-group-flush">
+          <ul *ngFor="let cid of cart.data.cartArray" class="list-group list-group-flush">
             <li class="list-group-item">
               <app-cartbyid [id]="cid"></app-cartbyid>
             </li>
@@ -17,13 +23,13 @@
             <span class="badge badge-success">
               <div>
                 <i class="fas fa-tags mr-1"></i>
-                <small>{{cart.grandTotal}} THB</small>
+                <small>{{cart.data.grandTotal}} THB</small>
               </div>
             </span>
             <div class="dc"></div>
             <div>
               <i class="fas fa-calendar-alt"></i>
-              <small>{{convert(cart.time) | date:'medium':'th'}}</small>
+              <small>{{convert(cart.data.time) | date:'medium':'th'}}</small>
             </div>
           </div>
         </div>
