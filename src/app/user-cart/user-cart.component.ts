@@ -13,8 +13,9 @@ import { Cart } from '../tools/Cart';
 })
 export class UserCartComponent implements OnInit, OnDestroy {
 
-  paymentMethod: string = 'Bank transfer';
+  paymentMethod: string = 'bank';
   paymentMethods: string[] = ['Bank transfer','Cash on delivery'];
+  paymentMe = [{title:'Bank transfer',id:'bank'},{title:'Cash on delivery',id:'cod'}]
 
   user;
   sub:Subscription;
@@ -22,6 +23,8 @@ export class UserCartComponent implements OnInit, OnDestroy {
   carts:any;
   cartSub:Subscription;
   spinning:boolean=false;
+
+  url;
 
   constructor(private auth: AuthService,private db: AngularFirestore) {
   }
@@ -116,6 +119,18 @@ export class UserCartComponent implements OnInit, OnDestroy {
 
   set2true(id:string){
     this.db.doc(this.dir + '/' + id).update({ordered:true})
+  }
+
+  onSelectFile(event) {
+    if (event.target.files && event.target.files[0]) {
+      var reader = new FileReader();
+
+      reader.readAsDataURL(event.target.files[0]); // read file as data url
+
+      reader.onload = (event) => { // called once readAsDataURL is completed
+        this.url = event.target.result
+      }
+    }
   }
 
 }
