@@ -7,7 +7,7 @@
           <div ngbDropdown class="d-inline-block">
               <i class="fas fa-cog" id="dropdownBasic1" ngbDropdownToggle></i>
               <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-                <button class="dropdown-item" (click)="editStatus(cart)">Cancel this order</button>
+                <button class="dropdown-item btn btn-danger btn-sm" [disabled]="isOver24h(cart)" (click)="editStatus(cart)">Cancel this order(within 24hours)</button>
               </div>
             </div>
         </div>

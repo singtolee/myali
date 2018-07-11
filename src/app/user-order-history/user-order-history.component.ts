@@ -57,15 +57,22 @@ export class UserOrderHistoryComponent implements OnInit,OnDestroy {
   }
 
   editStatus(cart:any){
+
+    if(!this.isOver24h(cart)){
+      this.db.doc(this.dir + '/' + cart.id).update({'status.s3':{time:new Date(),title:'cancelled'}})
+    }
+  }
+
+  isOver24h(cart:any){
     var now = new Date()
     var dd = new Date(cart.data.status.s1.time.toDate())
     dd.setDate(dd.getDate()+1)
     if(now>dd){
-      //this.db.doc(this.dir + '/' + cart.id).update({'status.s999':{title:'can only cancel within 24 hours.'}})
-      //hint can not cancel
+      return true
     }else{
-      this.db.doc(this.dir + '/' + cart.id).update({'status.s3':{time:new Date(),title:'cancelled'}})
+      return false
     }
+
   }
 
 }

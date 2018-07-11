@@ -25,6 +25,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { LayoutModule } from '@angular/cdk/layout';
 import { MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule } from '@angular/material';
 import { MatTabsModule } from '@angular/material/tabs';
+import { MatRadioModule } from '@angular/material/radio';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -99,6 +100,7 @@ export const firebaseConfig = environment.firebaseConfig;
     MatBadgeModule,
     MatCheckboxModule,
     MatButtonModule,
+    MatRadioModule,
     MatSidenavModule,
     MatExpansionModule,
     MatIconModule,

@@ -13,6 +13,9 @@ import { Cart } from '../tools/Cart';
 })
 export class UserCartComponent implements OnInit, OnDestroy {
 
+  paymentMethod: string = 'Bank transfer';
+  paymentMethods: string[] = ['Bank transfer','Cash on delivery'];
+
   user;
   sub:Subscription;
   dir = "CARTS";
