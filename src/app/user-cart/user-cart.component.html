@@ -62,27 +62,42 @@
           <hr>
         </div>
         <div *ngIf="cartChecked()" class="col col-12 col-md-8">
-          <p class="text-center text-warning">Chooes payment method, we prefer bank transfer.</p>
+          <p class="text-center text-warning font-weight-bold">Chooes payment method, choose bank transfer get
+            <span class="text-danger font-italic">60 baht</span> discount.</p>
           <mat-radio-group class="example-radio-group" [(ngModel)]="paymentMethod">
-            <mat-radio-button class="example-radio-button" *ngFor="let payment of paymentMe" color="warn" [value]="payment.id">
-              {{payment.title}}
+            <mat-radio-button class="example-radio-button" color="warn" value="bank">
+              Bank tranfer, save {{discountVal}} Baht.
+            </mat-radio-button>
+            <mat-radio-button class="example-radio-button" color="warn" value="cod">
+              Cash on delivery
             </mat-radio-button>
           </mat-radio-group>
           <div *ngIf="paymentMethod == 'bank';else cod">
-            <small class="text-info">pleas transfer <span class="text-danger">{{cal().t+cal().s}} Baht</span> to any of these accounts and upload the transfer bill</small>
+            <small class="text-info">pleas transfer
+              <span class="text-danger">{{cal().t+cal().s - 60}} Baht</span> to any of these accounts and upload the transfer bill</small>
+              <app-fectch-bank-account></app-fectch-bank-account>
+            <label class="btn btn-block btn-outline-info btn-sm">
+              <i class="fas fa-cloud-upload-alt mr-1"></i>upload tranfer bill
+              <input type="file" (change)="startUpload($event.target.files)" accept="image/*" style="display: none;">
+            </label>
+            <div *ngIf="percentage | async as pct">
+              <p>
+                <ngb-progressbar [showValue]="true" type="danger" [value]="pct" [max]="100"></ngb-progressbar>
+              </p>
+            </div>
+            <div *ngIf="downloadURL | async as url" class="cart-body text-center mb-1">
+              <img [src]="url" height="100">
+            </div>
           </div>
           <ng-template #cod>
             <div>
-              <small class="text-info">Please pay <span class="text-danger">{{cal().t+cal().s}} Baht</span> upon collecting the parcel.</small>
+              <small class="text-info">Please pay
+                <span class="text-danger">{{cal().t+cal().s}} Baht</span> upon collecting the parcel.</small>
             </div>
           </ng-template>
-          <label class="btn btn-block btn-outline-info btn-sm">
-              <i class="fas fa-cloud-upload-alt mr-1"></i>upload tranfer bill<input type="file" (change)="onSelectFile($event)" accept="image/*" style="display: none;">
-          </label>
-          <img [src]="url" height="200"> <br/>
         </div>
         <div class="col col-12 col-md-8 mb-2">
-          <button type="button" [disabled]="!cartChecked()" class="btn btn-success btn-sm btn-block" (click)="checkout()">Ckeck Out</button>
+          <button type="button" [disabled]="!paymentMethodChecked()" class="btn btn-success btn-sm btn-block" (click)="checkout()">Ckeck Out</button>
           <app-loading-spinner *ngIf="spinning"></app-loading-spinner>
         </div>
       </div>

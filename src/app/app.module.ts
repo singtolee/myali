@@ -51,6 +51,7 @@ import { SugPricePipe } from './sug-price.pipe';
 import { FloorPipe } from './floor.pipe';
 import { CartbyidComponent } from './cartbyid/cartbyid.component';
 import { StatusBarComponent } from './status-bar/status-bar.component';
+import { FectchBankAccountComponent } from './fectch-bank-account/fectch-bank-account.component';
 export const firebaseConfig = environment.firebaseConfig;
 
 @NgModule({
@@ -81,7 +82,8 @@ export const firebaseConfig = environment.firebaseConfig;
     SugPricePipe,
     FloorPipe,
     CartbyidComponent,
-    StatusBarComponent
+    StatusBarComponent,
+    FectchBankAccountComponent
   ],
   imports: [
     BrowserModule,

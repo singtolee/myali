@@ -1,8 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AngularFirestore } from 'angularfire2/firestore';
+import { AngularFireStorage, AngularFireUploadTask } from 'angularfire2/storage';
 import { AuthService } from '../auth.service';
-import { Subscription } from 'rxjs';
-import { map } from 'rxjs/operators'
+import { Observable, Subscription } from 'rxjs';
+import { map, finalize } from 'rxjs/operators'
 import { Cart } from '../tools/Cart';
 
 
@@ -14,9 +15,6 @@ import { Cart } from '../tools/Cart';
 export class UserCartComponent implements OnInit, OnDestroy {
 
   paymentMethod: string = 'bank';
-  paymentMethods: string[] = ['Bank transfer','Cash on delivery'];
-  paymentMe = [{title:'Bank transfer',id:'bank'},{title:'Cash on delivery',id:'cod'}]
-
   user;
   sub:Subscription;
   dir = "CARTS";
@@ -24,9 +22,16 @@ export class UserCartComponent implements OnInit, OnDestroy {
   cartSub:Subscription;
   spinning:boolean=false;
 
-  url;
+  discountVal = 60;
 
-  constructor(private auth: AuthService,private db: AngularFirestore) {
+  //for upload file
+  task: AngularFireUploadTask;
+  percentage: Observable<number>;
+  downloadURL: Observable<string>;
+  billSub:Subscription;
+  billUrl:string;
+
+  constructor(private auth: AuthService,private db: AngularFirestore, private storage: AngularFireStorage) {
   }
 
   ngOnInit() {
@@ -42,6 +47,27 @@ export class UserCartComponent implements OnInit, OnDestroy {
     if(this.cartSub){
       this.cartSub.unsubscribe()
     }
+    if(this.billSub){
+      this.billSub.unsubscribe()
+    }
+  }
+
+  startUpload(event:FileList){
+    const file = event.item(0)
+    if(file.type.split('/')[0] !== 'image'){
+      return
+    }
+
+    const path = `BANKTRANSFERBILLS/${new Date().getTime()}`;
+    const ref = this.storage.ref(path);
+    this.task = this.storage.upload(path,file);
+    this.percentage = this.task.percentageChanges();
+    this.task.snapshotChanges().pipe(
+      finalize(()=>{
+        this.downloadURL = ref.getDownloadURL()
+        this.billSub = this.downloadURL.subscribe(url=>this.billUrl=url)
+      })
+    ).subscribe();
   }
 
   checkout(){
@@ -49,13 +75,31 @@ export class UserCartComponent implements OnInit, OnDestroy {
       this.spinning = true
       var cal = this.cal()
       const data = {
+        paymentMe:this.paymentMethod,
+        billUrl:'',
         uid: this.user.uid,
         time: new Date(),
         total: cal.t,
         shippingCost: cal.s,
         cartArray:cal.arr,
         grandTotal: cal.t + cal.s,
-        status:{s1:{time:new Date(),title:'confirmed'},s2:{time:new Date(),title:'waiting for payment'}}
+        discount:0,
+        status:{s1:{time:new Date(),title:'confirmed'},s2:{time:new Date(),title:''}}
+      }
+
+      switch(this.paymentMethod){
+        case 'bank' :
+          data.discount = 60;
+          data.billUrl = this.billUrl;
+          data.grandTotal -= 60;
+          data.status.s2.title = 'paid';
+          break
+        case 'cod' :
+          data.status.s2.title = 'Cash on delivery';
+          break
+        default:
+          break
+          
       }
 
       this.db.collection('ORDERS').add(data).then(() => {
@@ -92,6 +136,22 @@ export class UserCartComponent implements OnInit, OnDestroy {
     }else return false
   }
 
+  paymentMethodChecked(){
+    var c = this.cal()
+    if(c.t>0){
+      if(this.paymentMethod == 'cod'){
+        return true
+      }
+      if(this.paymentMethod == 'bank'){
+        if(this.downloadURL){
+          return true
+        }else {
+          return false
+        }
+      }
+    }else return false
+  }
+
   convert(a){
     return a.toDate()
   }
@@ -119,18 +179,6 @@ export class UserCartComponent implements OnInit, OnDestroy {
 
   set2true(id:string){
     this.db.doc(this.dir + '/' + id).update({ordered:true})
-  }
-
-  onSelectFile(event) {
-    if (event.target.files && event.target.files[0]) {
-      var reader = new FileReader();
-
-      reader.readAsDataURL(event.target.files[0]); // read file as data url
-
-      reader.onload = (event) => { // called once readAsDataURL is completed
-        this.url = event.target.result
-      }
-    }
   }
 
 }
