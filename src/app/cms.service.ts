@@ -3,10 +3,10 @@ import { AngularFirestore } from 'angularfire2/firestore';
 import { Observable } from 'rxjs';
 
 interface Cost {
-  sea:number;
-  seaDuration:string;
   land:number;
   landDuration:string;
+  minShippingCost:number;
+  bankTransferDiscount:number;
 }
 
 

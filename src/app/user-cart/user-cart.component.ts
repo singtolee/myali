@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { AngularFireStorage, AngularFireUploadTask } from 'angularfire2/storage';
 import { AuthService } from '../auth.service';
+import { CmsService } from '../cms.service';
 import { Observable, Subscription } from 'rxjs';
 import { map, finalize } from 'rxjs/operators'
 import { Cart } from '../tools/Cart';
@@ -22,7 +23,8 @@ export class UserCartComponent implements OnInit, OnDestroy {
   cartSub:Subscription;
   spinning:boolean=false;
 
-  discountVal = 60;
+  costSheet;
+  cssub:Subscription;
 
   //for upload file
   task: AngularFireUploadTask;
@@ -31,10 +33,11 @@ export class UserCartComponent implements OnInit, OnDestroy {
   billSub:Subscription;
   billUrl:string;
 
-  constructor(private auth: AuthService,private db: AngularFirestore, private storage: AngularFireStorage) {
+  constructor(private auth: AuthService,private db: AngularFirestore, private storage: AngularFireStorage, private cs: CmsService) {
   }
 
   ngOnInit() {
+    this.cssub = this.cs.costSheet.subscribe(cs=>this.costSheet=cs)
     this.sub = this.auth.user.subscribe((user)=>{
       this.user = user;
       if(user){
@@ -44,6 +47,7 @@ export class UserCartComponent implements OnInit, OnDestroy {
   }
   ngOnDestroy(){
     this.sub.unsubscribe()
+    this.cssub.unsubscribe()
     if(this.cartSub){
       this.cartSub.unsubscribe()
     }
@@ -89,9 +93,9 @@ export class UserCartComponent implements OnInit, OnDestroy {
 
       switch(this.paymentMethod){
         case 'bank' :
-          data.discount = 60;
+          data.discount = this.costSheet.bankTransferDiscount;
           data.billUrl = this.billUrl;
-          data.grandTotal -= 60;
+          data.grandTotal -= this.costSheet.bankTransferDiscount;
           data.status.s2.title = 'paid';
           break
         case 'cod' :
@@ -127,7 +131,7 @@ export class UserCartComponent implements OnInit, OnDestroy {
       }
     }
 
-    return {t:total,s:sc>199? sc:199, arr:arr}
+    return {t:total,s:sc>this.costSheet.minShippingCost? sc:this.costSheet.minShippingCost, arr:arr}
   }
   cartChecked(){
     var c = this.cal()

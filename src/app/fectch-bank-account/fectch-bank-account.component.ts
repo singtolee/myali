@@ -1,4 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
+import { Observable } from 'rxjs';
+interface Bank {
+  title: string;
+  imgUrl:string;
+  account:string;
+}
 
 @Component({
   selector: 'app-fectch-bank-account',
@@ -6,10 +13,16 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./fectch-bank-account.component.css']
 })
 export class FectchBankAccountComponent implements OnInit {
+  dir = "BANKACCOUNTS";
+  banks: Observable<Bank[]>;
+  private banksCol: AngularFirestoreCollection<Bank>;
 
-  constructor() { }
+  constructor(private db: AngularFirestore) {
+  }
 
   ngOnInit() {
+    this.banksCol = this.db.collection<Bank>(this.dir);
+    this.banks = this.banksCol.valueChanges();
   }
 
 }
