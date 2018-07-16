@@ -1,5 +1,8 @@
 <div *ngIf="cart | async as c">
   <div class="row">
+    <p class="small text-center">{{c.name}}</p>
+  </div>
+  <div class="row">
     <div *ngFor="let item of c.items" class="col-6 col-md-4 col-lg-3">
       <div *ngIf="item.sku.image; else noimg">
         <img [src]="item.sku.image" class="rounded" height="35px" width="35px" [routerLink]="['/product',c.pid]">

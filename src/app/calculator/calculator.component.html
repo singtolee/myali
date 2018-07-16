@@ -7,7 +7,7 @@
         </div>
         <div class="card-body">
           <span *ngFor="let val of s.values" class="mr-1">
-            <img class="border border-secondary rounded" [src]="val.image" height="40px" width="40px">
+            <img class="border border-secondary rounded" [src]="val.image" height="40px" width="40px" (click)="viewbig()">
           </span>
         </div>
       </div>

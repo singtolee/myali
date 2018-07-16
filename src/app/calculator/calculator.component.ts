@@ -6,6 +6,9 @@ import { CmsService } from '../cms.service';
 import { PassSkuService } from '../pass-sku.service';
 import { Subscription } from 'rxjs';
 
+import {NgbModal, NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
+import { CarouselComponent } from '../carousel/carousel.component';
+
 @Component({
   selector: 'app-calculator',
   templateUrl: './calculator.component.html',
@@ -13,7 +16,7 @@ import { Subscription } from 'rxjs';
   encapsulation: ViewEncapsulation.None
 })
 export class CalculatorComponent implements OnInit, OnDestroy {
-
+  @Input() public pname;
   @Input() public sku;
   @Input() public pid;
   @Input() public info;
@@ -26,7 +29,7 @@ export class CalculatorComponent implements OnInit, OnDestroy {
   cssub:Subscription;
   costSheet;
 
-  constructor(private auth: AuthService, private psku: PassSkuService, private afs: AngularFirestore, public dialog: MatDialog, private cs: CmsService) { }
+  constructor(private auth: AuthService, private psku: PassSkuService, private afs: AngularFirestore, public dialog: MatDialog, private cs: CmsService, private modalService: NgbModal) { }
 
   ngOnInit() {
     this.psku.reset();
@@ -111,6 +114,13 @@ export class CalculatorComponent implements OnInit, OnDestroy {
     return typeof sth === 'object';
   }
 
+  viewbig(){
+    console.log(this.sku[0].values)
+    const modalRef = this.modalService.open(CarouselComponent, {centered: true});
+    modalRef.componentInstance.sku = this.sku[0].values;
+
+  }
+
   buynow(ele) {
     if (this.user) {
      //add to cart and go to user page to checkout
@@ -127,6 +137,7 @@ export class CalculatorComponent implements OnInit, OnDestroy {
       ele.textContent = "Submmiting..."
       const p = this.pc()
       const data = {
+        name: this.pname,
         ordered: false,
         uid: this.user.uid,
         pid: this.pid,

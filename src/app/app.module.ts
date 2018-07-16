@@ -52,6 +52,7 @@ import { FloorPipe } from './floor.pipe';
 import { CartbyidComponent } from './cartbyid/cartbyid.component';
 import { StatusBarComponent } from './status-bar/status-bar.component';
 import { FectchBankAccountComponent } from './fectch-bank-account/fectch-bank-account.component';
+import { CarouselComponent } from './carousel/carousel.component';
 export const firebaseConfig = environment.firebaseConfig;
 
 @NgModule({
@@ -83,7 +84,8 @@ export const firebaseConfig = environment.firebaseConfig;
     FloorPipe,
     CartbyidComponent,
     StatusBarComponent,
-    FectchBankAccountComponent
+    FectchBankAccountComponent,
+    CarouselComponent
   ],
   imports: [
     BrowserModule,
@@ -114,7 +116,8 @@ export const firebaseConfig = environment.firebaseConfig;
   entryComponents:[
     LoginDialog,
     Add2CartDialog,
-    LoginFirstDialog
+    LoginFirstDialog,
+    CarouselComponent
   ],
   providers: [{provide:LOCALE_ID,useValue:'th'}],
   bootstrap: [AppComponent]

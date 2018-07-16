@@ -1,9 +1,9 @@
-<div class="container">
+<div class="container mt-1">
   <div class="row">
-    <div *ngFor="let item of banks | async" class="col col-6">
-      <div class="card text-center bg-light mb-1" style="height: 6rem;">
+    <div *ngFor="let item of banks | async">
+      <div class="card text-center bg-light mb-1">
         <div class="card-body">
-          <img [src]="item.imgUrl" height="50" class="rounded">
+          <img [src]="item.imgUrl" class="rounded">
           <p class="small">{{item.account}}</p>
         </div>
       </div>

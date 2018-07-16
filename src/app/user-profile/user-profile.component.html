@@ -1,10 +1,10 @@
 <div *ngIf="auth.user | async as user">
   <div class="card">
     <div class="card-body text-center">
+      <i class="fas fa-sign-out-alt float-right" (click)="logout()"></i>
       <img class="roundimg" [src]="user.photoURL" onError="this.src='./assets/avatar.png'" width="80" height="80">
       <p class="text-center">{{user.displayName}}</p>
       <p class="text-center">{{user.email}}</p>
-      <button type="button" class="btn btn-outline-danger btn-sm" (click)="logout()">SIGN OUT</button>
     </div>
   </div>
 </div>

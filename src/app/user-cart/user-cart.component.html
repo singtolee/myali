@@ -15,6 +15,7 @@
           </div>
         </div>
         <div class="card-body">
+          <p class="text-center small">{{cart.data.name}}</p>
           <ul class="list-group list-group-flush">
             <li class="list-group-item">
               <div class="row">
@@ -45,7 +46,7 @@
               <small>Shipping Cost:{{cart.data.shippingCost}} THB</small>
             </span>
             <span class="badge badge-danger ml-1">
-              <small>Estimated Profit:{{cart.data.earn}} THB</small>
+              <small>Estimated Profit:{{cart.data.earn | ceil}} THB</small>
             </span>
           </div>
         </div>
@@ -74,8 +75,8 @@
             </mat-radio-button>
           </mat-radio-group>
           <div *ngIf="paymentMethod == 'bank';else cod">
-            <small class="text-info mb-1">pleas transfer
-              <span class="text-danger">{{cal().t+cal().s - costSheet.bankTransferDiscount}} Baht</span> to any of these accounts and upload the transfer bill</small>
+            <small class="text-info mb-1">pleas PromptPay
+              <span class="text-danger">{{cal().t+cal().s - costSheet.bankTransferDiscount}} Baht</span>, and upload the bill.</small>
               <app-fectch-bank-account></app-fectch-bank-account>
             <label class="btn btn-block btn-outline-info btn-sm mt-1">
               <i class="fas fa-cloud-upload-alt mr-1"></i>upload tranfer bill
