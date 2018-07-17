@@ -99,9 +99,8 @@
             </div>
           </ng-template>
         </div>
-        <div class="col col-12 col-md-8 mb-2">
+        <div class="col col-12 col-md-8 mb-5">
           <button type="button" [disabled]="!paymentMethodChecked()" class="btn btn-success btn-sm btn-block" (click)="checkout()">Ckeck Out</button>
-          <app-loading-spinner *ngIf="spinning"></app-loading-spinner>
         </div>
       </div>
     </div>

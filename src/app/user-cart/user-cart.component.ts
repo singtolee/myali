@@ -23,7 +23,6 @@ export class UserCartComponent implements OnInit, OnDestroy {
   dir = "CARTS";
   carts:any;
   cartSub:Subscription;
-  spinning:boolean=false;
   isuploadingbill:boolean=false;
 
   costSheet;
@@ -83,7 +82,6 @@ export class UserCartComponent implements OnInit, OnDestroy {
 
   checkout(){
     if(this.user){
-      this.spinning = true
       var cal = this.cal()
       const data = {
         paymentMe:this.paymentMethod,
@@ -114,13 +112,11 @@ export class UserCartComponent implements OnInit, OnDestroy {
       }
 
       this.db.collection('ORDERS').add(data).then(() => {
-        this.spinning = false
         for(var i=0;i<data.cartArray.length;i++){
           this.set2true(data.cartArray[i])
         }
         
       }).catch(err=>{
-        this.spinning = false
         //show err msg
       })
     }
