@@ -1,6 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { AngularFireStorage, AngularFireUploadTask } from 'angularfire2/storage';
+import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { ImageZoomViewComponent } from '../image-zoom-view/image-zoom-view.component';
 import { AuthService } from '../auth.service';
 import { CmsService } from '../cms.service';
 import { Observable, Subscription } from 'rxjs';
@@ -22,6 +24,7 @@ export class UserCartComponent implements OnInit, OnDestroy {
   carts:any;
   cartSub:Subscription;
   spinning:boolean=false;
+  isuploadingbill:boolean=false;
 
   costSheet;
   cssub:Subscription;
@@ -33,7 +36,7 @@ export class UserCartComponent implements OnInit, OnDestroy {
   billSub:Subscription;
   billUrl:string;
 
-  constructor(private auth: AuthService,private db: AngularFirestore, private storage: AngularFireStorage, private cs: CmsService) {
+  constructor(private auth: AuthService,private db: AngularFirestore, private storage: AngularFireStorage, private cs: CmsService, private modalService: NgbModal) {
   }
 
   ngOnInit() {
@@ -57,6 +60,7 @@ export class UserCartComponent implements OnInit, OnDestroy {
   }
 
   startUpload(event:FileList){
+    this.isuploadingbill = true
     const file = event.item(0)
     if(file.type.split('/')[0] !== 'image'){
       return
@@ -69,7 +73,10 @@ export class UserCartComponent implements OnInit, OnDestroy {
     this.task.snapshotChanges().pipe(
       finalize(()=>{
         this.downloadURL = ref.getDownloadURL()
-        this.billSub = this.downloadURL.subscribe(url=>this.billUrl=url)
+        this.billSub = this.downloadURL.subscribe(url=>{
+          this.billUrl=url;
+          this.isuploadingbill = false;
+        })
       })
     ).subscribe();
   }
@@ -183,6 +190,12 @@ export class UserCartComponent implements OnInit, OnDestroy {
 
   set2true(id:string){
     this.db.doc(this.dir + '/' + id).update({ordered:true})
+  }
+
+  zoom(url:string){
+    const modalRef = this.modalService.open(ImageZoomViewComponent,{centered:true});
+    modalRef.componentInstance.image = url;
+
   }
 
 }
