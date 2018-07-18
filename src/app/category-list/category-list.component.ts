@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
+import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
 import { Observable } from 'rxjs';
+import { ScrollPositionRestoreService } from '../scroll-position-restore.service';
 
 interface Category {
   title: string;
@@ -20,7 +21,7 @@ export class CategoryListComponent implements OnInit {
   private categoriesCol: AngularFirestoreCollection<Category>;
   dir = "CATEGORIES";
 
-  constructor(private db: AngularFirestore, public router: Router) {
+  constructor(private db: AngularFirestore, public router: Router, private spr:ScrollPositionRestoreService) {
     this.categoriesCol = db.collection<Category>(this.dir, ref =>{
       return ref.orderBy('displayOrder')
     });
@@ -29,6 +30,10 @@ export class CategoryListComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  clearposition(){
+    this.spr.resetPosition()
   }
 
 }
