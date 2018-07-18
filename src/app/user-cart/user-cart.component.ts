@@ -3,6 +3,7 @@ import { AngularFirestore } from 'angularfire2/firestore';
 import { AngularFireStorage, AngularFireUploadTask } from 'angularfire2/storage';
 import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ImageZoomViewComponent } from '../image-zoom-view/image-zoom-view.component';
+import { MsgComponent } from '../msg/msg.component'; 
 import { AuthService } from '../auth.service';
 import { CmsService } from '../cms.service';
 import { Observable, Subscription } from 'rxjs';
@@ -23,7 +24,8 @@ export class UserCartComponent implements OnInit, OnDestroy {
   dir = "CARTS";
   carts:any;
   cartSub:Subscription;
-  isuploadingbill:boolean=false;
+  isuploadingbill:boolean = false;
+  checkingout:boolean = false;
 
   costSheet;
   cssub:Subscription;
@@ -82,6 +84,7 @@ export class UserCartComponent implements OnInit, OnDestroy {
 
   checkout(){
     if(this.user){
+      this.checkingout = !this.checkingout;
       var cal = this.cal()
       const data = {
         paymentMe:this.paymentMethod,
@@ -112,12 +115,18 @@ export class UserCartComponent implements OnInit, OnDestroy {
       }
 
       this.db.collection('ORDERS').add(data).then(() => {
+        this.checkingout = !this.checkingout;
+        //modal to show success msg
+        const modalRef = this.modalService.open(MsgComponent,{centered:true});
+        modalRef.componentInstance.msg = "Successfully Checked out, check your order history";
         for(var i=0;i<data.cartArray.length;i++){
           this.set2true(data.cartArray[i])
         }
         
       }).catch(err=>{
         //show err msg
+        const modalRef = this.modalService.open(MsgComponent,{centered:true});
+        modalRef.componentInstance.msg = err;
       })
     }
   }

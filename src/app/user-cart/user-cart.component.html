@@ -100,7 +100,10 @@
           </ng-template>
         </div>
         <div class="col col-12 col-md-8 mb-5">
-          <button type="button" [disabled]="!paymentMethodChecked()" class="btn btn-success btn-sm btn-block" (click)="checkout()">Ckeck Out</button>
+          <button type="button" [disabled]="!paymentMethodChecked()" 
+          class="btn btn-success btn-sm btn-block" (click)="checkout()">
+             <span *ngIf="!checkingout">CHECK OUT</span> <app-small-spinner *ngIf="checkingout">
+             </app-small-spinner> </button>
         </div>
       </div>
     </div>

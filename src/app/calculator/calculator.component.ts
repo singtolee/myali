@@ -28,6 +28,7 @@ export class CalculatorComponent implements OnInit, OnDestroy {
   usub: Subscription;
   cssub:Subscription;
   costSheet;
+  adding:boolean=false;
 
   constructor(private auth: AuthService, private psku: PassSkuService, private afs: AngularFirestore, public dialog: MatDialog, private cs: CmsService, private modalService: NgbModal) { }
 
@@ -121,20 +122,9 @@ export class CalculatorComponent implements OnInit, OnDestroy {
 
   }
 
-  buynow(ele) {
+  add2cart() {
     if (this.user) {
-     //add to cart and go to user page to checkout
-     ele.textContent = "submmiting"
-    } else {
-      this.dialog.open(LoginFirstDialog, {
-        width: '250px',
-        data:{msg:'Please login first.'}
-      });
-    }
-  }
-  add2cart(ele) {
-    if (this.user) {
-      ele.textContent = "Submmiting..."
+      this.adding = !this.adding;
       const p = this.pc()
       const data = {
         name: this.pname,
@@ -154,7 +144,7 @@ export class CalculatorComponent implements OnInit, OnDestroy {
       }
 
       this.afs.collection('CARTS').add(data).then(() => {
-        ele.textContent = "Add Cart"
+        this.adding = !this.adding;
         this.dialog.open(Add2CartDialog,{
           width:'250px',
           data:{qty:this.getTot()}

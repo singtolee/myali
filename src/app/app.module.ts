@@ -54,6 +54,8 @@ import { StatusBarComponent } from './status-bar/status-bar.component';
 import { FectchBankAccountComponent } from './fectch-bank-account/fectch-bank-account.component';
 import { CarouselComponent } from './carousel/carousel.component';
 import { ImageZoomViewComponent } from './image-zoom-view/image-zoom-view.component';
+import { SmallSpinnerComponent } from './small-spinner/small-spinner.component';
+import { MsgComponent } from './msg/msg.component';
 export const firebaseConfig = environment.firebaseConfig;
 
 @NgModule({
@@ -87,7 +89,9 @@ export const firebaseConfig = environment.firebaseConfig;
     StatusBarComponent,
     FectchBankAccountComponent,
     CarouselComponent,
-    ImageZoomViewComponent
+    ImageZoomViewComponent,
+    SmallSpinnerComponent,
+    MsgComponent
   ],
   imports: [
     BrowserModule,
@@ -120,7 +124,8 @@ export const firebaseConfig = environment.firebaseConfig;
     Add2CartDialog,
     LoginFirstDialog,
     CarouselComponent,
-    ImageZoomViewComponent
+    ImageZoomViewComponent,
+    MsgComponent
   ],
   providers: [{provide:LOCALE_ID,useValue:'th'}],
   bootstrap: [AppComponent]
