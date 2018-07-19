@@ -11,7 +11,6 @@ import { LoadPrd, LoadMore, StartSpinner, StopSpinner } from './../actions/prd.a
 
 import { ScrollPositionRestoreService } from '../scroll-position-restore.service';
 import { ViewportScroller } from '@angular/common';
-import { stat } from 'fs';
 
 @Component({
   selector: 'app-product-list',
