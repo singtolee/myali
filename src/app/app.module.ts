@@ -56,6 +56,7 @@ import { CarouselComponent } from './carousel/carousel.component';
 import { ImageZoomViewComponent } from './image-zoom-view/image-zoom-view.component';
 import { SmallSpinnerComponent } from './small-spinner/small-spinner.component';
 import { MsgComponent } from './msg/msg.component';
+import { RatingComponent } from './rating/rating.component';
 export const firebaseConfig = environment.firebaseConfig;
 
 @NgModule({
@@ -91,7 +92,8 @@ export const firebaseConfig = environment.firebaseConfig;
     CarouselComponent,
     ImageZoomViewComponent,
     SmallSpinnerComponent,
-    MsgComponent
+    MsgComponent,
+    RatingComponent
   ],
   imports: [
     BrowserModule,

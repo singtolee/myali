@@ -16,6 +16,7 @@ export class LoadService {
     return this.afs.collection<Product>(this.dir, ref => {
       return ref.where(p.key, "==", p.cate)
       .where('status','==', true)
+      .orderBy("original_price","asc")
       .orderBy("score", "desc")
       .orderBy("comment_count", "desc")
       .limit(40)
@@ -26,6 +27,7 @@ export class LoadService {
     return this.afs.collection<Product>(this.dir, ref => {
       return ref.where(p.key, "==", p.cate)
       .where('status','==',true)
+      .orderBy("original_price","asc")
       .orderBy("score", "desc")
       .orderBy("comment_count", "desc")
       .startAfter(p.doc)

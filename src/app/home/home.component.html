@@ -15,7 +15,10 @@
           <span class="text-danger font-weight-bold">{{prd.price | cny2thb}}</span>
           <span class="float-right badge badge-success">{{prd.sales_count}}sold</span>
         </div>
-        <p class="text-info card-subtitle pl-1 pr-1">สั่งซื้อขั้นต่ำ:{{prd.trade_info[0].min_num}} pcs</p>
+        <div class="card-subtitle pl-1 pr-1">
+          <span class="text-info">สั่งซื้อขั้นต่ำ:{{prd.trade_info[0].min_num}} pcs</span>
+          <span class="float-right"><app-rating [rate]="prd.score"></app-rating></span>
+        </div> 
         <p class="clip card-text font-weight-light pl-1 pr-1">
           <small>{{prd.name}}</small>
         </p>

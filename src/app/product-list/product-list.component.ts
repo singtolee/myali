@@ -21,8 +21,12 @@ export class ProductListComponent implements OnInit, AfterViewChecked {
 prds: Observable<Product[]>;
 category;
 isLoading:boolean = true;
-constructor(private route: ActivatedRoute, private data: PassPrdObjectService,private store:Store,private spr:ScrollPositionRestoreService,private vps:ViewportScroller) {
-}
+constructor(private route: ActivatedRoute, 
+            private data: PassPrdObjectService,
+            private store:Store,
+            private spr:ScrollPositionRestoreService,
+            private vps:ViewportScroller
+          ) {}
   ngOnInit() {
     this.route.paramMap.subscribe((para: ParamMap) => {
       this.category = para.get('category');
@@ -42,6 +46,7 @@ constructor(private route: ActivatedRoute, private data: PassPrdObjectService,pr
   }
 
   loadmore(){
+    this.spr.setPosition(this.vps.getScrollPosition())
     this.isLoading = true
     this.store.dispatch(new LoadMore({key:'keyword',cate:this.category})).subscribe(() => this.isLoading = false);
   }
