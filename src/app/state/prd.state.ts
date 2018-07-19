@@ -1,19 +1,22 @@
 import { State,Action,StateContext,Selector } from '@ngxs/store';
-import { LoadPrd,LoadMore } from './../actions/prd.actions';
+import { LoadPrd, LoadMore, StartSpinner, StopSpinner } from './../actions/prd.actions';
 import { LoadService } from '../load.service';
 import { state } from '@angular/animations';
 import { last, map, tap, take, takeLast } from 'rxjs/operators'
+import { start } from 'repl';
 
 export class PrdStateModel {
     prds : Map<string,Array<any>>;
     docs : Map<string,any>;
+    isLoading: boolean;
 }
 
 @State<PrdStateModel>({
     name: 'mDB',
     defaults:{
         prds:new Map(),
-        docs:new Map()
+        docs:new Map(),
+        isLoading:true
     }
 })
 
@@ -29,6 +32,7 @@ export class PrdState {
 
         const da = this.ld.loadprd(payload)
         da.valueChanges().pipe(take(1)).subscribe(b=>{
+            patchState({isLoading:getState().isLoading = false})
             patchState({prds:getState().prds.set(payload.cate,b)})
         })
         da.snapshotChanges().pipe(take(1)).subscribe(v=>{
@@ -42,6 +46,7 @@ export class PrdState {
         const doc = getState().docs.get(payload.cate)
         const mo = this.ld.loadmore({key:payload.key, cate:payload.cate, doc:doc})
         mo.valueChanges().pipe(take(1)).subscribe(m=>{
+            patchState({isLoading:getState().isLoading = false})
             const n = [...getState().prds.get(payload.cate),...m]
             patchState({prds:getState().prds.set(payload.cate,n)})
         })
@@ -49,6 +54,16 @@ export class PrdState {
             patchState({docs:getState().docs.set(payload.cate,h.length? h[h.length-1].payload.doc:null)})
         })
 
+    }
+
+    @Action(StartSpinner)
+    start({getState,patchState}:StateContext<PrdStateModel>){
+        patchState({isLoading:getState().isLoading=true})
+    }
+
+    @Action(StopSpinner)
+    stop({getState,patchState}:StateContext<PrdStateModel>){
+        patchState({isLoading:getState().isLoading=false})
     }
 
 }

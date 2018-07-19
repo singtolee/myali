@@ -1,8 +1,10 @@
 <app-banner></app-banner>
 <div class="container">
-  <div class="box" *ngIf="showSpinner">
+  <!--
+    <div class="box" *ngIf="spin">
     <app-loading-spinner></app-loading-spinner>
   </div>
+  -->
   <div class="row">
     <div *ngFor="let prd of homePagePrds | async" class="col-12 col-sm-6 col-md-4 col-lg-3 mb-2 bg-light" (click)="passPrd(prd)"
       [routerLink]="['/product',prd.pid]">
@@ -25,13 +27,17 @@
       </div>
     </div>
   </div>
-  <div *ngIf="isLoading">
-    <app-loading-spinner></app-loading-spinner>
-  </div>
   <div class="container">
       <div class="row justify-content-md-center">
           <div class="col col-12 col-md-8">
-            <button (click)="loadmore()" type="button" class="btn btn-primary btn-sm btn-block mb-2"><i class="fas fa-download mr-2"></i>Load more...</button>
+            <button (click)="loadmore()" type="button" class="btn btn-primary btn-sm btn-block mb-2">
+              <span *ngIf="!spin">
+                <i class="fas fa-download mr-2"></i>Load more...
+              </span>
+              <span *ngIf="spin">
+                <app-small-spinner></app-small-spinner>
+              </span>
+            </button>
           </div>
       </div>
   </div>

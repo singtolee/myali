@@ -1,11 +1,11 @@
-import { Component, OnInit, AfterViewChecked } from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterViewChecked } from '@angular/core';
 import { Product } from '../tools/Product';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { take } from 'rxjs/operators'
 import { PassPrdObjectService } from '../pass-prd-object.service';
 import { Store, Select } from '@ngxs/store';
 import { PrdState } from './../state/prd.state'
-import { LoadPrd, LoadMore } from './../actions/prd.actions';
+import { LoadPrd, LoadMore, StartSpinner, StopSpinner } from './../actions/prd.actions';
 import { ScrollPositionRestoreService } from '../scroll-position-restore.service';
 import { ViewportScroller } from '@angular/common';
 
@@ -14,10 +14,9 @@ import { ViewportScroller } from '@angular/common';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent implements OnInit, AfterViewChecked {
-
-  isLoading:boolean = false;
-  showSpinner:boolean = true;
+export class HomeComponent implements OnInit, OnDestroy, AfterViewChecked {
+  spin:boolean
+  spinSub:Subscription
 
   homePagePrds:Observable<Product[]>;
 
@@ -28,15 +27,20 @@ export class HomeComponent implements OnInit, AfterViewChecked {
             ) {}
 
   ngOnInit() {
+    this.spinSub = this.store.select(state=>state.mDB.isLoading).subscribe(b=>this.spin=b)
     this.homePagePrds = this.store.select(state=>state.mDB.prds.get('home'));
     this.store.select(state=>state.mDB.prds.get('home')).pipe(take(1)).subscribe(b=>{
       if(b){
-        this.showSpinner=false
-      }else {
-        this.store.dispatch(new LoadPrd({key:'isHomePagePrd',cate:'home'})).subscribe(() => this.showSpinner = false);
+        this.store.dispatch(new StopSpinner)
+      }else{
+        this.store.dispatch(new LoadPrd({key:'isHomePagePrd',cate:'home'}))
       }
     })
 
+  }
+
+  ngOnDestroy(){
+    this.spinSub.unsubscribe()
   }
 
   ngAfterViewChecked(){
@@ -45,8 +49,8 @@ export class HomeComponent implements OnInit, AfterViewChecked {
 
   loadmore(){
     this.spr.setPosition(this.vps.getScrollPosition())
-    this.isLoading = true
-    this.store.dispatch(new LoadMore({key:'isHomePagePrd',cate:'home'})).subscribe(() => this.isLoading = false);
+    this.store.dispatch(new StartSpinner)
+    this.store.dispatch(new LoadMore({key:'isHomePagePrd',cate:'home'}))
   }
 
   passPrd(prd:Product){
