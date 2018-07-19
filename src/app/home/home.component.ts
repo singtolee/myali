@@ -17,6 +17,7 @@ import { ViewportScroller } from '@angular/common';
 export class HomeComponent implements OnInit, OnDestroy, AfterViewChecked {
   spin:boolean
   spinSub:Subscription
+  isDone:Observable<boolean>
 
   homePagePrds:Observable<Product[]>;
 
@@ -28,6 +29,7 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewChecked {
 
   ngOnInit() {
     this.spinSub = this.store.select(state=>state.mDB.isLoading).subscribe(b=>this.spin=b)
+    this.isDone = this.store.select(state=>state.mDB.isDone.get('home'));
     this.homePagePrds = this.store.select(state=>state.mDB.prds.get('home'));
     this.store.select(state=>state.mDB.prds.get('home')).pipe(take(1)).subscribe(b=>{
       if(b){

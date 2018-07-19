@@ -11,6 +11,7 @@ import { LoadPrd, LoadMore, StartSpinner, StopSpinner } from './../actions/prd.a
 
 import { ScrollPositionRestoreService } from '../scroll-position-restore.service';
 import { ViewportScroller } from '@angular/common';
+import { stat } from 'fs';
 
 @Component({
   selector: 'app-product-list',
@@ -22,6 +23,7 @@ prds: Observable<Product[]>;
 category;
 spin:boolean
 spinSub:Subscription
+isDone:Observable<boolean>
 constructor(private route: ActivatedRoute, 
             private data: PassPrdObjectService,
             private store:Store,
@@ -33,14 +35,13 @@ constructor(private route: ActivatedRoute,
     this.route.paramMap.subscribe((para: ParamMap) => {
       this.category = para.get('category');
       this.spinSub = this.store.select(state=>state.mDB.isLoading).subscribe(b=>this.spin=b)
-
+      this.isDone = this.store.select(state=>state.mDB.isDone.get(this.category))
       this.prds = this.store.select(state=>state.mDB.prds.get(this.category))
       this.store.select(state=>state.mDB.prds.get(this.category)).pipe(take(1)).subscribe(b=>{
         if(b){
           this.store.dispatch(new StopSpinner)
         }else {
           this.store.dispatch(new LoadPrd({key:'keyword',cate:this.category}))
-          //.subscribe(() => this.isLoading = false);
         }
       })
     });
@@ -58,7 +59,6 @@ constructor(private route: ActivatedRoute,
     this.spr.setPosition(this.vps.getScrollPosition())
     this.store.dispatch(new StartSpinner)
     this.store.dispatch(new LoadMore({key:'keyword',cate:this.category}))
-    //.subscribe(() => this.isLoading = false);
   }
 
   passPrd(prd:Product){

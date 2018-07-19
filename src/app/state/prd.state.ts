@@ -9,6 +9,7 @@ export class PrdStateModel {
     prds : Map<string,Array<any>>;
     docs : Map<string,any>;
     isLoading: boolean;
+    isDone : Map<string, boolean>
 }
 
 @State<PrdStateModel>({
@@ -16,7 +17,8 @@ export class PrdStateModel {
     defaults:{
         prds:new Map(),
         docs:new Map(),
-        isLoading:true
+        isLoading:true,
+        isDone : new Map()
     }
 })
 
@@ -36,6 +38,11 @@ export class PrdState {
             patchState({prds:getState().prds.set(payload.cate,b)})
         })
         da.snapshotChanges().pipe(take(1)).subscribe(v=>{
+            if(v.length){
+                patchState({isDone:getState().isDone.set(payload.cate,false)})
+            }else {
+                patchState({isDone:getState().isDone.set(payload.cate,true)})
+            }
             patchState({docs:getState().docs.set(payload.cate,v.length? v[v.length-1].payload.doc:null)})
         })
        
@@ -51,6 +58,11 @@ export class PrdState {
             patchState({prds:getState().prds.set(payload.cate,n)})
         })
         mo.snapshotChanges().pipe(take(1)).subscribe(h=>{
+            if(h.length){
+                patchState({isDone:getState().isDone.set(payload.cate,false)})
+            }else{
+                patchState({isDone:getState().isDone.set(payload.cate,true)})
+            }
             patchState({docs:getState().docs.set(payload.cate,h.length? h[h.length-1].payload.doc:null)})
         })
 
