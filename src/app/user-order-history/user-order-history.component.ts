@@ -1,5 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AngularFirestore } from 'angularfire2/firestore';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ImageZoomViewComponent } from '../image-zoom-view/image-zoom-view.component';
 import { AuthService } from '../auth.service';
 import { Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators'
@@ -24,7 +26,9 @@ export class UserOrderHistoryComponent implements OnInit,OnDestroy {
   dir = "ORDERS";
   orders:Observable<any>;
 
-  constructor(private auth: AuthService,private db: AngularFirestore) { }
+  constructor(private auth: AuthService,
+              private db: AngularFirestore,
+              private modalService: NgbModal) { }
 
   ngOnInit() {
     this.sub = this.auth.user.subscribe((user)=>{
@@ -73,6 +77,18 @@ export class UserOrderHistoryComponent implements OnInit,OnDestroy {
       return false
     }
 
+  }
+
+  plusdays(a){
+    var da = new Date(this.convert(a))
+    return da.setDate(da.getDate()+15)
+
+
+  }
+
+  showbill(bill:string){
+    const modalRef = this.modalService.open(ImageZoomViewComponent,{centered:true});
+    modalRef.componentInstance.image = bill;
   }
 
 }

@@ -37,7 +37,11 @@ export class UserCartComponent implements OnInit, OnDestroy {
   billSub:Subscription;
   billUrl:string;
 
-  constructor(private auth: AuthService,private db: AngularFirestore, private storage: AngularFireStorage, private cs: CmsService, private modalService: NgbModal) {
+  constructor(private auth: AuthService,
+              private db: AngularFirestore, 
+              private storage: AngularFireStorage, 
+              private cs: CmsService, 
+              private modalService: NgbModal) {
   }
 
   ngOnInit() {
