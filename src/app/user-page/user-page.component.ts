@@ -1,7 +1,4 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { AuthService } from '../auth.service';
-import { AngularFirestore, AngularFirestoreDocument } from 'angularfire2/firestore';
-import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-user-page',
@@ -9,12 +6,9 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./user-page.component.css']
 })
 export class UserPageComponent implements OnInit, OnDestroy {
-  user;
-  usub: Subscription;
-  asub:Subscription;
   currentJustify = 'fill';
 
-  constructor(public auth: AuthService,private db:AngularFirestore) {
+  constructor() {
    }
 
   ngOnInit() {
