@@ -1,6 +1,6 @@
 <div *ngIf="carts; let items">
   <div class="row">
-    <div *ngFor="let cart of items" class="col-12">
+    <div *ngFor="let cart of items" class="col-12 mb-3">
       <div class="card mt-1">
         <div class="card-header">
           <div class="d-flex v-align">
@@ -109,7 +109,7 @@
     </div>
   </div>
   <div *ngIf="items.length === 0">
-    <div class="card text-center mt-1">
+    <div class="card text-center mt-1 mb-3">
       <div class="card-body">
         <p>
           <i class="fas fa-shopping-cart fa-2x"></i>
