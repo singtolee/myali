@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { AngularFireStorage, AngularFireUploadTask } from 'angularfire2/storage';
-import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ImageZoomViewComponent } from '../image-zoom-view/image-zoom-view.component';
 import { MsgComponent } from '../msg/msg.component'; 
 import { AuthService } from '../auth.service';

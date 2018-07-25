@@ -1,5 +1,10 @@
 <div class="d-flex align-items-center m-1">
-    <div>{{size.desc}}</div>
+    <div *ngIf="size.image; else des">
+        <img [src]="size.image" height="30px" width="30px" class="rounded">
+    </div>
+    <ng-template #des>
+        <div>{{size.desc}}</div>
+    </ng-template>
     <div class="dc"></div>
     <div class="">
         <div class="input-group input-group sm">

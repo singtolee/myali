@@ -6,7 +6,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
   styleUrls: ['./user-page.component.css']
 })
 export class UserPageComponent implements OnInit, OnDestroy {
-  currentJustify = 'fill';
+  isLoading:boolean = true
 
   constructor() {
    }
