@@ -76,7 +76,7 @@ export class CalculatorComponent implements OnInit, OnDestroy {
     for (var j = 0; j < this.info.length; j++) {
       if (tot >= this.str2num(this.info[j].min_num)) {
         p = { qty: tot, 
-          sc: tot * this.uw * this.costSheet.land,
+          sc: Math.ceil(tot * this.uw * this.costSheet.land),
           price: tot * this.str2prc(this.info[j].price), 
           cp: this.str2prc(this.info[j].price),
           sugPrice: Math.ceil(this.str2prc(this.info[j].price)*2/100)*100-1, }
