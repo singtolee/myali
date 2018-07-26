@@ -79,10 +79,17 @@ export class CalculatorComponent implements OnInit, OnDestroy {
           sc: Math.ceil(tot * this.uw * this.costSheet.land),
           price: tot * this.str2prc(this.info[j].price), 
           cp: this.str2prc(this.info[j].price),
-          sugPrice: Math.ceil(this.str2prc(this.info[j].price)*2/100)*100-1, }
+          sugPrice: this.makePrice(this.info[j].price)
+        }
       }
     }
     return p
+  }
+
+  makePrice(str:string){
+    const p = this.str2prc(str)
+    return Math.ceil(p*2/10)*10
+
   }
 
   str2prc(a) {
@@ -139,7 +146,7 @@ export class CalculatorComponent implements OnInit, OnDestroy {
         shippingCost:p.sc,
         imageUrl:this.image,
         sugPrice: p.sugPrice,
-        earn:p.qty*(p.sugPrice-p.cp-this.uw*this.costSheet.land),
+        earn: p.qty*(p.sugPrice-p.cp) -p.sc,
         checked:true
       }
 

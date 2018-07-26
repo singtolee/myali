@@ -69,7 +69,7 @@
 </div>
 <hr class="line">
 <div *ngIf="!overMin(); else over">
-  <p class="text-danger">Minimun order is {{info[0].min_num}} pcs</p>
+  <p class="text-danger text-center">Minimun order is {{info[0].min_num}} pcs</p>
 </div>
 <ng-template #over>
   <div *ngIf="pc(); let p">
