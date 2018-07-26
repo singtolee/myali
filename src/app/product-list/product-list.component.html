@@ -12,7 +12,7 @@
         </div>
         <div class="pt-1 pl-1 pr-1 card-title">
           <span class="text-danger font-weight-bold">{{prd.price | cny2thb}}</span>
-          <span class="float-right badge badge-success">{{prd.sales_count}}sold</span>
+          <span class="float-right badge badge-success">{{prd.sales_count || 0}} sold</span>
         </div>
         <div class="card-subtitle pl-1 pr-1">
           <span class="text-info">สั่งซื้อขั้นต่ำ:{{prd.trade_info[0].min_num}} pcs</span>
@@ -21,7 +21,7 @@
           </span>
         </div>
         <p class="clip pl-1 pr-1 font-weight-light card-text">
-          <small>{{prd.name}}</small>
+          <small>{{prd.thName}}</small>
         </p>
       </div>
     </div>

@@ -3,8 +3,7 @@ import { Product } from '../tools/Product';
 import { Observable, Subscription } from 'rxjs';
 import { take } from 'rxjs/operators'
 import { PassPrdObjectService } from '../pass-prd-object.service';
-import { Store, Select } from '@ngxs/store';
-import { PrdState } from './../state/prd.state'
+import { Store } from '@ngxs/store';
 import { LoadPrd, LoadMore, StartSpinner, StopSpinner } from './../actions/prd.actions';
 import { ScrollPositionRestoreService } from '../scroll-position-restore.service';
 import { ViewportScroller } from '@angular/common';

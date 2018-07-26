@@ -1,12 +1,11 @@
 import { Component, OnInit, OnDestroy, AfterViewChecked } from '@angular/core';
-import { ActivatedRoute, ParamMap, ActivatedRouteSnapshot } from '@angular/router';
+import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
 import { take } from 'rxjs/operators'
 import { Product } from '../tools/Product';
 import { PassPrdObjectService } from '../pass-prd-object.service';
 
-import { Store, Select } from '@ngxs/store';
-import { PrdState } from './../state/prd.state'
+import { Store } from '@ngxs/store';
 import { LoadPrd, LoadMore, StartSpinner, StopSpinner } from './../actions/prd.actions';
 
 import { ScrollPositionRestoreService } from '../scroll-position-restore.service';
