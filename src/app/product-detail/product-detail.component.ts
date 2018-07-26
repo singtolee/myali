@@ -3,7 +3,6 @@ import { ActivatedRoute, ParamMap } from '@angular/router';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { Product } from '../tools/Product';
 import { PassPrdObjectService } from '../pass-prd-object.service';
-import { take } from 'rxjs/operators'
 import { ViewportScroller, Location } from '@angular/common'
 
 @Component({
@@ -17,7 +16,11 @@ export class ProductDetailComponent implements OnInit {
   product:Product;
 
 
-  constructor(private route: ActivatedRoute,private data:PassPrdObjectService,private db:AngularFirestore, private vps:ViewportScroller, private location: Location) { }
+  constructor(private route: ActivatedRoute,
+              private data:PassPrdObjectService,
+              private db:AngularFirestore, 
+              private vps:ViewportScroller, 
+              private location: Location) { }
 
   ngOnInit() {
     this.data.currentProduct.subscribe(prd =>this.product = prd);

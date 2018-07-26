@@ -3,17 +3,17 @@
     <p class="small text-center">{{c.name}}</p>
   </div>
   <div class="row">
-    <div *ngFor="let item of c.items" class="col-6 col-md-4 col-lg-3">
+    <div *ngFor="let item of c.items" class="col-12 col-md-6 col-lg-4">
       <div *ngIf="item.sku.image; else noimg">
         <img [src]="item.sku.image" class="rounded" height="35px" width="35px" [routerLink]="['/product',c.pid]">
-        <span class="badge badge-danger ml-1">
-          <small>{{item.size.desc}}*{{item.qty}} pcs</small>
+        <span class="badge badge-light ml-1">
+          <small>{{item.size.thDesc}}*{{item.qty}} pcs</small>
         </span>
       </div>
       <ng-template #noimg>
         <img [src]="c.imageUrl" class="rounded" height="35px" width="35px" [routerLink]="['/product',c.pid]">
-        <span class="badge badge-danger ml-1">
-          <small>{{item.size.desc}}*{{item.qty}} pcs</small>
+        <span class="badge badge-light ml-1">
+          <small>{{item.sku.thDesc}}@{{item.size.thDesc}}*{{item.qty}} pcs</small>
         </span>
       </ng-template>
     </div>

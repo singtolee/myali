@@ -13,6 +13,7 @@ export class Cart {
   earn:number;
   shippingCost:number;
   sugPrice:number;
+  ordered:boolean;
   
 
 }

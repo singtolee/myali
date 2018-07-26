@@ -3,7 +3,7 @@
     <div *ngIf="s.values[0].image; else noImage">
       <div class="card">
         <div class="card-header">
-          {{s.label}}
+          {{s.thLabel}}
         </div>
         <div class="card-body">
           <span *ngFor="let val of s.values" class="mr-1">
@@ -15,11 +15,11 @@
     <ng-template #noImage>
       <div class="card">
         <div class="card-header">
-          {{s.label}}
+          {{s.thLabel}}
         </div>
         <div class="card-body">
           <span *ngFor="let val of s.values" class="mr-1">
-            <button type="button" class="btn btn-outline-secondary btn-sm">{{val.desc}}</button>
+            <button type="button" class="btn btn-outline-secondary btn-sm">{{val.thDesc}}</button>
           </span>
         </div>
       </div>
@@ -45,7 +45,7 @@
           <mat-tab-group>
             <mat-tab *ngFor="let val of sku[0].values">
               <ng-template mat-tab-label>
-                {{val.desc}}
+                {{val.thDesc}}
               </ng-template>
               <div *ngFor="let co of sku[1].values">
                 <app-qtypicker [size]="co" [color]="val"></app-qtypicker>

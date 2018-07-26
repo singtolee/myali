@@ -7,6 +7,9 @@ import { Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators'
 
 interface Order {
+  billUrl:string;
+  discount:number;
+  paymentMe:string;
   grandTotal:number;
   shippingCost:number;
   time:Date;

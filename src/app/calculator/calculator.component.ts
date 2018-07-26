@@ -6,7 +6,7 @@ import { CmsService } from '../cms.service';
 import { PassSkuService } from '../pass-sku.service';
 import { Subscription } from 'rxjs';
 
-import {NgbModal, NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CarouselComponent } from '../carousel/carousel.component';
 
 @Component({
