@@ -29,7 +29,10 @@
                   <ng-template #desc>
                     <img [src]="cart.data.imageUrl" class="rounded" height="35px" width="35px" [routerLink]="['/product',cart.data.pid]">
                     <span class="badge badge-light ml-1">
-                      <small>{{item.sku.thDesc}}@{{item.size.thDesc}}*{{item.qty}} pcs</small>
+                      <small *ngIf="item.sku.thDesc!=item.size.thDesc; else disone">{{item.sku.thDesc}}@{{item.size.thDesc}}*{{item.qty}} pcs</small>
+                      <ng-template #disone>
+                        <small>{{item.size.thDesc}}*{{item.qty}} pcs</small>
+                      </ng-template>
                     </span>
                   </ng-template>
                 </div>
