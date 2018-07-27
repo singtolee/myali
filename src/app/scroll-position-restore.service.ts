@@ -6,8 +6,22 @@ import { Injectable } from '@angular/core';
 export class ScrollPositionRestoreService {
 
   private position;
+  private needResetPosition:boolean = false;
 
   constructor() {}
+
+
+  needReset(){
+    this.needResetPosition = true
+  }
+
+  noNeedReset(){
+    this.needResetPosition = false
+  }
+
+  isNeed(){
+    return this.needResetPosition
+  }
 
   getPosition(){
     return this.position
@@ -20,6 +34,8 @@ export class ScrollPositionRestoreService {
   resetPosition(){
     this.position = [0,0]
   }
+
+
 
 
 }

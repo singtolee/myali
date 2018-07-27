@@ -50,11 +50,15 @@ constructor(private route: ActivatedRoute,
   }
 
   ngAfterViewChecked(){
-    this.vps.scrollToPosition(this.spr.getPosition()?this.spr.getPosition():[0,0])
+    if(this.spr.isNeed()){
+      this.vps.scrollToPosition(this.spr.getPosition())
+      this.spr.noNeedReset()
+    }
+    //this.vps.scrollToPosition(this.spr.getPosition()?this.spr.getPosition():[0,0])
   }
 
   loadmore(){
-    this.spr.setPosition(this.vps.getScrollPosition())
+    //this.spr.setPosition(this.vps.getScrollPosition())
     this.store.dispatch(new StartSpinner)
     this.store.dispatch(new LoadMore({key:'keyword',cate:this.category}))
   }
@@ -62,6 +66,7 @@ constructor(private route: ActivatedRoute,
   passPrd(prd:Product){
     this.data.changeProduct(prd);
     this.spr.setPosition(this.vps.getScrollPosition())
+    this.spr.needReset();
   }
 
 }

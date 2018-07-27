@@ -33,7 +33,7 @@ export class CategoryListComponent implements OnInit {
   }
 
   clearposition(){
-    this.spr.resetPosition()
+    //this.spr.resetPosition()
   }
 
 }
