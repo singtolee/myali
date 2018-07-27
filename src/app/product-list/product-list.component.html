@@ -1,9 +1,7 @@
+<div class="box" *ngIf="isLoading">
+  <app-loading-spinner></app-loading-spinner>
+</div>
 <div class="container">
-  <!--
-    <div class="box" *ngIf="spin">
-        <app-loading-spinner></app-loading-spinner>
-      </div>
-  -->
   <div class="row" *ngIf="prds">
     <div *ngFor="let prd of prds | async" class="col-sm-12 col-md-4 col-lg-3 mb-2 bg-light" (click)="passPrd(prd)" [routerLink]="['/product',prd.pid]">
       <div class="card">
@@ -30,10 +28,11 @@
     <div class="row justify-content-md-center">
       <div class="col col-12 col-md-8">
         <button (click)="loadmore()" [disabled]="isDone | async" type="button" class="btn btn-info btn-sm btn-block mt-2 mb-3">
-          <span *ngIf="!spin"><i class="fas fa-download mr-2"></i>Load more...</span>
+          <span *ngIf="!spin">
+            <i class="fas fa-download mr-2"></i>Load more...</span>
           <span *ngIf="spin">
             <app-small-spinner></app-small-spinner>
-          </span>   
+          </span>
         </button>
       </div>
     </div>
