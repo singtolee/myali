@@ -3,7 +3,7 @@ import { AngularFirestore } from 'angularfire2/firestore';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ImageZoomViewComponent } from '../image-zoom-view/image-zoom-view.component';
 import { AuthService } from '../auth.service';
-import { Observable, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { map } from 'rxjs/operators'
 
 interface Order {
