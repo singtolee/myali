@@ -1,4 +1,7 @@
-<div *ngIf="orders | async; let items">
+<div *ngIf="isLoading">
+    <app-loading-spinner class="m-5"></app-loading-spinner>
+  </div>
+<div *ngIf="orders; let items">
   <div class="row">
     <div *ngFor="let cart of items" class="col-12 mb-3">
       <div class="card mt-1">

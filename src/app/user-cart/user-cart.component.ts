@@ -37,6 +37,8 @@ export class UserCartComponent implements OnInit, OnDestroy {
   billSub:Subscription;
   billUrl:string;
 
+  isLoading:boolean = true;
+
   constructor(private auth: AuthService,
               private db: AngularFirestore, 
               private storage: AngularFireStorage, 
@@ -49,7 +51,10 @@ export class UserCartComponent implements OnInit, OnDestroy {
     this.sub = this.auth.user.subscribe((user)=>{
       this.user = user;
       if(user){
-        this.cartSub = this.loadCart2(user.uid).subscribe(c=>this.carts=c)
+        this.cartSub = this.loadCart2(user.uid).subscribe(c=>{
+          this.carts = c;
+          this.isLoading = false; 
+        })
       }
     })
   }
