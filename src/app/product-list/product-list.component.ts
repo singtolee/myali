@@ -22,6 +22,8 @@ category;
 spin:boolean
 spinSub:Subscription
 isDone:Observable<boolean>
+
+isLoading:boolean = true;
 constructor(private route: ActivatedRoute, 
             private data: PassPrdObjectService,
             private store:Store,
@@ -32,7 +34,12 @@ constructor(private route: ActivatedRoute,
     this.store.dispatch(new StartSpinner)
     this.route.paramMap.subscribe((para: ParamMap) => {
       this.category = para.get('category');
-      this.spinSub = this.store.select(state=>state.mDB.isLoading).subscribe(b=>this.spin=b)
+      this.spinSub = this.store.select(state=>state.mDB.isLoading).subscribe(b=>{
+        this.spin=b;
+        if(!this.spin){
+          this.isLoading = false
+        }
+      })
       this.isDone = this.store.select(state=>state.mDB.isDone.get(this.category))
       this.prds = this.store.select(state=>state.mDB.prds.get(this.category))
       this.store.select(state=>state.mDB.prds.get(this.category)).pipe(take(1)).subscribe(b=>{

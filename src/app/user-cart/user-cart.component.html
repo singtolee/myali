@@ -1,3 +1,6 @@
+<div *ngIf="isLoading">
+  <app-loading-spinner class="m-5"></app-loading-spinner>
+</div>
 <div *ngIf="carts; let items">
   <div class="row">
     <div *ngFor="let cart of items" class="col-12 mb-3">
@@ -80,7 +83,13 @@
           <div *ngIf="paymentMethod == 'bank';else cod">
             <small class="text-info mb-1">Scan QR code pay
               <span class="text-danger">{{cal().t+cal().s - costSheet.bankTransferDiscount}} Baht</span>, and upload the bill.</small>
-              <app-fectch-bank-account></app-fectch-bank-account>
+              <div class="container">
+                  <div class="row justify-content-center">
+                    <div class="col-8">
+                      <app-fectch-bank-account></app-fectch-bank-account>
+                    </div>
+                  </div>
+                </div>
             <label class="btn btn-block btn-outline-info btn-sm mt-1">
               <i class="fas fa-cloud-upload-alt mr-1"></i>upload tranfer bill
               <input type="file" (change)="startUpload($event.target.files)" accept="image/*" style="display: none;">

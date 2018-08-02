@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { AuthService } from '../auth.service';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialog, MatDialogRef } from '@angular/material';
 
 @Component({
   selector: 'app-user',
@@ -14,7 +14,7 @@ export class UserComponent implements OnInit {
   ngOnInit() { }
   openDialog(): void {
     let dialogRef = this.dialog.open(LoginDialog, {
-      width: '450px',
+      width: '550px',
       height: '600px',
     });
     dialogRef.afterClosed().subscribe();

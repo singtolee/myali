@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Output, EventEmitter } from '@angular/core';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { AngularFireStorage, AngularFireUploadTask } from 'angularfire2/storage';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -37,6 +37,9 @@ export class UserCartComponent implements OnInit, OnDestroy {
   billSub:Subscription;
   billUrl:string;
 
+  isLoading:boolean = true;
+  @Output() public cEvent = new EventEmitter();
+
   constructor(private auth: AuthService,
               private db: AngularFirestore, 
               private storage: AngularFireStorage, 
@@ -49,7 +52,11 @@ export class UserCartComponent implements OnInit, OnDestroy {
     this.sub = this.auth.user.subscribe((user)=>{
       this.user = user;
       if(user){
-        this.cartSub = this.loadCart2(user.uid).subscribe(c=>this.carts=c)
+        this.cartSub = this.loadCart2(user.uid).subscribe(c=>{
+          this.carts = c;
+          this.isLoading = false; 
+          this.cEvent.emit(false);
+        })
       }
     })
   }

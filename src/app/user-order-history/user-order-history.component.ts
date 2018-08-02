@@ -3,7 +3,7 @@ import { AngularFirestore } from 'angularfire2/firestore';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ImageZoomViewComponent } from '../image-zoom-view/image-zoom-view.component';
 import { AuthService } from '../auth.service';
-import { Observable, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { map } from 'rxjs/operators'
 
 interface Order {
@@ -27,7 +27,10 @@ export class UserOrderHistoryComponent implements OnInit,OnDestroy {
   user;
   sub:Subscription;
   dir = "ORDERS";
-  orders:Observable<any>;
+  //orders:Observable<any>;
+  orders:any;
+  oSub:Subscription;
+  isLoading:boolean = true;
 
   constructor(private auth: AuthService,
               private db: AngularFirestore,
@@ -37,13 +40,20 @@ export class UserOrderHistoryComponent implements OnInit,OnDestroy {
     this.sub = this.auth.user.subscribe((user)=>{
       this.user = user;
       if(user){
-        this.orders = this.loadOrders2(user.uid)
+        //this.orders = this.loadOrders2(user.uid)
+        this.oSub = this.loadOrders2(user.uid).subscribe(o=>{
+          this.orders = o;
+          this.isLoading = false;
+        })
       }
     })
   }
 
   ngOnDestroy(){
     this.sub.unsubscribe()
+    if(this.oSub){
+      this.oSub.unsubscribe()
+    }
   }
 
   convert(a){
