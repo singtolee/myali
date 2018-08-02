@@ -69,7 +69,7 @@
 </div>
 <hr class="line">
 <div *ngIf="!overMin(); else over">
-  <p class="text-danger text-center">Minimun order is {{info[0].min_num}} pcs</p>
+  <p class="text-danger text-center">ซื้อขั้นต่ำ {{info[0].min_num}} pcs</p>
 </div>
 <ng-template #over>
   <div *ngIf="pc(); let p">
@@ -84,7 +84,7 @@
 <hr class="line">
 <div>
   <div class="d-flex">
-    <button type="button" [disabled]="!overMin()" class="btn btn-primary flex-fill mr-1" (click)="add2cart()"> <span *ngIf="!adding">ADD TO CART</span><app-small-spinner *ngIf="adding"></app-small-spinner></button>
+    <button type="button" [disabled]="!overMin()" class="btn btn-primary flex-fill mr-1" (click)="add2cart()"> <span *ngIf="!adding">เพิ่มในรถเข็น</span><app-small-spinner *ngIf="adding"></app-small-spinner></button>
     <!--
       <button type="button" [disabled]="!overMin()" class="btn btn-success flex-fill ml-1" (click)="buynow($event.target)">Buy Now</button>
     -->

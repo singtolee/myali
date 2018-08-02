@@ -4,24 +4,7 @@
 <div class="container">
   <div class="row" *ngIf="prds">
     <div *ngFor="let prd of prds | async" class="col-sm-12 col-md-4 col-lg-3 mb-2 bg-light" (click)="passPrd(prd)" [routerLink]="['/product',prd.pid]">
-      <div class="card">
-        <div>
-          <img class="card-img-top" [src]="prd.images[0]">
-        </div>
-        <div class="pt-1 pl-1 pr-1 card-title">
-          <span class="text-danger font-weight-bold">{{prd.price | cny2thb}}</span>
-          <span class="float-right badge badge-success">{{prd.sales_count || 0}} sold</span>
-        </div>
-        <div class="card-subtitle pl-1 pr-1">
-          <span class="text-info">สั่งซื้อขั้นต่ำ:{{prd.trade_info[0].min_num}} pcs</span>
-          <span class="float-right">
-            <app-rating [rate]="prd.score"></app-rating>
-          </span>
-        </div>
-        <p class="clip pl-1 pr-1 font-weight-light card-text">
-          <small>{{prd.thName}}</small>
-        </p>
-      </div>
+     <app-prd-thumbnail-card [prd]="prd"></app-prd-thumbnail-card>
     </div>
   </div>
   <div class="container">

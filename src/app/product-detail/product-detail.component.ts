@@ -14,6 +14,7 @@ export class ProductDetailComponent implements OnInit {
   id;
   showSpinner:boolean = false;
   product:Product;
+  disAbleGoBack:boolean = false;
 
 
   constructor(private route: ActivatedRoute,
@@ -49,6 +50,7 @@ export class ProductDetailComponent implements OnInit {
     this.vps.scrollToPosition([0,0])
   }
   goback(){
+    this.disAbleGoBack = true
     this.location.back()
   }
 

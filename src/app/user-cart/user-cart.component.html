@@ -13,7 +13,7 @@
               <i class="fas fa-calendar-alt"></i>
               <small>{{convert(cart.data.time) | date:'medium':'th'}}</small>
               <small (click)="del(cart.id)">
-                <i class="fas fa-trash mr-1 ml-3"></i>Remove</small>
+                <i class="fas fa-trash mr-1 ml-3"></i>ลบ</small>
             </div>
           </div>
         </div>
@@ -46,13 +46,13 @@
         <div class="card-footer">
           <div>
             <span class="badge badge-success">
-              <small>Total:{{cart.data.total}} THB</small>
+              <small>Total:{{cart.data.total}} บาท</small>
             </span>
             <span class="badge badge-info ml-1">
-              <small>Shipping Cost:{{cart.data.shippingCost}} THB</small>
+              <small>Shipping Cost:{{cart.data.shippingCost}} บาท</small>
             </span>
             <span class="badge badge-danger ml-1">
-              <small>Estimated Profit:{{cart.data.earn}} THB</small>
+              <small>Estimated Profit:{{cart.data.earn}} บาท</small>
             </span>
           </div>
         </div>

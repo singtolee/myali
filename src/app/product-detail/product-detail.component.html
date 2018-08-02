@@ -46,7 +46,7 @@
   </div>
 </div>
 <div id="fab">
-  <button class="btn btn-sm bg-light" (click)="goback()" ><i class="fas fa-chevron-circle-left fa-2x text-danger" ></i></button>
+  <button class="btn btn-sm bg-light" (click)="goback()" [disabled]="disAbleGoBack" ><i class="fas fa-chevron-circle-left fa-2x text-danger" ></i></button>
   <button class="btn btn-sm bg-light" (click)="goup()"> <i class="fas fa-chevron-circle-up fa-2x text-info"></i></button>
   
 </div>

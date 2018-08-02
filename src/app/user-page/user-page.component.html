@@ -13,14 +13,14 @@
         <ngb-tabset type="pills" [justify]="'fill'">
           <ngb-tab>
             <ng-template ngbTabTitle>
-              <i class="fas fa-shopping-cart"></i> Shopping Cart</ng-template>
+              <i class="fas fa-shopping-cart"></i> ตะกร้าช้อปปิ้ง</ng-template>
             <ng-template ngbTabContent>
               <app-user-cart (cEvent)="isLoading=$event"></app-user-cart>
             </ng-template>
           </ngb-tab>
           <ngb-tab>
             <ng-template ngbTabTitle>
-              <i class="fas fa-list-ul"></i> Order History</ng-template>
+              <i class="fas fa-list-ul"></i> ประวัติการสั่งซื้อ</ng-template>
             <ng-template ngbTabContent>
               <app-user-order-history></app-user-order-history>
             </ng-template>

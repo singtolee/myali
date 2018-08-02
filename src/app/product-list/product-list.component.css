@@ -11,10 +11,3 @@
     -ms-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
 }
-
-p.clip {
-    white-space: nowrap;
-    width: 100%;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}

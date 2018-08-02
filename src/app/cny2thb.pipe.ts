@@ -9,12 +9,12 @@ export class Cny2thbPipe implements PipeTransform {
     if(typeof value === 'string'){
       var nums = value.split(/\-+/);
       if(nums.length==1){
-        return Math.ceil(Number(nums[0])*6) + ' THB';
+        return Math.ceil(Number(nums[0])*6) + ' บาท';
       }else {
-        return Math.ceil(Number(nums[0])*6) + '~' + Math.ceil(Number(nums[1])*6) + ' THB';
+        return Math.ceil(Number(nums[0])*6) + '~' + Math.ceil(Number(nums[1])*6) + ' บาท';
       }
     }
-    return Math.ceil(value*6) + ' THB';
+    return Math.ceil(value*6) + ' บาท';
   }
 
 }

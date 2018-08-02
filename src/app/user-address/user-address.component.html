@@ -4,22 +4,22 @@
       <div class="card-header">
         <div class="d-flex align-items-center">
           <div>
-            <i class="fas fa-truck mr-1"></i>Shipping Address</div>
+            <i class="fas fa-truck mr-1"></i>ที่อยู่จัดส่ง</div>
           <div class="dc"></div>
           <div (click)="togediting()">
-            <small>Edit</small><i class="fas fa-edit ml-1"></i>
+            <small>แก้ไข</small><i class="fas fa-edit ml-1"></i>
           </div>
         </div>
       </div>
       <div *ngIf="auth.address | async as add; else noaddress" class="card-body">
         <p class="card-text">
-          <small><strong>Recipient:</strong> {{add.consignee}}</small>
+          <small><i class="fas fa-user"></i><strong>ผู้รับ:</strong> {{add.consignee}}</small>
         </p>
         <p class="card-text">
-          <small><strong>Phone:</strong> {{add.phone}}</small>
+          <small><i class="fas fa-mobile"></i><strong>โทรศัพท์:</strong> {{add.phone}}</small>
         </p>
         <p class="card-text">
-          <small><strong>Address:</strong> {{add.address}},{{add.city}},{{add.postCode}}</small>
+          <small><i class="fas fa-map-marker-alt"></i><strong>ที่อยู่:</strong> {{add.address}},{{add.city}},{{add.postCode}}</small>
         </p>
       </div>
       <ng-template #noaddress>
@@ -35,39 +35,39 @@
     <div class="card-header">
       <div class="d-flex align-items-center">
         <div>
-          <i class="fas fa-truck mr-1"></i>Edit Shipping Address</div>
+          <i class="fas fa-truck mr-1"></i>แก้ไขที่อยู่จัดส่ง</div>
         <div class="dc"></div>
         <div (click)="togediting()">
-          <small>Cancel</small><i class="fas fa-times-circle ml-1"></i>
+          <small>ยกเลิก</small><i class="fas fa-times-circle ml-1"></i>
         </div>
       </div>
     </div>
     <div class="card-body">
       <form role="form" #formData='ngForm' (ngSubmit)="saveAddress(formData)">
         <div class="form-group input-group-sm">
-          <label for="consignee">Consignee name</label>
+          <label for="consignee">ผู้รับ</label>
           <input autofocus type="text" [(ngModel)]="address.consignee" name="consignee" class="form-control" id="consignee" placeholder="Recipient's name"
             required>
         </div>
         <div class="form-group input-group-sm">
-          <label for="phone">Phone Number</label>
+          <label for="phone">โทรศัพท์</label>
           <input type="text" [(ngModel)]="address.phone" name="phone" class="form-control" id="phone" placeholder="Phone Number" required>
         </div>
         <div class="form-group input-group-sm">
-          <label for="city">City</label>
+          <label for="city">เมือง</label>
           <input type="text" [(ngModel)]="address.city" name="city" class="form-control" id="city" placeholder="City" required>
         </div>
         <div class="form-group input-group-sm">
-          <label for="detailAddress">Detail Address</label>
+          <label for="detailAddress">ที่อยู่</label>
           <textarea type="text" [(ngModel)]="address.address" name="address" class="form-control" id="detailAddress" placeholder="Detail Address"
             required></textarea>
         </div>
         <div class="form-group input-group-sm">
-          <label for="postCode">Post Code</label>
+          <label for="postCode">รหัสไปรษณีย์</label>
           <input type="text" [(ngModel)]="address.postCode" name="postCode" class="form-control" id="postCode" placeholder="Post Code"
             required>
         </div>
-        <button type="submit" [disabled]="!formData.valid" class="btn btn-success btn-block btn-sm">Submit</button>
+        <button type="submit" [disabled]="!formData.valid" class="btn btn-success btn-block btn-sm">ตกลง</button>
       </form>
     </div>
   </div>
