@@ -34,6 +34,7 @@ constructor(private route: ActivatedRoute,
     this.store.dispatch(new StartSpinner)
     this.route.paramMap.subscribe((para: ParamMap) => {
       this.category = para.get('category');
+      this.isLoading = true;
       this.spinSub = this.store.select(state=>state.mDB.isLoading).subscribe(b=>{
         this.spin=b;
         if(!this.spin){
@@ -45,6 +46,7 @@ constructor(private route: ActivatedRoute,
       this.store.select(state=>state.mDB.prds.get(this.category)).pipe(take(1)).subscribe(b=>{
         if(b){
           this.store.dispatch(new StopSpinner)
+          this.isLoading = false
         }else {
           this.store.dispatch(new LoadPrd({key:'keyword',cate:this.category}))
         }
@@ -61,11 +63,9 @@ constructor(private route: ActivatedRoute,
       this.vps.scrollToPosition(this.spr.getPosition())
       this.spr.noNeedReset()
     }
-    //this.vps.scrollToPosition(this.spr.getPosition()?this.spr.getPosition():[0,0])
   }
 
   loadmore(){
-    //this.spr.setPosition(this.vps.getScrollPosition())
     this.store.dispatch(new StartSpinner)
     this.store.dispatch(new LoadMore({key:'keyword',cate:this.category}))
   }
