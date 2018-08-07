@@ -14,7 +14,7 @@ export class LoadService {
   loadprd(p:PayLoad2){
     return this.afs.collection<Product>(this.dir, ref => {
       return ref.where(p.key, "==", p.cate)
-      .orderBy("original_price","asc")
+      .orderBy("time","desc")
       .limit(40)
     });
   }
@@ -22,7 +22,7 @@ export class LoadService {
   loadmore(p:PayLoad){
     return this.afs.collection<Product>(this.dir, ref => {
       return ref.where(p.key, "==", p.cate)
-      .orderBy("original_price","asc")
+      .orderBy("time","desc")
       .startAfter(p.doc)
       .limit(40)
     });
