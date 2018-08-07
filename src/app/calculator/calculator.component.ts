@@ -1,5 +1,4 @@
 import { Component, Inject, OnInit, Input, ViewEncapsulation, OnDestroy } from '@angular/core';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { AuthService } from '../auth.service';
 import { CmsService } from '../cms.service';
@@ -8,6 +7,9 @@ import { Subscription } from 'rxjs';
 
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CarouselComponent } from '../carousel/carousel.component';
+import { Add2cartSuccessComponent } from '../add2cart-success/add2cart-success.component';
+import { LoginFirstComponent } from '../login-first/login-first.component';
+import { ErrorMsgComponent } from '../error-msg/error-msg.component';
 
 @Component({
   selector: 'app-calculator',
@@ -33,7 +35,7 @@ export class CalculatorComponent implements OnInit, OnDestroy {
   constructor(private auth: AuthService, 
               private psku: PassSkuService, 
               private afs: AngularFirestore, 
-              public dialog: MatDialog, 
+              //public dialog: MatDialog, 
               private cs: CmsService, 
               private modalService: NgbModal) { }
 
@@ -128,7 +130,7 @@ export class CalculatorComponent implements OnInit, OnDestroy {
   }
 
   viewbig(){
-    console.log(this.sku[0].values)
+    //console.log(this.sku[0].values)
     const modalRef = this.modalService.open(CarouselComponent, {centered: true});
     modalRef.componentInstance.sku = this.sku[0].values;
 
@@ -157,58 +159,18 @@ export class CalculatorComponent implements OnInit, OnDestroy {
 
       this.afs.collection('CARTS').add(data).then(() => {
         this.adding = !this.adding;
-        this.dialog.open(Add2CartDialog,{
-          width:'250px',
-          data:{qty:this.getTot()}
-        })
+        //open add2cart success dialog
+        const modalRef = this.modalService.open(Add2cartSuccessComponent, {centered: true});
+        modalRef.componentInstance.msg = this.getTot();
         this.psku.reset()
       }).catch((err)=>{
-        this.dialog.open(LoginFirstDialog, {
-          width: '250px',
-          data:{msg:err}
-        });
+        const modalRef = this.modalService.open(ErrorMsgComponent, {centered: true});
+        modalRef.componentInstance.msg = err;
       })
       
     } else {
-      this.dialog.open(LoginFirstDialog, {
-        width: '250px',
-        data:{msg:'Please login first.'}
-      });
+      const modalRef = this.modalService.open(LoginFirstComponent, {centered: true});
     }
-  }
-
-}
-
-
-@Component({
-  selector: 'add2cart',
-  templateUrl: 'add2cart.html',
-  styleUrls: ['./add2cart.css']
-})
-export class Add2CartDialog {
-
-  constructor(
-    public dialogRef: MatDialogRef<Add2CartDialog>,
-    @Inject(MAT_DIALOG_DATA) public data: any) { }
-
-  onNoClick(): void {
-    this.dialogRef.close();
-  }
-
-}
-
-@Component({
-  selector: 'loginfirst',
-  templateUrl: 'loginfirst.html',
-  styleUrls: ['./loginfirst.css']
-})
-export class LoginFirstDialog {
-
-  constructor(
-    public dialogRef: MatDialogRef<LoginFirstDialog>,@Inject(MAT_DIALOG_DATA) public data:any) { }
-
-  onNoClick(): void {
-    this.dialogRef.close();
   }
 
 }

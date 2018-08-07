@@ -40,7 +40,7 @@ import { FooterComponent } from './footer/footer.component';
 import { LoadingSpinnerComponent } from './loading-spinner/loading-spinner.component';
 import { BannerComponent } from './banner/banner.component';
 import { ProductDetailComponent } from './product-detail/product-detail.component';
-import { CalculatorComponent, Add2CartDialog, LoginFirstDialog } from './calculator/calculator.component';
+import { CalculatorComponent } from './calculator/calculator.component';
 import { QtypickerComponent } from './qtypicker/qtypicker.component';
 import { Cny2thbPipe } from './cny2thb.pipe';
 import { UserProfileComponent } from './user-profile/user-profile.component';
@@ -58,6 +58,9 @@ import { SmallSpinnerComponent } from './small-spinner/small-spinner.component';
 import { MsgComponent } from './msg/msg.component';
 import { RatingComponent } from './rating/rating.component';
 import { PrdThumbnailCardComponent } from './prd-thumbnail-card/prd-thumbnail-card.component';
+import { Add2cartSuccessComponent } from './add2cart-success/add2cart-success.component';
+import { LoginFirstComponent } from './login-first/login-first.component';
+import { ErrorMsgComponent } from './error-msg/error-msg.component';
 export const firebaseConfig = environment.firebaseConfig;
 
 @NgModule({
@@ -77,8 +80,6 @@ export const firebaseConfig = environment.firebaseConfig;
     BannerComponent,
     ProductDetailComponent,
     CalculatorComponent,
-    Add2CartDialog,
-    LoginFirstDialog,
     QtypickerComponent,
     Cny2thbPipe,
     UserProfileComponent,
@@ -95,7 +96,10 @@ export const firebaseConfig = environment.firebaseConfig;
     SmallSpinnerComponent,
     MsgComponent,
     RatingComponent,
-    PrdThumbnailCardComponent
+    PrdThumbnailCardComponent,
+    Add2cartSuccessComponent,
+    LoginFirstComponent,
+    ErrorMsgComponent
   ],
   imports: [
     BrowserModule,
@@ -125,8 +129,9 @@ export const firebaseConfig = environment.firebaseConfig;
   ],
   entryComponents:[
     LoginDialog,
-    Add2CartDialog,
-    LoginFirstDialog,
+    Add2cartSuccessComponent,
+    LoginFirstComponent,
+    ErrorMsgComponent,
     CarouselComponent,
     ImageZoomViewComponent,
     MsgComponent
