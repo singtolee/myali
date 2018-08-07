@@ -30,7 +30,12 @@ export class CalculatorComponent implements OnInit, OnDestroy {
   costSheet;
   adding:boolean=false;
 
-  constructor(private auth: AuthService, private psku: PassSkuService, private afs: AngularFirestore, public dialog: MatDialog, private cs: CmsService, private modalService: NgbModal) { }
+  constructor(private auth: AuthService, 
+              private psku: PassSkuService, 
+              private afs: AngularFirestore, 
+              public dialog: MatDialog, 
+              private cs: CmsService, 
+              private modalService: NgbModal) { }
 
   ngOnInit() {
     this.psku.reset();
@@ -94,10 +99,10 @@ export class CalculatorComponent implements OnInit, OnDestroy {
 
   str2prc(a) {
     if (typeof (a) == 'number') {
-      return Math.ceil(a * 6)
+      return Math.ceil(a * this.cs.rate)
     }
     if (typeof (a) == 'string') {
-      return Math.ceil(Number(a) * 6)
+      return Math.ceil(Number(a) * this.cs.rate)
     }
 
   }
@@ -146,7 +151,7 @@ export class CalculatorComponent implements OnInit, OnDestroy {
         shippingCost:p.sc,
         imageUrl:this.image,
         sugPrice: p.sugPrice,
-        earn: p.qty*(p.sugPrice-p.cp) -p.sc,
+        earn: p.qty*(p.sugPrice-p.cp) - p.sc,
         checked:true
       }
 

@@ -61,20 +61,19 @@
     <div *ngIf="items.length >0" class="container mt-2">
       <div class="row justify-content-md-center">
         <div *ngIf="cartChecked()" class="col col-12 col-md-8">
-          <p class="text-right text-danger">*Minimiu shipping cost is {{costSheet.minShippingCost}} Baht.</p>
-          <p class="text-right text-info">Total: {{cal().t}} Baht</p>
-          <p class="text-right text-info">Shipping Cost: {{cal().s}} Baht</p>
+          <p class="text-right font-weight-light small">Sub total: {{cal().t}} บาท</p>
+          <p class="text-right font-weight-light small"><span class="text-danger">*Minimiu shipping cost is {{costSheet.minShippingCost}} บาท.</span> Shipping Cost: {{cal().s}} บาท</p>
           <hr>
-          <p class="text-right text-danger">Grand Total: {{cal().t +cal().s}} Baht</p>
-          <p class="text-right text-dark"><i class="fas fa-shipping-fast mr-1"></i>Get your order in {{costSheet.landDuration}} days</p>
+          <p class="text-right font-weight-bold small">Grand Total: {{cal().t +cal().s}} บาท</p>
+          <p class="text-right text-dark small"><i class="fas fa-shipping-fast mr-1"></i>Get your order in {{costSheet.landDuration}} days</p>
           <hr>
         </div>
         <div *ngIf="cartChecked()" class="col col-12 col-md-8">
-          <p class="text-center text-dark font-weight-bold">Payment method, use bank transfer get
-            <span class="text-danger font-italic">{{costSheet.bankTransferDiscount}} baht</span> discount.</p>
+          <p class="text-center text-dark font-weight-bold">Pay online get
+            <span class="text-danger font-italic">{{costSheet.bankTransferDiscount}} บาท</span> discount.</p>
           <mat-radio-group class="example-radio-group" [(ngModel)]="paymentMethod">
             <mat-radio-button class="example-radio-button" color="warn" value="bank">
-              <small>Pay online, save {{costSheet.bankTransferDiscount}} Baht.</small>  
+              <small>Pay online, save {{costSheet.bankTransferDiscount}} บาท.</small>  
             </mat-radio-button>
             <mat-radio-button class="example-radio-button" color="warn" value="cod">
               <small>Cash on delivery</small>  
@@ -82,7 +81,7 @@
           </mat-radio-group>
           <div *ngIf="paymentMethod == 'bank';else cod">
             <small class="text-info mb-1">Scan QR code pay
-              <span class="text-danger">{{cal().t+cal().s - costSheet.bankTransferDiscount}} Baht</span>, and upload the bill.</small>
+              <span class="text-danger">{{cal().t+cal().s - costSheet.bankTransferDiscount}} บาท</span>, and upload the bill.</small>
               <div class="container">
                   <div class="row justify-content-center">
                     <div class="col-8">
@@ -107,7 +106,7 @@
           <ng-template #cod>
             <div class="mb-1">
               <small class="text-info">Please pay
-                <span class="text-danger">{{cal().t+cal().s}} Baht</span> upon collecting the parcel.</small>
+                <span class="text-danger">{{cal().t+cal().s}} บาท</span> upon collecting the parcel.</small>
             </div>
           </ng-template>
         </div>
