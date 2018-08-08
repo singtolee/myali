@@ -34,7 +34,7 @@ import { CategoryListComponent } from './category-list/category-list.component';
 import { ProductListComponent } from './product-list/product-list.component';
 import { UserPageComponent } from './user-page/user-page.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-import { UserComponent, LoginDialog } from './user/user.component';
+import { UserComponent } from './user/user.component';
 import { HomeComponent } from './home/home.component';
 import { FooterComponent } from './footer/footer.component';
 import { LoadingSpinnerComponent } from './loading-spinner/loading-spinner.component';
@@ -61,6 +61,7 @@ import { PrdThumbnailCardComponent } from './prd-thumbnail-card/prd-thumbnail-ca
 import { Add2cartSuccessComponent } from './add2cart-success/add2cart-success.component';
 import { LoginFirstComponent } from './login-first/login-first.component';
 import { ErrorMsgComponent } from './error-msg/error-msg.component';
+import { NgLoginComponent } from './ng-login/ng-login.component';
 export const firebaseConfig = environment.firebaseConfig;
 
 @NgModule({
@@ -73,7 +74,6 @@ export const firebaseConfig = environment.firebaseConfig;
     UserPageComponent,
     PageNotFoundComponent,
     UserComponent,
-    LoginDialog,
     HomeComponent,
     FooterComponent,
     LoadingSpinnerComponent,
@@ -99,7 +99,8 @@ export const firebaseConfig = environment.firebaseConfig;
     PrdThumbnailCardComponent,
     Add2cartSuccessComponent,
     LoginFirstComponent,
-    ErrorMsgComponent
+    ErrorMsgComponent,
+    NgLoginComponent
   ],
   imports: [
     BrowserModule,
@@ -128,7 +129,7 @@ export const firebaseConfig = environment.firebaseConfig;
     NgbModule.forRoot()
   ],
   entryComponents:[
-    LoginDialog,
+    NgLoginComponent,
     Add2cartSuccessComponent,
     LoginFirstComponent,
     ErrorMsgComponent,

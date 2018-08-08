@@ -1,0 +1,82 @@
+<div class="container">
+  <div class="pt-2 pb-2">
+    <ngb-tabset type="pills" justify="fill">
+      <ngb-tab>
+        <ng-template ngbTabTitle>
+          <i class="fas fa-sign-in-alt"></i>LOGIN</ng-template>
+        <ng-template ngbTabContent>
+          <div class="card">
+            <div class="card-body">
+              <p>
+                <button class="btn btn-block btn-danger" (click)="googlelogin()">
+                  <i class="fab fa-google"></i>   Login via Google</button>
+                <button class="btn btn-block btn-primary" (click)="fblogin()">
+                  <i class="fab fa-facebook-f"></i>   Login via facebook</button>
+              </p>
+              <hr>
+              <form role="form" #formData='ngForm' (ngSubmit)="loginWithEmail(formData)">
+                <fieldset>
+                  <div class="form-group">
+                    <input autofocus class="form-control" type="email" placeholder="Email address.." name="email" (ngModel)="email" required>
+                  </div>
+                  <!-- form-group// -->
+                  <div class="form-group">
+                    <input type="password" placeholder="Password" name="password" (ngModel)="password" class="form-control" required>
+                  </div>
+                  <ngb-alert *ngIf="loginerror" (close)="closeAlert()">{{loginerror}}</ngb-alert>
+                  <!-- form-group// -->
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <button type="submit" [disabled]="!formData.valid" class="btn btn-primary btn-block"> LOGIN </button>
+                      </div>
+                      <!-- form-group// -->
+                    </div>
+                    <div class="col-md-6 text-right">
+                      <small (click)="isCollapsed = !isCollapsed" [attr.aria-expanded]="!isCollapsed" aria-controls="resetPassword">Forgot password?</small>
+                    </div>
+                    <div class="collapse col-12" id="resetPassword" [ngbCollapse]="isCollapsed">
+                      <hr>
+                      <form role="form" #emailData='ngForm' (ngSubmit)="resetpassword(emailData)">
+                        <input autofocus class="form-control" type="email" placeholder="Email address.." name="emailp" (ngModel)="emailp" required>
+                        <button type="submit" [disabled]="!emailData.valid" class="btn btn-primary btn-block mt-2"> Send email to reset password </button>
+                      </form>
+                      <ngb-alert *ngIf="resetError" (close)="closeRSAlert()">{{resetError}}</ngb-alert>
+                      <ngb-alert *ngIf="resetSuccessMsg" type="success" (close)="closeSCAlert()">{{resetSuccessMsg}}</ngb-alert>
+                    </div>
+                  </div>
+                </fieldset>
+                <!-- .row// -->
+              </form>
+            </div>
+          </div>
+        </ng-template>
+      </ngb-tab>
+      <ngb-tab>
+        <ng-template ngbTabTitle>
+          <i class="fas fa-user-plus"></i>SIGN UP</ng-template>
+        <ng-template ngbTabContent>
+          <div class="card">
+            <div class="card-body">
+              <form role="form" #signupData='ngForm' (ngSubmit)="signup(signupData)">
+                <fieldset>
+                  <div class="form-group">
+                    <input autofocus class="form-control" type="email" placeholder="Email address.." name="emails" (ngModel)="emails" required>
+                  </div>
+                  <div class="form-group">
+                    <input type="password" placeholder="Password" name="passwords" (ngModel)="passwords" class="form-control" required>
+                  </div>
+                  <ngb-alert *ngIf="signupError" (close)="closeSingupErrorAlert()">{{signupError}}</ngb-alert>
+                  <ngb-alert *ngIf="signupSuccessMsg" type="success" (close)="closeSignupSuccessAlert()">{{signupSuccessMsg}}</ngb-alert>
+                  <div class="form-group">
+                    <button type="submit" [disabled]="!signupData.valid" class="btn btn-primary btn-block"> Sign Up </button>
+                  </div>
+                </fieldset>
+              </form>
+            </div>
+          </div>
+        </ng-template>
+      </ngb-tab>
+    </ngb-tabset>
+  </div>
+</div>
