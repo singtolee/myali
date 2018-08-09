@@ -29,30 +29,30 @@
 
 <div [ngSwitch]="skuType()">
   <div *ngSwitchCase="'typeone'">
-      <div *ngIf="sku[0].values[0].image;else noImage">
-          <mat-tab-group>
-            <mat-tab *ngFor="let val of sku[0].values">
-              <ng-template mat-tab-label>
-                <img class="border border-secondary rounded" [src]="val.image" height="40px" width="40px">
-              </ng-template>
-              <div *ngFor="let co of sku[1].values">
-                <app-qtypicker [size]="co" [color]="val"></app-qtypicker>
-              </div>
-            </mat-tab>
-          </mat-tab-group>
-        </div>
-        <ng-template #noImage>
-          <mat-tab-group>
-            <mat-tab *ngFor="let val of sku[0].values">
-              <ng-template mat-tab-label>
-                {{val.thDesc}}
-              </ng-template>
-              <div *ngFor="let co of sku[1].values">
-                <app-qtypicker [size]="co" [color]="val"></app-qtypicker>
-              </div>
-            </mat-tab>
-          </mat-tab-group>
-        </ng-template>
+    <div *ngIf="sku[0].values[0].image;else noImage">
+      <mat-tab-group>
+        <mat-tab color="warn" *ngFor="let val of sku[0].values">
+          <ng-template mat-tab-label>
+            <img class="border border-secondary rounded" [src]="val.image" height="40px" width="40px">
+          </ng-template>
+          <div *ngFor="let co of sku[1].values">
+            <app-qtypicker [size]="co" [color]="val"></app-qtypicker>
+          </div>
+        </mat-tab>
+      </mat-tab-group>
+    </div>
+    <ng-template #noImage>
+      <mat-tab-group>
+        <mat-tab *ngFor="let val of sku[0].values">
+          <ng-template mat-tab-label>
+            {{val.thDesc}}
+          </ng-template>
+          <div *ngFor="let co of sku[1].values">
+            <app-qtypicker [size]="co" [color]="val"></app-qtypicker>
+          </div>
+        </mat-tab>
+      </mat-tab-group>
+    </ng-template>
   </div>
   <div *ngSwitchCase="'typetwo'">
     <div *ngFor="let val of sku[0].values">
@@ -67,27 +67,32 @@
     error msg
   </div>
 </div>
-<hr class="line">
-<div *ngIf="!overMin(); else over">
-  <p class="text-danger text-center">ซื้อขั้นต่ำ {{info[0].min_num}} pcs</p>
-</div>
-<ng-template #over>
-  <div *ngIf="pc(); let p">
-    <p class="text-right small text-success">{{p.qty}} pcs * {{p.cp}} THB/pcs = {{p.price}} THB</p>
-    <p class="text-right small text-success">Shipping cost(<span class="text-danger">*min is {{costSheet.minShippingCost}} Baht</span>) = {{p.sc}} THB</p>
-    <p class="text-right small text-danger">Suggested sell price {{p.sugPrice}} THB*{{p.qty}} pcs = {{p.sugPrice*p.qty}} THB</p>
-    <p class="text-right small text-info">potential earning is
-      <span class="badge badge-danger">{{p.qty*(p.sugPrice-p.cp)-p.sc}}</span> THB</p>
-    <p class="text-right small text-dark"><i class="fas fa-shipping-fast mr-1"></i>{{costSheet.landDuration}} days</p>
+<div class="mycal mt-2 mb-2">
+  <div *ngIf="!overMin(); else over" class="mt-2">
+    <p class="small text-center">ซื้อขั้นต่ำ {{info[0].min_num}} pcs</p>
   </div>
-</ng-template>
-<hr class="line">
+  <ng-template #over>
+    <div *ngIf="pc(); let p" class="mr-1">
+      <p class="text-right small font-weight-normal">{{p.qty}} pcs * {{p.cp}} บาท/pcs = {{p.price}} บาท</p>
+      <p class="text-right small font-weight-normal">Shipping cost(
+        <span class="font-weight-light">*min is {{costSheet.minShippingCost}} บาท</span>) = {{p.sc}} บาท</p>
+      <p class="text-right small">Suggested sell price {{p.sugPrice}} บาท*{{p.qty}} pcs = {{p.sugPrice*p.qty}} บาท</p>
+      <p class="text-right small font-weight-bold">potential earning is
+        <span class="badge badge-primary">{{p.qty*(p.sugPrice-p.cp)-p.sc}}</span> บาท</p>
+      <p class="text-right small text-dark">
+        <i class="fas fa-shipping-fast mr-1"></i>Shipping duration :{{costSheet.landDuration}} days</p>
+    </div>
+  </ng-template>
+</div>
 <div>
   <div class="d-flex">
-    <button type="button" [disabled]="!overMin()" class="btn btn-primary flex-fill mr-1" (click)="add2cart()"> <span *ngIf="!adding">เพิ่มในรถเข็น</span><app-small-spinner *ngIf="adding"></app-small-spinner></button>
+    <button type="button" [disabled]="!overMin()" class="btn btn-warning btn-lg flex-fill" (click)="add2cart()">
+      <span *ngIf="!adding" class="text-white">เพิ่มในรถเข็น</span>
+      <app-small-spinner *ngIf="adding"></app-small-spinner>
+    </button>
     <!--
       <button type="button" [disabled]="!overMin()" class="btn btn-success flex-fill ml-1" (click)="buynow($event.target)">Buy Now</button>
     -->
-    
+
   </div>
 </div>

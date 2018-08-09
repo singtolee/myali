@@ -10,3 +10,16 @@ input.qty {
     text-align: center;
     background-color: whitesmoke;
 }
+
+#btnplus {
+    background-color :white;
+    border: 1px solid #FF5733;
+    width: 40px;
+}
+
+#qty {
+    border: 1px solid #ff5733;
+    width:40px;
+    text-align: center;
+    background-color: white;
+}

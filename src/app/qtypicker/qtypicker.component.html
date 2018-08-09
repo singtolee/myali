@@ -1,20 +1,20 @@
-<div class="d-flex align-items-center m-1">
+<div class="d-flex align-items-center m-1 p-1 border-bottom">
     <div *ngIf="size.image; else de">
         <img [src]="size.image" height="30px" width="30px" class="rounded">
-        <span class="small p-1">{{size.thDesc}}</span>
+        <span class="small p-1 font-weight-bold">{{size.thDesc}}</span>
     </div>
     <ng-template #de>
-        <div>{{size.thDesc}}</div>
+        <div class="small ml-2 font-weight-bold">{{size.thDesc}}</div>
     </ng-template>
     <div class="dc"></div>
     <div class="">
         <div class="input-group input-group sm">
             <div class="input-group-prepend">
-                <button type="button" (click)="des()" class="btn btn-outline-success btn-sm btt">-</button>
+                <button type="button" (click)="des()" id="btnplus"><span><i class="fas fa-minus fa-xs"></i></span></button>
             </div>
-            <input class="qty" type="number" [(ngModel)]="qty" disabled>
+            <input id="qty" type="number" [(ngModel)]="qty" disabled>
             <div class="input-group-append">
-                    <button type="button" (click)="inc()" class="btn btn-outline-success btn-sm btt">+</button>
+                <button type="button" (click)="inc()" id="btnplus"><span><i class="fas fa-plus fa-xs"></i></span></button>
             </div>
         </div>
     </div>

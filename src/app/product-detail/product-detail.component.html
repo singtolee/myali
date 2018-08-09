@@ -18,16 +18,16 @@
       </ul>
     </div>
     <div class="details col-md-6">
-      <h5 class="product-title">{{product.thName}}</h5>
-      <table class="table table-sm table-hover">
+      <h5 class="product-title p-2">{{product.thName}}</h5>
+      <table class="table table-sm table-hover alert-warning m-2">
         <tbody>
           <tr>
             <th scope="row">ราคา</th>
-            <td *ngFor="let info of product.trade_info">{{info.price | cny2thb}}</td>
+            <td *ngFor="let info of product.trade_info"><span class="text-danger font-weight-bold">{{info.price | cny2thb}}</span></td>
           </tr>
           <tr>
             <th scope="row">ปริมาณ</th>
-            <td *ngFor="let info of product.trade_info">>={{info.min_num}} pcs</td>
+            <td *ngFor="let info of product.trade_info"> <span class="small">>={{info.min_num}} pcs</span> </td>
           </tr>
         </tbody>
       </table>
@@ -38,8 +38,8 @@
   </div>
   <div *ngIf="product.detail" class="p-1">
     <hr class="line">
-    <div class="row">
-      <div *ngFor="let img of product.detail" class="col-12">
+    <div class="row justify-content-center">
+      <div *ngFor="let img of product.detail">
         <img [src]="img">
       </div>
     </div>
