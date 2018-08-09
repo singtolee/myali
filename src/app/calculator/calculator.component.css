@@ -1,16 +1,22 @@
 /* Styles for tab labels */
+
+/*
+
 .mat-tab-label {
     min-width: 25px !important;
     padding: 5px;
     background-color: white;
+    border-bottom: #ff5733;
 }
 
-/* Styles for the active tab label */
 .mat-tab-label.mat-tab-label-active {
     min-width: 25px !important;
     padding: 5px;
     color: #ff5733;
 }
+
+*/
+
 
 .mycal {
     border: 1px solid #ff5733;
