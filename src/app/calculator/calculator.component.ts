@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit, Input, ViewEncapsulation, OnDestroy } from '@angular/core';
+import { Component, OnInit, Input, ViewEncapsulation, OnDestroy } from '@angular/core';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { AuthService } from '../auth.service';
 import { CmsService } from '../cms.service';
@@ -35,7 +35,6 @@ export class CalculatorComponent implements OnInit, OnDestroy {
   constructor(private auth: AuthService, 
               private psku: PassSkuService, 
               private afs: AngularFirestore, 
-              //public dialog: MatDialog, 
               private cs: CmsService, 
               private modalService: NgbModal) { }
 
@@ -48,15 +47,11 @@ export class CalculatorComponent implements OnInit, OnDestroy {
     this.usub = this.auth.user.subscribe(u => this.user = u);
   }
   skuType(){
-    if(this.sku.length == 2){
+    if(this.sku.values){
       return 'typeone'
     }
-    if(this.sku.length == 1){
-      if(this.isObject(this.sku[0])){
-        return 'typetwo'
-      }else{
-        return 'typethree'
-      }
+    else{
+      return 'typethree'
     }
   }
 
@@ -132,7 +127,7 @@ export class CalculatorComponent implements OnInit, OnDestroy {
   viewbig(){
     //console.log(this.sku[0].values)
     const modalRef = this.modalService.open(CarouselComponent, {centered: true});
-    modalRef.componentInstance.sku = this.sku[0].values;
+    modalRef.componentInstance.sku = this.sku.values;
 
   }
 

@@ -1,81 +1,40 @@
-<div *ngIf="isObject(sku[0])">
-  <div *ngFor="let s of sku" class="p-1">
-    <div *ngIf="s.values[0].image; else noImage">
-      <div class="card">
-        <div class="card-header bg-transparent">
-          {{s.thLabel}}
-        </div>
-        <div class="card-body">
-          <span *ngFor="let val of s.values" class="mr-1">
-            <img class="border border-secondary rounded" [src]="val.image" height="40px" width="40px" (click)="viewbig()">
-          </span>
-        </div>
-      </div>
+<div *ngIf="sku.values">
+  <div class="card">
+    <div class="card-header bg-transparent">
+      {{sku.thLabel}}
     </div>
-    <ng-template #noImage>
-      <div class="card">
-        <div class="card-header bg-transparent">
-          {{s.thLabel}}
-        </div>
-        <div class="card-body">
-          <span *ngFor="let val of s.values" class="mr-1">
-            <button type="button" class="btn btn-outline-secondary btn-sm">{{val.thDesc}}</button>
-          </span>
-        </div>
-      </div>
-    </ng-template>
+    <div class="card-body">
+      <span *ngFor="let val of sku.values" class="mr-1">
+        <span *ngIf="val.image;else noImage">
+          <img class="border border-secondary rounded mr-1" [src]="val.image" height="40px" width="40px" (click)="viewbig()">
+        </span>
+        <ng-template #noImage>
+          <span>{{val.thDesc}}</span>
+        </ng-template>
+      </span>
+    </div>
   </div>
 </div>
-
 <div [ngSwitch]="skuType()">
   <div *ngSwitchCase="'typeone'">
-    <div *ngIf="sku[0].values[0].image;else noImage">
-      <!--
-       <ngb-tabset justify='fill'>
-        <ngb-tab *ngFor="let val of sku[0].values">
-          <ng-template ngbTabTitle>
+    <mat-tab-group>
+      <mat-tab *ngFor="let val of sku.values">
+        <ng-template mat-tab-label>
+          <span *ngIf="val.image; else showDesc">
             <img class="border border-secondary rounded" [src]="val.image" height="40px" width="40px">
-          </ng-template>
-          <ng-template ngbTabContent>
-            <div *ngFor="let co of sku[1].values">
-              <app-qtypicker [size]="co" [color]="val"></app-qtypicker>
-            </div>
-          </ng-template>
-        </ngb-tab>
-      </ngb-tabset> 
-      -->
-      <mat-tab-group>
-        <mat-tab color="warn" *ngFor="let val of sku[0].values">
-          <ng-template mat-tab-label>
-            <img class="border border-secondary rounded" [src]="val.image" height="40px" width="40px">
-          </ng-template>
-          <div *ngFor="let co of sku[1].values">
-            <app-qtypicker [size]="co" [color]="val"></app-qtypicker>
-          </div>
-        </mat-tab>
-      </mat-tab-group>
-    </div>
-    <ng-template #noImage>
-      <mat-tab-group>
-        <mat-tab *ngFor="let val of sku[0].values">
-          <ng-template mat-tab-label>
+          </span>
+          <ng-template #showDesc>
             {{val.thDesc}}
           </ng-template>
-          <div *ngFor="let co of sku[1].values">
-            <app-qtypicker [size]="co" [color]="val"></app-qtypicker>
-          </div>
-        </mat-tab>
-      </mat-tab-group>
-    </ng-template>
-  </div>
-  <div *ngSwitchCase="'typetwo'">
-    <div *ngFor="let val of sku[0].values">
-      <app-qtypicker [size]="val" [color]="val"></app-qtypicker>
-    </div>
-
+        </ng-template>
+        <div *ngFor="let co of val.skus">
+          <app-qtypicker [sku]="co"></app-qtypicker>
+        </div>
+      </mat-tab>
+    </mat-tab-group>
   </div>
   <div *ngSwitchCase="'typethree'">
-    <app-qtypicker [size]="{desc:'one size'}" [color]="{desc:'one color'}"></app-qtypicker>
+    <app-qtypicker></app-qtypicker>
   </div>
   <div *ngSwitchDefault>
     error msg
@@ -104,9 +63,5 @@
       <span *ngIf="!adding" class="text-white">เพิ่มในรถเข็น</span>
       <app-small-spinner *ngIf="adding"></app-small-spinner>
     </button>
-    <!--
-      <button type="button" [disabled]="!overMin()" class="btn btn-success flex-fill ml-1" (click)="buynow($event.target)">Buy Now</button>
-    -->
-
   </div>
 </div>

@@ -8,14 +8,17 @@ import { PassSkuService } from '../pass-sku.service';
 })
 export class QtypickerComponent implements OnInit {
 
-  @Input() public size;
-  @Input() public color;
+  //@Input() public size;
+  //@Input() public color;
+  @Input() public sku;
   qty = 0;
 
   constructor(private psku:PassSkuService) { }
 
   ngOnInit() {
   }
+
+  /*
 
   inc(){
     this.qty = this.qty + 1
@@ -53,5 +56,7 @@ export class QtypickerComponent implements OnInit {
       return
     }
   }
+
+  */
 
 }
