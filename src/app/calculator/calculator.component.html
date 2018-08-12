@@ -28,7 +28,7 @@
           </ng-template>
         </ng-template>
         <div *ngFor="let co of val.skus">
-          <app-qtypicker [sku]="co"></app-qtypicker>
+          <app-qtypicker [val]="val" [co]="co"></app-qtypicker>
         </div>
       </mat-tab>
     </mat-tab-group>
@@ -42,10 +42,11 @@
 </div>
 <div class="mycal mt-2 mb-2">
   <div *ngIf="!overMin(); else over" class="mt-2">
-    <p class="small text-center">ซื้อขั้นต่ำ {{info[0].min_num}} pcs</p>
+    <p class="small text-center"><i class="fas fa-exclamation-circle"></i>ซื้อขั้นต่ำ {{info[0].min_num}} pcs</p>
   </div>
   <ng-template #over>
-    <div *ngIf="pc(); let p" class="mr-1">
+    <!--
+      <div *ngIf="pc(); let p" class="mr-1">
       <p class="text-right small font-weight-normal">{{p.qty}} pcs * {{p.cp}} บาท/pcs = {{p.price}} บาท</p>
       <p class="text-right small font-weight-normal">Shipping cost(
         <span class="font-weight-light">*min is {{costSheet.minShippingCost}} บาท</span>) = {{p.sc}} บาท</p>
@@ -55,6 +56,9 @@
       <p class="text-right small text-dark">
         <i class="fas fa-shipping-fast mr-1"></i>Shipping duration :{{costSheet.landDuration}} days</p>
     </div>
+    -->
+    {{subAndQty | json}}
+    
   </ng-template>
 </div>
 <div>

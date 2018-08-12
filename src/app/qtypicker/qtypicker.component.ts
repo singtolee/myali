@@ -10,7 +10,8 @@ export class QtypickerComponent implements OnInit {
 
   //@Input() public size;
   //@Input() public color;
-  @Input() public sku;
+  @Input() public val;
+  @Input() public co;
   qty = 0;
 
   constructor(private psku:PassSkuService) { }
@@ -18,24 +19,27 @@ export class QtypickerComponent implements OnInit {
   ngOnInit() {
   }
 
-  /*
+  delSkus(obj){
+    return {desc:obj.desc,thDesc:obj.thDesc,image:obj.image}
+  }
 
   inc(){
     this.qty = this.qty + 1
-    const ni = {sku:this.color,size:this.size,qty:this.qty}
-    const i = this.psku.itemSource.findIndex(ele=>ele.sku==ni.sku&&ele.size==ni.size)
+    const newItem = {sku:this.delSkus(this.val), size:this.co, qty:this.qty, id:this.co.sku_id}
+    const i = this.psku.itemSource.findIndex(ele=>ele.id==newItem.id)
     if(i==-1){
-      this.psku.addItem(ni)
+      this.psku.addItem(newItem)
     }else{
-      this.psku.itemSource[i]=ni
+      this.psku.itemSource[i].qty=newItem.qty
+      console.log(this.psku.itemSource)
     }
   }
 
   des(){
     this.qty = this.qty -1
     if(this.qty == 0){
-      const ni = {sku:this.color,size:this.size,qty:this.qty}
-      const i = this.psku.itemSource.findIndex(ele=>ele.sku==ni.sku&&ele.size==ni.size)
+      const newItem = {sku:this.delSkus(this.val), size:this.co, qty:this.qty, id:this.co.sku_id}
+      const i = this.psku.itemSource.findIndex(ele=>ele.id==newItem.id)
       this.psku.itemSource.splice(i,1)
       return
     }
@@ -46,17 +50,16 @@ export class QtypickerComponent implements OnInit {
     }
 
     if(this.qty>0){
-      const ni = {sku:this.color,size:this.size,qty:this.qty}
-      const i = this.psku.itemSource.findIndex(ele=>ele.sku==ni.sku&&ele.size==ni.size)
+      //const ni = {sku:this.color,size:this.size,qty:this.qty}
+      const newItem = {sku:this.delSkus(this.val), size:this.co, qty:this.qty, id:this.co.sku_id}
+      const i = this.psku.itemSource.findIndex(ele=>ele.id==newItem.id)
       if(i==-1){
-        this.psku.addItem(ni)
+        this.psku.addItem(newItem)
       }else{
-        this.psku.itemSource[i]=ni
+        this.psku.itemSource[i].qty=newItem.qty
       }
       return
     }
   }
-
-  */
 
 }

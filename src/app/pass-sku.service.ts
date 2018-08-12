@@ -7,7 +7,8 @@ import { Item } from './tools/Item';
 })
 export class PassSkuService {
   itemSource = new Array<Item>();
-  items = of(this.itemSource)
+  items = of(this.itemSource);
+  subAndQty = of(this.sub());
   
 
   constructor() {
@@ -21,9 +22,13 @@ export class PassSkuService {
     this.itemSource.length = 0;
   }
 
-  findItem(i:Item){
-    this.itemSource.findIndex(ele=>{
-      return ele.sku == i.sku && ele.size == i.size
-    })
+  sub(){
+    var su = 0
+    var quantity = 0
+    for(const i of this.itemSource){
+      quantity = quantity + i.qty
+      su = su + i.qty * Number(i.size.price)
+    }
+    return {subTotal: su,qty:quantity}
   }
 }

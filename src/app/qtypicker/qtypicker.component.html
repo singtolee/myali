@@ -1,10 +1,10 @@
 <div class="d-flex align-items-center m-1 p-1 border-bottom">
-    <div *ngIf="sku.image; else de">
-        <img [src]="size.image" height="30px" width="30px" class="rounded">
-        <span class="small p-1 font-weight-bold">{{size.thDesc}}</span>
+    <div *ngIf="val.image; else de">
+        <img [src]="val.image" height="30px" width="30px" class="rounded">
+        <span class="small p-1 font-weight-bold">{{co.price}}{{co.thSkuS}}</span>
     </div>
     <ng-template #de>
-        <div class="small ml-2 font-weight-bold">{{sku.thSkuS}}{{sku.price}}</div>
+        <div class="small ml-2 font-weight-bold">{{val.thDesc}}{{co.thSkuS}}{{co.price}}</div>
     </ng-template>
     <div class="dc"></div>
     <div class="">

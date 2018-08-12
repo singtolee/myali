@@ -26,7 +26,9 @@ export class CalculatorComponent implements OnInit, OnDestroy {
   @Input() public uw;
   user;
   items;
-  sub: Subscription;
+  subAndQty;
+  sub: Subscription; //items
+  qtySub: Subscription; //qty and subToatl in CNY;
   usub: Subscription;
   cssub:Subscription;
   costSheet;
@@ -42,8 +44,8 @@ export class CalculatorComponent implements OnInit, OnDestroy {
     this.psku.reset();
     this.cssub = this.cs.costSheet.subscribe(cs=>this.costSheet=cs)
     
-
     this.sub = this.psku.items.subscribe(i => this.items = i);
+    this.qtySub = this.psku.subAndQty.subscribe(qq => this.subAndQty = qq);
     this.usub = this.auth.user.subscribe(u => this.user = u);
   }
   skuType(){
@@ -118,6 +120,7 @@ export class CalculatorComponent implements OnInit, OnDestroy {
     this.sub.unsubscribe();
     this.usub.unsubscribe();
     this.cssub.unsubscribe();
+    this.qtySub.unsubscribe();
   }
 
   isObject(sth) {
