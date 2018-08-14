@@ -48,7 +48,8 @@
     <div *ngIf="getTot(); let p" class="mr-1">
       <p class="text-right small font-weight-light"><span class="mr-1">Quantity:</span>{{p.tot}} pcs</p>
       <p class="text-right small font-weight-light"><span class="mr-1">Sub total</span>{{p.subTot}} บาท</p>
-      <p class="text-right small font-weight-light"><span class="mr-1">Shipping Cost</span>{{p.shippingCost}} บาท</p>
+      <p class="text-right small font-weight-light"><span class="small text-danger">
+        <i class="fas fa-exclamation-triangle"></i>Minimum shipping fee is {{costSheet.minShippingCost}} บาท</span> <span class="mr-1 ml-1">Shipping Cost</span>{{p.shippingCost}} บาท</p>
       <p class="text-right small font-weight-bold"><span class="mr-1">Total</span>{{p.total}} บาท</p>
       <p class="text-right small font-weight-bold text-success"><span class="mr-1"><i class="fas fa-hand-holding-usd"></i></span>Potential profit: {{p.earn}} บาท</p>
       <p class="text-right small text-dark">
