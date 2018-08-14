@@ -26,7 +26,7 @@
                   <div *ngIf="item.sku.image;else desc">
                     <img [src]="item.sku.image" class="rounded" height="35px" width="35px" [routerLink]="['/product',cart.data.pid]">
                     <span class="badge badge-light ml-1">
-                      <small>{{item.size.thDesc}}*{{item.qty}} pcs</small>
+                      <small>{{item.size.thSkuS}}*{{item.qty}} pcs</small>
                     </span>
                   </div>
                   <ng-template #desc>
@@ -46,7 +46,7 @@
         <div class="card-footer">
           <div>
             <span class="badge badge-success">
-              <small>Total:{{cart.data.total}} บาท</small>
+              <small>Total:{{cart.data.subTotal}} บาท</small>
             </span>
             <span class="badge badge-info ml-1">
               <small>Shipping Cost:{{cart.data.shippingCost}} บาท</small>

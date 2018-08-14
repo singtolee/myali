@@ -7,7 +7,7 @@
       <div *ngIf="item.sku.image; else noimg">
         <img [src]="item.sku.image" class="rounded" height="35px" width="35px" [routerLink]="['/product',c.pid]">
         <span class="badge badge-light ml-1">
-          <small>{{item.size.thDesc}}*{{item.qty}} pcs</small>
+          <small>{{item.size.thSkuS}}*{{item.qty}} pcs</small>
         </span>
       </div>
       <ng-template #noimg>

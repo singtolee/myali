@@ -5,14 +5,12 @@ export class Cart {
   name:string;
   items:Array<Item>;
   uid:string;
-  price:number;
-  total:number;
+  subTotal:number;
   qty:number;
   imageUrl:string;
   checked:boolean;
   earn:number;
   shippingCost:number;
-  sugPrice:number;
   ordered:boolean;
   
 

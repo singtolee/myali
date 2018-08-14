@@ -148,14 +148,14 @@ export class UserCartComponent implements OnInit, OnDestroy {
     var arr = [];
     for(var i=0;i<this.carts.length;i++){
       if(this.carts[i].data.checked){
-        total = total + this.carts[i].data.total
+        total = total + this.carts[i].data.subTotal
         sc = sc + this.carts[i].data.shippingCost
         arr.push(this.carts[i].id)
       }
     }
-
     return {t:total,s:sc>this.costSheet.minShippingCost? sc:this.costSheet.minShippingCost, arr:arr}
   }
+  
   cartChecked(){
     var c = this.cal()
     if(c.t>0){

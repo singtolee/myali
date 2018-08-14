@@ -45,20 +45,15 @@
     <p class="small text-center"><i class="fas fa-exclamation-circle"></i>ซื้อขั้นต่ำ {{info[0].min_num}} pcs</p>
   </div>
   <ng-template #over>
-    <!--
-      <div *ngIf="pc(); let p" class="mr-1">
-      <p class="text-right small font-weight-normal">{{p.qty}} pcs * {{p.cp}} บาท/pcs = {{p.price}} บาท</p>
-      <p class="text-right small font-weight-normal">Shipping cost(
-        <span class="font-weight-light">*min is {{costSheet.minShippingCost}} บาท</span>) = {{p.sc}} บาท</p>
-      <p class="text-right small">Suggested sell price {{p.sugPrice}} บาท*{{p.qty}} pcs = {{p.sugPrice*p.qty}} บาท</p>
-      <p class="text-right small font-weight-bold">potential earning is
-        <span class="badge badge-primary">{{p.qty*(p.sugPrice-p.cp)-p.sc}}</span> บาท</p>
+    <div *ngIf="getTot(); let p" class="mr-1">
+      <p class="text-right small font-weight-light"><span class="mr-1">Quantity:</span>{{p.tot}} pcs</p>
+      <p class="text-right small font-weight-light"><span class="mr-1">Sub total</span>{{p.subTot}} บาท</p>
+      <p class="text-right small font-weight-light"><span class="mr-1">Shipping Cost</span>{{p.shippingCost}} บาท</p>
+      <p class="text-right small font-weight-bold"><span class="mr-1">Total</span>{{p.total}} บาท</p>
+      <p class="text-right small font-weight-bold text-success"><span class="mr-1"><i class="fas fa-hand-holding-usd"></i></span>Potential profit: {{p.earn}} บาท</p>
       <p class="text-right small text-dark">
-        <i class="fas fa-shipping-fast mr-1"></i>Shipping duration :{{costSheet.landDuration}} days</p>
+          <i class="fas fa-shipping-fast mr-1"></i>Shipping duration :{{costSheet.landDuration}} days</p>
     </div>
-    -->
-    {{subAndQty | json}}
-    
   </ng-template>
 </div>
 <div>

@@ -1,9 +1,10 @@
 export class Details {
-    price:string;
+    price:number;
+    sugPrice:number;
     sku:string;
     skuC:string;
     skuS:string;
     sku_id:string;
-    stock:string;
+    stock:number;
     thSkuS:string;
 }

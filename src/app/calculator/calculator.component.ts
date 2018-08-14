@@ -26,9 +26,7 @@ export class CalculatorComponent implements OnInit, OnDestroy {
   @Input() public uw;
   user;
   items;
-  subAndQty;
   sub: Subscription; //items
-  qtySub: Subscription; //qty and subToatl in CNY;
   usub: Subscription;
   cssub:Subscription;
   costSheet;
@@ -43,9 +41,7 @@ export class CalculatorComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.psku.reset();
     this.cssub = this.cs.costSheet.subscribe(cs=>this.costSheet=cs)
-    
     this.sub = this.psku.items.subscribe(i => this.items = i);
-    this.qtySub = this.psku.subAndQty.subscribe(qq => this.subAndQty = qq);
     this.usub = this.auth.user.subscribe(u => this.user = u);
   }
   skuType(){
@@ -59,51 +55,11 @@ export class CalculatorComponent implements OnInit, OnDestroy {
 
   overMin() {
     var t = this.getTot()
-    if (t >= this.str2num(this.info[0].min_num)) {
+    if (t.tot >= this.str2num(this.info[0].min_num)) {
       return true
     } else {
       return false
     }
-  }
-
-  getTot() {
-    var tot = 0;
-    for (var i = 0; i < this.items.length; i++) {
-      tot = tot + this.items[i].qty
-    }
-    return tot
-  }
-
-  pc() {
-    var tot = this.getTot()
-    var p
-    for (var j = 0; j < this.info.length; j++) {
-      if (tot >= this.str2num(this.info[j].min_num)) {
-        p = { qty: tot, 
-          sc: Math.ceil(tot * this.uw * this.costSheet.land),
-          price: tot * this.str2prc(this.info[j].price), 
-          cp: this.str2prc(this.info[j].price),
-          sugPrice: this.makePrice(this.info[j].price)
-        }
-      }
-    }
-    return p
-  }
-
-  makePrice(str:string){
-    const p = this.str2prc(str)
-    return Math.ceil(p*2/10)*10
-
-  }
-
-  str2prc(a) {
-    if (typeof (a) == 'number') {
-      return Math.ceil(a * this.cs.rate)
-    }
-    if (typeof (a) == 'string') {
-      return Math.ceil(Number(a) * this.cs.rate)
-    }
-
   }
 
   str2num(a) {
@@ -113,14 +69,35 @@ export class CalculatorComponent implements OnInit, OnDestroy {
     if (typeof (a) == 'string') {
       return Number(a)
     }
+  }
 
+  getTot() {
+
+    //get items quantity
+    var qtyArr = this.items.map(itemObj=>itemObj.qty);
+    var totQty = qtyArr.reduce(((acc,num)=>acc+num),0);
+
+    //get sub total in THB
+    var subArr = this.items.map(itemObj=>itemObj.qty*Math.ceil(itemObj.size.price*this.cs.rate))
+    var subTotal = subArr.reduce(((acc,num)=>acc+num),0)
+
+    //get sub total with suggested sell price in THB
+    var sugArr = this.items.map(itemObj=>itemObj.qty*Math.ceil(itemObj.size.sugPrice*this.cs.rate))
+    var sugTotal = sugArr.reduce(((acc,num)=>acc+num),0)
+
+    //shipping cost in THB
+    var sc = Math.ceil(totQty * this.uw * this.costSheet.land)
+    //get potential earning
+    var earn = sugTotal - subTotal - sc
+    var total = sc + subTotal
+
+    return {tot:totQty,subTot:subTotal,shippingCost:sc,earn:earn,total:total}
   }
 
   ngOnDestroy() {
     this.sub.unsubscribe();
     this.usub.unsubscribe();
     this.cssub.unsubscribe();
-    this.qtySub.unsubscribe();
   }
 
   isObject(sth) {
@@ -128,7 +105,6 @@ export class CalculatorComponent implements OnInit, OnDestroy {
   }
 
   viewbig(){
-    //console.log(this.sku[0].values)
     const modalRef = this.modalService.open(CarouselComponent, {centered: true});
     modalRef.componentInstance.sku = this.sku.values;
 
@@ -137,7 +113,7 @@ export class CalculatorComponent implements OnInit, OnDestroy {
   add2cart() {
     if (this.user) {
       this.adding = !this.adding;
-      const p = this.pc()
+      const p = this.getTot()
       const data = {
         name: this.pname,
         ordered: false,
@@ -145,13 +121,11 @@ export class CalculatorComponent implements OnInit, OnDestroy {
         pid: this.pid,
         time: new Date(),
         items: this.items,
-        price: p.cp,
-        total: p.price,
-        qty: p.qty,
-        shippingCost:p.sc,
+        subTotal: p.subTot,
+        qty: p.tot,
+        shippingCost:p.shippingCost,
         imageUrl:this.image,
-        sugPrice: p.sugPrice,
-        earn: p.qty*(p.sugPrice-p.cp) - p.sc,
+        earn: p.earn,
         checked:true
       }
 
@@ -159,7 +133,7 @@ export class CalculatorComponent implements OnInit, OnDestroy {
         this.adding = !this.adding;
         //open add2cart success dialog
         const modalRef = this.modalService.open(Add2cartSuccessComponent, {centered: true});
-        modalRef.componentInstance.msg = this.getTot();
+        modalRef.componentInstance.msg = this.getTot().tot;
         this.psku.reset()
       }).catch((err)=>{
         const modalRef = this.modalService.open(ErrorMsgComponent, {centered: true});
@@ -170,5 +144,4 @@ export class CalculatorComponent implements OnInit, OnDestroy {
       const modalRef = this.modalService.open(LoginFirstComponent, {centered: true});
     }
   }
-
 }

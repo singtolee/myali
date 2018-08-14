@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { of } from 'rxjs';
 import { Item } from './tools/Item';
+//import { reduce } from '../../node_modules/rxjs/operators';
+import { map, reduce } from 'rxjs/operators'
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +10,6 @@ import { Item } from './tools/Item';
 export class PassSkuService {
   itemSource = new Array<Item>();
   items = of(this.itemSource);
-  subAndQty = of(this.sub());
   
 
   constructor() {
@@ -20,15 +21,5 @@ export class PassSkuService {
 
   reset(){
     this.itemSource.length = 0;
-  }
-
-  sub(){
-    var su = 0
-    var quantity = 0
-    for(const i of this.itemSource){
-      quantity = quantity + i.qty
-      su = su + i.qty * Number(i.size.price)
-    }
-    return {subTotal: su,qty:quantity}
   }
 }
