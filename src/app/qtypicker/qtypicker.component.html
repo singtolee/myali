@@ -1,12 +1,8 @@
 <div class="d-flex align-items-center m-1 p-1 border-bottom">
-    <div *ngIf="val.image; else de">
-        <img [src]="val.image" height="30px" width="30px" class="rounded">
-        <span class="small p-2"><span class="font-weight-bold">{{co.thSkuS}}</span>
+    <div>
+        <span class="small"><span class="font-weight-bold">{{co.thSkuS}}</span>
         <span class="font-weight-light p-2">{{co.price | cny2thb}}</span></span>
     </div>
-    <ng-template #de>
-        <div class="small ml-2"><span class="small font-weight-bold">{{val.thDesc}}</span><span class="small p-2 font-weight-bold">{{co.thSkuS}}</span>{{co.price | cny2thb}}</div>
-    </ng-template>
     <div class="dc"></div>
     <div class="">
         <div class="input-group input-group sm">

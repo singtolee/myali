@@ -27,9 +27,6 @@ export class UserCartComponent implements OnInit, OnDestroy {
   isuploadingbill:boolean = false;
   checkingout:boolean = false;
 
-  costSheet;
-  cssub:Subscription;
-
   //for upload file
   task: AngularFireUploadTask;
   percentage: Observable<number>;
@@ -43,12 +40,11 @@ export class UserCartComponent implements OnInit, OnDestroy {
   constructor(private auth: AuthService,
               private db: AngularFirestore, 
               private storage: AngularFireStorage, 
-              private cs: CmsService, 
+              private cms: CmsService, 
               private modalService: NgbModal) {
   }
 
   ngOnInit() {
-    this.cssub = this.cs.costSheet.subscribe(cs=>this.costSheet=cs)
     this.sub = this.auth.user.subscribe((user)=>{
       this.user = user;
       if(user){
@@ -62,7 +58,6 @@ export class UserCartComponent implements OnInit, OnDestroy {
   }
   ngOnDestroy(){
     this.sub.unsubscribe()
-    this.cssub.unsubscribe()
     if(this.cartSub){
       this.cartSub.unsubscribe()
     }
@@ -112,9 +107,9 @@ export class UserCartComponent implements OnInit, OnDestroy {
 
       switch(this.paymentMethod){
         case 'bank' :
-          data.discount = this.costSheet.bankTransferDiscount;
+          data.discount = this.cms.costSheet.bankTransferDiscount;
           data.billUrl = this.billUrl;
-          data.grandTotal -= this.costSheet.bankTransferDiscount;
+          data.grandTotal -= this.cms.costSheet.bankTransferDiscount;
           data.status.s2.title = 'paid';
           break
         case 'cod' :
@@ -153,7 +148,7 @@ export class UserCartComponent implements OnInit, OnDestroy {
         arr.push(this.carts[i].id)
       }
     }
-    return {t:total,s:sc>this.costSheet.minShippingCost? sc:this.costSheet.minShippingCost, arr:arr}
+    return {t:total,s:sc>this.cms.costSheet.minShippingCost? sc:this.cms.costSheet.minShippingCost, arr:arr}
   }
   
   cartChecked(){

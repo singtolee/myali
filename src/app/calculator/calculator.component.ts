@@ -28,29 +28,18 @@ export class CalculatorComponent implements OnInit, OnDestroy {
   items;
   sub: Subscription; //items
   usub: Subscription;
-  cssub:Subscription;
-  costSheet;
   adding:boolean=false;
 
   constructor(private auth: AuthService, 
               private psku: PassSkuService, 
               private afs: AngularFirestore, 
-              private cs: CmsService, 
+              private cms: CmsService, 
               private modalService: NgbModal) { }
 
   ngOnInit() {
     this.psku.reset();
-    this.cssub = this.cs.costSheet.subscribe(cs=>this.costSheet=cs)
     this.sub = this.psku.items.subscribe(i => this.items = i);
     this.usub = this.auth.user.subscribe(u => this.user = u);
-  }
-  skuType(){
-    if(this.sku.values){
-      return 'typeone'
-    }
-    else{
-      return 'typethree'
-    }
   }
 
   overMin() {
@@ -60,6 +49,12 @@ export class CalculatorComponent implements OnInit, OnDestroy {
     } else {
       return false
     }
+  }
+
+  cartIsEmpty(){
+    if(this.getTot().tot==0){
+      return true
+    }else {return false}
   }
 
   str2num(a) {
@@ -78,15 +73,15 @@ export class CalculatorComponent implements OnInit, OnDestroy {
     var totQty = qtyArr.reduce(((acc,num)=>acc+num),0);
 
     //get sub total in THB
-    var subArr = this.items.map(itemObj=>itemObj.qty*Math.ceil(itemObj.size.price*this.cs.rate))
+    var subArr = this.items.map(itemObj=>itemObj.qty*Math.ceil(itemObj.size.price*this.cms.costSheet.rate))
     var subTotal = subArr.reduce(((acc,num)=>acc+num),0)
 
     //get sub total with suggested sell price in THB
-    var sugArr = this.items.map(itemObj=>itemObj.qty*Math.ceil(itemObj.size.sugPrice*this.cs.rate))
+    var sugArr = this.items.map(itemObj=>itemObj.qty*Math.ceil(itemObj.size.sugPrice*this.cms.costSheet.rate))
     var sugTotal = sugArr.reduce(((acc,num)=>acc+num),0)
 
     //shipping cost in THB
-    var sc = Math.ceil(totQty * this.uw * this.costSheet.land)
+    var sc = Math.ceil(totQty * this.uw * this.cms.costSheet.land)
     //get potential earning
     var earn = sugTotal - subTotal - sc
     var total = sc + subTotal
@@ -97,11 +92,6 @@ export class CalculatorComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.sub.unsubscribe();
     this.usub.unsubscribe();
-    this.cssub.unsubscribe();
-  }
-
-  isObject(sth) {
-    return typeof sth === 'object';
   }
 
   viewbig(){

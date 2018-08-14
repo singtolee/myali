@@ -6,12 +6,12 @@
     <span class="text-danger font-weight-bold">{{prd.price | cny2thb}}</span>
   </div>
   <div class="card-subtitle pl-1 pr-1">
-    <span class="text-dark">ซื้อขั้นต่ำ:{{prd.trade_info[0].min_num}} pcs</span>
+    <span class="font-weight-light">ซื้อขั้นต่ำ:{{prd.trade_info[0].min_num}} pcs</span>
     <span class="float-right">
       <app-rating [rate]="prd.score"></app-rating>
     </span>
   </div>
-  <p class="clip card-text font-weight-light p-1">
+  <p class="clip font-weight-normal p-1">
     <small>{{prd.thName}}</small>
   </p>
 </div>

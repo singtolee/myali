@@ -15,33 +15,23 @@
     </div>
   </div>
 </div>
-<div [ngSwitch]="skuType()">
-  <div *ngSwitchCase="'typeone'">
-    <mat-tab-group>
-      <mat-tab *ngFor="let val of sku.values">
-        <ng-template mat-tab-label>
-          <span *ngIf="val.image; else showDesc">
-            <img class="border border-secondary rounded" [src]="val.image" height="40px" width="40px">
-          </span>
-          <ng-template #showDesc>
-            {{val.thDesc}}
-          </ng-template>
-        </ng-template>
-        <div *ngFor="let co of val.skus">
-          <app-qtypicker [val]="val" [co]="co"></app-qtypicker>
-        </div>
-      </mat-tab>
-    </mat-tab-group>
-  </div>
-  <div *ngSwitchCase="'typethree'">
-    <app-qtypicker></app-qtypicker>
-  </div>
-  <div *ngSwitchDefault>
-    error msg
-  </div>
-</div>
+<mat-tab-group>
+  <mat-tab *ngFor="let val of sku.values">
+    <ng-template mat-tab-label>
+      <span *ngIf="val.image; else showDesc">
+        <img class="border border-secondary rounded" [src]="val.image" height="40px" width="40px">
+      </span>
+      <ng-template #showDesc>
+        {{val.thDesc}}
+      </ng-template>
+    </ng-template>
+    <div *ngFor="let co of val.skus">
+      <app-qtypicker [val]="val" [co]="co"></app-qtypicker>
+    </div>
+  </mat-tab>
+</mat-tab-group>
 <div class="mycal mt-2 mb-2">
-  <div *ngIf="!overMin(); else over" class="mt-2">
+  <div *ngIf="cartIsEmpty(); else over" class="mt-3">
     <p class="small text-center"><i class="fas fa-exclamation-circle"></i>ซื้อขั้นต่ำ {{info[0].min_num}} pcs</p>
   </div>
   <ng-template #over>
@@ -49,11 +39,11 @@
       <p class="text-right small font-weight-light"><span class="mr-1">Quantity:</span>{{p.tot}} pcs</p>
       <p class="text-right small font-weight-light"><span class="mr-1">Sub total</span>{{p.subTot}} บาท</p>
       <p class="text-right small font-weight-light"><span class="small text-danger">
-        <i class="fas fa-exclamation-triangle"></i>Minimum shipping fee is {{costSheet.minShippingCost}} บาท</span> <span class="mr-1 ml-1">Shipping Cost</span>{{p.shippingCost}} บาท</p>
+        <i class="fas fa-exclamation-triangle"></i>Minimum shipping fee is {{cms.costSheet.minShippingCost}} บาท</span> <span class="mr-1 ml-1">Shipping Cost</span>{{p.shippingCost}} บาท</p>
       <p class="text-right small font-weight-bold"><span class="mr-1">Total</span>{{p.total}} บาท</p>
       <p class="text-right small font-weight-bold text-success"><span class="mr-1"><i class="fas fa-hand-holding-usd"></i></span>Potential profit: {{p.earn}} บาท</p>
       <p class="text-right small text-dark">
-          <i class="fas fa-shipping-fast mr-1"></i>Shipping duration :{{costSheet.landDuration}} days</p>
+          <i class="fas fa-shipping-fast mr-1"></i>Shipping duration :{{cms.costSheet.landDuration}} days</p>
     </div>
   </ng-template>
 </div>

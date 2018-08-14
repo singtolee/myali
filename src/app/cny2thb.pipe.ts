@@ -12,12 +12,12 @@ export class Cny2thbPipe implements PipeTransform {
     if(typeof value === 'string'){
       var nums = value.split(/\-+/);
       if(nums.length==1){
-        return Math.ceil(Number(nums[0])*this.cm.rate) + ' บาท';
+        return Math.ceil(Number(nums[0])*this.cm.costSheet.rate) + ' บาท';
       }else {
-        return Math.ceil(Number(nums[0])*this.cm.rate) + '~' + Math.ceil(Number(nums[1])*6) + ' บาท';
+        return Math.ceil(Number(nums[0])*this.cm.costSheet.rate) + '~' + Math.ceil(Number(nums[1])*6) + ' บาท';
       }
     }
-    return Math.ceil(value*this.cm.rate) + ' บาท';
+    return Math.ceil(value*this.cm.costSheet.rate) + ' บาท';
   }
 
 }

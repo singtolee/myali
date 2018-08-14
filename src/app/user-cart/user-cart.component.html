@@ -22,22 +22,13 @@
           <ul class="list-group list-group-flush">
             <li class="list-group-item">
               <div class="row">
-                <div *ngFor="let item of cart.data.items" class="col-12 col-md-6 col-lg-4">
-                  <div *ngIf="item.sku.image;else desc">
+                <div *ngFor="let item of cart.data.items" class="col-6 col-md-4 col-lg-3">
+                  <div>
                     <img [src]="item.sku.image" class="rounded" height="35px" width="35px" [routerLink]="['/product',cart.data.pid]">
                     <span class="badge badge-light ml-1">
                       <small>{{item.size.thSkuS}}*{{item.qty}} pcs</small>
                     </span>
                   </div>
-                  <ng-template #desc>
-                    <img [src]="cart.data.imageUrl" class="rounded" height="35px" width="35px" [routerLink]="['/product',cart.data.pid]">
-                    <span class="badge badge-light ml-1">
-                      <small *ngIf="item.sku.thDesc!=item.size.thDesc; else disone">{{item.sku.thDesc}}@{{item.size.thDesc}}*{{item.qty}} pcs</small>
-                      <ng-template #disone>
-                        <small>{{item.size.thDesc}}*{{item.qty}} pcs</small>
-                      </ng-template>
-                    </span>
-                  </ng-template>
                 </div>
               </div>
             </li>
@@ -62,18 +53,18 @@
       <div class="row justify-content-md-center">
         <div *ngIf="cartChecked()" class="col col-12 col-md-8">
           <p class="text-right font-weight-light small">Sub total: {{cal().t}} บาท</p>
-          <p class="text-right font-weight-light small"><span class="text-danger">*Minimiu shipping cost is {{costSheet.minShippingCost}} บาท.</span> Shipping Cost: {{cal().s}} บาท</p>
+          <p class="text-right font-weight-light small"><span class="text-danger">*Minimiu shipping cost is {{cms.costSheet.minShippingCost}} บาท.</span> Shipping Cost: {{cal().s}} บาท</p>
           <hr>
           <p class="text-right font-weight-bold small">Grand Total: {{cal().t +cal().s}} บาท</p>
-          <p class="text-right text-dark small"><i class="fas fa-shipping-fast mr-1"></i>Get your order in {{costSheet.landDuration}} days</p>
+          <p class="text-right text-dark small"><i class="fas fa-shipping-fast mr-1"></i>Get your order in {{cms.costSheet.landDuration}} days</p>
           <hr>
         </div>
         <div *ngIf="cartChecked()" class="col col-12 col-md-8">
           <p class="text-center text-dark font-weight-bold">Pay online get
-            <span class="text-danger font-italic">{{costSheet.bankTransferDiscount}} บาท</span> discount.</p>
+            <span class="text-danger font-italic">{{cms.costSheet.bankTransferDiscount}} บาท</span> discount.</p>
           <mat-radio-group class="example-radio-group" [(ngModel)]="paymentMethod">
             <mat-radio-button class="example-radio-button" color="warn" value="bank">
-              <small>Pay online, save {{costSheet.bankTransferDiscount}} บาท.</small>  
+              <small>Pay online, save {{cms.costSheet.bankTransferDiscount}} บาท.</small>  
             </mat-radio-button>
             <mat-radio-button class="example-radio-button" color="warn" value="cod">
               <small>Cash on delivery</small>  
@@ -81,7 +72,7 @@
           </mat-radio-group>
           <div *ngIf="paymentMethod == 'bank';else cod">
             <small class="text-info mb-1">Scan QR code pay
-              <span class="text-danger">{{cal().t+cal().s - costSheet.bankTransferDiscount}} บาท</span>, and upload the bill.</small>
+              <span class="text-danger">{{cal().t+cal().s - cms.costSheet.bankTransferDiscount}} บาท</span>, and upload the bill.</small>
               <div class="container">
                   <div class="row justify-content-center">
                     <div class="col-8">

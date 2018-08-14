@@ -31,7 +31,6 @@ export class QtypickerComponent implements OnInit {
       this.psku.addItem(newItem)
     }else{
       this.psku.itemSource[i].qty=newItem.qty
-      console.log(this.psku.itemSource)
     }
   }
 
