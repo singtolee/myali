@@ -23,11 +23,11 @@
         <tbody>
           <tr>
             <th scope="row">ราคา</th>
-            <td *ngFor="let info of product.trade_info"><span class="text-danger font-weight-bold">{{info.price | cny2thb}}</span></td>
+            <td><span class="text-danger font-weight-bold">{{product.trade_info[0].price | cny2thb}}</span></td>
           </tr>
           <tr>
             <th scope="row">ปริมาณ</th>
-            <td *ngFor="let info of product.trade_info"> <span class="small">>={{info.min_num}} pcs</span> </td>
+            <td> <span class="small">>={{product.trade_info[0].min_num}} pcs</span> </td>
           </tr>
         </tbody>
       </table>
@@ -48,5 +48,4 @@
 <div id="fab">
   <button class="btn btn-sm bg-light" (click)="goback()" [disabled]="disAbleGoBack" ><i class="fas fa-chevron-circle-left fa-2x text-danger" ></i></button>
   <button class="btn btn-sm bg-light" (click)="goup()"> <i class="fas fa-chevron-circle-up fa-2x text-info"></i></button>
-  
 </div>
