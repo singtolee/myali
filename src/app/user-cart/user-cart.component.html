@@ -22,9 +22,12 @@
           <ul class="list-group list-group-flush">
             <li class="list-group-item">
               <div class="row">
-                <div *ngFor="let item of cart.data.items" class="col-6 col-md-4 col-lg-3">
+                <div *ngFor="let item of cart.data.items" class="col-6 col-md-4 mb-1">
                   <div>
-                    <img [src]="item.sku.image" class="rounded" height="35px" width="35px" [routerLink]="['/product',cart.data.pid]">
+                    <img *ngIf="item.sku.image; else showMainImg" [src]="item.sku.image" class="rounded" height="35px" width="35px" [routerLink]="['/product',cart.data.pid]">
+                    <ng-template #showMainImg>
+                      <img [src]="cart.data.imageUrl" class="rounded" height="35px" width="35px" [routerLink]="['/product',cart.data.pid]">
+                    </ng-template>
                     <span class="badge badge-light ml-1">
                       <small>{{item.size.thSkuS}}*{{item.qty}} pcs</small>
                     </span>

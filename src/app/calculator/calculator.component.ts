@@ -119,11 +119,12 @@ export class CalculatorComponent implements OnInit, OnDestroy {
         checked:true
       }
 
+      console.log(data)
+
       this.afs.collection('CARTS').add(data).then(() => {
         this.adding = !this.adding;
-        //open add2cart success dialog
         const modalRef = this.modalService.open(Add2cartSuccessComponent, {centered: true});
-        modalRef.componentInstance.msg = this.getTot().tot;
+        modalRef.componentInstance.msg = data.qty;
         this.psku.reset()
       }).catch((err)=>{
         const modalRef = this.modalService.open(ErrorMsgComponent, {centered: true});

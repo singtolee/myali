@@ -20,7 +20,12 @@ export class QtypickerComponent implements OnInit {
   }
 
   delSkus(obj){
-    return {desc:obj.desc,thDesc:obj.thDesc,image:obj.image}
+    if(obj.image){
+      return {desc:obj.desc,thDesc:obj.thDesc,image:obj.image}
+    }else {
+      return {desc:obj.desc,thDesc:obj.thDesc}
+    }
+    
   }
 
   inc(){
