@@ -36,7 +36,7 @@
   </div>
   <ng-template #over>
     <div *ngIf="getTot(); let p" class="mr-1">
-      <p class="text-right small font-weight-light"><span class="mr-1">Quantity:</span>{{p.tot}} pcs</p>
+      <p class="text-right small font-weight-light"><span *ngIf="!overMin()" class="small text-danger mr-1">ซื้อขั้นต่ำ {{info[0].min_num}} pcs</span> <span class="mr-1">Quantity:</span>{{p.tot}} pcs</p>
       <p class="text-right small font-weight-light"><span class="mr-1">Sub total</span>{{p.subTot}} บาท</p>
       <p class="text-right small font-weight-light"><span class="small text-danger">
         <i class="fas fa-exclamation-triangle"></i>Minimum shipping fee is {{cms.costSheet.minShippingCost}} บาท</span> <span class="mr-1 ml-1">Shipping Cost</span>{{p.shippingCost}} บาท</p>

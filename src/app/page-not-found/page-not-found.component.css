@@ -1,0 +1,20 @@
+#notfound {
+    background-image: url("https://firebasestorage.googleapis.com/v0/b/alitoyou-168.appspot.com/o/BANNER%2Fcontainer_ship_kit8-net.png?alt=media&token=ab280478-73b7-43cc-9107-40bd6f82e779");
+    background-color: #cccccc;
+    background-size:     cover;   
+    background-repeat:   no-repeat;
+    background-position: center center;
+}
+
+div.a {
+    height: 500px;
+}
+
+.box div {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+  }
