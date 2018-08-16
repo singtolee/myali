@@ -95,6 +95,7 @@ export class UserCartComponent implements OnInit, OnDestroy {
       const data = {
         paymentMe:this.paymentMethod,
         billUrl:'',
+        done:false,
         uid: this.user.uid,
         time: new Date(),
         total: cal.t,
