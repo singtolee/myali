@@ -1,10 +1,10 @@
 <div *ngIf="auth.user | async as user">
-  <div class="card">
+  <div class="card mybg">
     <div class="card-body text-center">
-      <i class="fas fa-sign-out-alt float-right" (click)="logout()"></i><br>
+      <i class="fas fa-sign-out-alt float-right text-white" (click)="logout()"></i><br>
       <img class="roundimg" [src]="user.photoURL" onError="this.src='./assets/avatar.png'" width="80px" height="80px">
-      <p class="text-center">{{user.displayName}}</p>
-      <p class="text-center">{{user.email}}</p>
+      <p class="text-center text-white font-weight-bold">{{user.displayName}}</p>
+      <p class="text-center text-white font-weight-bold text-uppercase">{{user.email}}</p>
     </div>
   </div>
 </div>

@@ -15,7 +15,7 @@
       <div class="row justify-content-md-center">
           <div class="col col-12 col-md-8">
             <button (click)="loadmore()" [disabled]="isDone | async" type="button" class="btn btn-warning btn-sm btn-block mt-2 mb-3">
-              <span *ngIf="!spin">
+              <span *ngIf="!spin" class="text-white">
                 <i class="fas fa-download mr-2"></i>Load more...
               </span>
               <span *ngIf="spin">
