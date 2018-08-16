@@ -2,6 +2,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { registerLocaleData } from '@angular/common';
 import lcoaleTh from '@angular/common/locales/th';
 
+import { HttpModule } from '@angular/http';
+import { HttpClientModule} from '@angular/common/http';
+
 registerLocaleData(lcoaleTh);
 import { NgModule, LOCALE_ID } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -62,6 +65,7 @@ import { Add2cartSuccessComponent } from './add2cart-success/add2cart-success.co
 import { LoginFirstComponent } from './login-first/login-first.component';
 import { ErrorMsgComponent } from './error-msg/error-msg.component';
 import { NgLoginComponent } from './ng-login/ng-login.component';
+import { UrlApiComponent } from './url-api/url-api.component';
 export const firebaseConfig = environment.firebaseConfig;
 
 @NgModule({
@@ -100,10 +104,13 @@ export const firebaseConfig = environment.firebaseConfig;
     Add2cartSuccessComponent,
     LoginFirstComponent,
     ErrorMsgComponent,
-    NgLoginComponent
+    NgLoginComponent,
+    UrlApiComponent
   ],
   imports: [
     BrowserModule,
+    HttpModule,
+    HttpClientModule,
     NgxsModule.forRoot([PrdState]),
     NgxsReduxDevtoolsPluginModule.forRoot(),
     NgxsLoggerPluginModule.forRoot(),

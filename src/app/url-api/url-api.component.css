@@ -1,0 +1,19 @@
+.mybg {
+    background-image: url("https://firebasestorage.googleapis.com/v0/b/alitoyou-168.appspot.com/o/BANNER%2Fwarehouse.png?alt=media&token=b17cfc98-5c22-44e0-b0c3-13896d7deb2f");
+    background-color: #cccccc;
+    background-size:     cover;   
+    background-repeat:   no-repeat;
+    background-position: center center;
+
+    height: 400px;
+    position: relative;
+}
+
+.mybox{
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+  }

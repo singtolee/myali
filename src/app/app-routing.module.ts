@@ -6,6 +6,7 @@ import { ProductDetailComponent } from './product-detail/product-detail.componen
 import { UserPageComponent } from './user-page/user-page.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { AuthGuard } from './auth.guard';
+import { UrlApiComponent } from './url-api/url-api.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home',pathMatch: 'full'},
@@ -13,6 +14,7 @@ const routes: Routes = [
   { path:'products/:category', component:ProductListComponent},
   { path:'product/:id', component:ProductDetailComponent},
   { path:'userPage', component:UserPageComponent, canActivate:[AuthGuard]},
+  { path:'urlapi', component:UrlApiComponent},
   { path: "**", component:PageNotFoundComponent}
 ];
 
@@ -21,4 +23,9 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
-export const routingComponents = [HomeComponent,ProductListComponent,ProductDetailComponent,UserPageComponent,PageNotFoundComponent]
+export const routingComponents = [HomeComponent,
+                                  ProductListComponent,
+                                  ProductDetailComponent,
+                                  UserPageComponent,
+                                  UrlApiComponent,
+                                  PageNotFoundComponent]
