@@ -178,7 +178,7 @@ export class UrlApiComponent implements OnInit, OnDestroy {
       values:[{
           desc:"均码",
           thDesc:"หนึ่งขนาด",
-          image:data.images[0],
+          image:data.images[0].image_url,
           skus:[{
               sku:"均码",
               stock:999,
