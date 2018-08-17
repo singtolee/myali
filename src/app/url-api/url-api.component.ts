@@ -25,15 +25,13 @@ export class UrlApiComponent implements OnInit, OnDestroy {
   url:string;
   prdData:Product;
   retryCounter:number = 0;
-
   apiError:boolean = false;
-
   urlSub:Subscription;
-
   dir = "APIPRODUCTS"
 
-
-  constructor(private db:AngularFirestore, private http:HttpClient, private urlService:PassUrlService) { }
+  constructor(private db:AngularFirestore, 
+              private http:HttpClient, 
+              private urlService:PassUrlService) { }
 
   ngOnInit() {
     this.urlSub = this.urlService.currentUrl.subscribe(u=>{
@@ -55,6 +53,7 @@ export class UrlApiComponent implements OnInit, OnDestroy {
       this.showSpinner=false;
       if(res.loaded){
         this.prdData = this.reformDate(res.data);
+        this.urlService.changePid(this.prdData.pid);
         this.save2firestore();
         console.log(this.prdData);
         console.log(res);
