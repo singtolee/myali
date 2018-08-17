@@ -1,9 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Product } from '../tools/Product';
 import { Dsku } from '../tools/Dsku';
 import { MySkuDetail } from '../tools/MySkuDetail';
 import { Details } from '../tools/Details';
+import { AngularFirestore } from 'angularfire2/firestore';
+import { PassUrlService } from '../pass-url.service';
+import { Subscription } from 'rxjs';
 export const API = "https://singtostore.com?prdurl=";
 
 interface Prd {
@@ -16,41 +19,73 @@ interface Prd {
   templateUrl: './url-api.component.html',
   styleUrls: ['./url-api.component.css']
 })
-export class UrlApiComponent implements OnInit {
+export class UrlApiComponent implements OnInit, OnDestroy {
 
   showSpinner:boolean = false;
   url:string;
-  prdData:any;
+  prdData:Product;
+  retryCounter:number = 0;
+
+  apiError:boolean = false;
+
+  urlSub:Subscription;
+
+  dir = "APIPRODUCTS"
 
 
-  constructor(private http:HttpClient) { }
+  constructor(private db:AngularFirestore, private http:HttpClient, private urlService:PassUrlService) { }
 
   ngOnInit() {
+    this.urlSub = this.urlService.currentUrl.subscribe(u=>{
+      this.url = u;
+      if(this.url){
+        this.callApi();
+      }
+    })
+  }
+  ngOnDestroy(){
+    this.urlSub.unsubscribe();
   }
 
   callApi(){
     this.showSpinner = true;
-    //this.url = event.clipboardData.getData(`text`);
+    this.apiError = false;
     const address = API.concat(this.url);
     this.http.get<Prd>(address).subscribe((res)=>{
       this.showSpinner=false;
       if(res.loaded){
         this.prdData = this.reformDate(res.data);
+        this.save2firestore();
         console.log(this.prdData);
         console.log(res);
       }else {
-        //call again
-        this.callApi()
+        console.log(res)
+        console.log("re try: " + this.retryCounter);
+        //if failed call again , call 3 times then dispaly error mes???
+        if(this.retryCounter>2){
+          this.apiError = true;
+          this.retryCounter = 0;
+          return
+        }else{
+          this.retryCounter +=1;
+          this.callApi();
+        }
       }
     });
 
   }
 
+
+  save2firestore(){
+
+    this.db.collection(this.dir).add(JSON.parse( JSON.stringify(this.prdData)))
+  }
+
   reformDate(data){
     var mydate = new Product();
-    mydate.images = data.images;
+    mydate.images = data.images.map(item=>item.image_url);
     mydate.pid = Number(data.pid);
-    mydate.score = Number(data.score);
+    mydate.score = Number(data.score)>5? 5:Number(data.score);  //Jing Dong use 100 grade, 1688 use 5 grade
     mydate.time = new Date();
     mydate.keyword = 'api';
     mydate.status = false;
@@ -63,10 +98,11 @@ export class UrlApiComponent implements OnInit {
     mydate.price = this.handlePrice(data.price);
   
     if(data.skus[0].values){
-      mydate.sku = this.handleSku(data.skus[0],data.sku_detail)
+      mydate.sku = this.handleSku(data.skus[0],data.sku_detail,mydate.price)
     }else{
       mydate.sku = this.fakeSku(data)
     }
+    this.url = '';
     return mydate
 
   }
@@ -81,15 +117,17 @@ export class UrlApiComponent implements OnInit {
     }
   }
 
-  handleSku(skus,skudtail){
+  handleSku(skus,skudtail,priceStr){
     var dsku = new Dsku();
+    var myskuArray = new Array<MySkuDetail>();
     dsku.label = "颜色";
     dsku.thLabel = "สี";
     for(const val of skus.values){
+      var detailsArray = new Array<Details>();
       var mysku = new MySkuDetail();
       mysku.desc = val.desc;
       if(val.image){
-        mysku.image = val.image;
+        mysku.image = val.image
       }
       mysku.thDesc = val.desc;
       for(const sd of skudtail){
@@ -107,16 +145,33 @@ export class UrlApiComponent implements OnInit {
             details.thSkuS = bb[0];
           }
           details.sku_id = sd.sku_id;
-          details.stock = Number(sd.sku_stock);
-          details.price = this.handlePrice(sd.sku_price);
-          details.sugPrice = Math.ceil(this.handlePrice(sd.sku_price)*1.7);
-          mysku.skus.push(details);
+          details.stock = Number(sd.sku_stock)? Number(sd.sku_stock):999;
+          console.log(typeof(sd.sku_price));
+          details.price = this.handlePrice(sd.sku_price)? this.handlePrice(sd.sku_price):priceStr;
+          details.sugPrice = Math.ceil(details.price*1.7);
+          detailsArray.push(details);
         }
       }
-      dsku.values.push(mysku);
+      mysku.skus = detailsArray;
+      myskuArray.push(mysku);
+    }
+    dsku.values = myskuArray;
+
+    for(const cp of dsku.values){
+      cp.skus.sort(this.compare)
     }
     return dsku;
   }
+
+  compare(a,b){
+    if(a.sku_id>b.sku_id){
+        return 1;
+    }
+    if(a.sku_id<b.sku_id){
+        return -1;
+    }
+    return 0;
+}
 
   fakeSku(data){
     return {

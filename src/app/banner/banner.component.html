@@ -3,7 +3,7 @@
     <img src="./assets/icon.png" class="rounded-circle"> ALITOYOU.COM</h1>
   <h6 class="text-center">
     <img src="./assets/alibaba.png" height="35px">
-    <span class="font-weight-bold">1688.COM</span> SOURCING AGENT</h6>
+    <span class="font-weight-bold text-dark">1688.COM</span> SOURCING AGENT</h6>
   <hr class="my-4">
   <div class="row">
     <div class="col-6 col-md-2">
@@ -57,8 +57,9 @@
   </div>
   <hr class="my-4">
   <div class="row justify-content-center">
-    <button type="button" class="btn btn-warning text-white" [routerLink]="['/urlapi']">
-      EXPLORE 1688.com JD.com TMALL.com TAOBAO.COM
-    </button>
+    <div class="col-sm-12 col-md-8">
+      <h4 class="text-center text-white font-weight-bold p-3"><i class="fas fa-paste"></i> PASTE PRODUCT URLs </h4>
+      <input class="form-control" placeholder="Accept URLS from 1688.com and JD.com" (paste)="callApi($event)">
+    </div>
   </div>
 </div>

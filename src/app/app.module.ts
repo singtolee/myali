@@ -66,6 +66,7 @@ import { LoginFirstComponent } from './login-first/login-first.component';
 import { ErrorMsgComponent } from './error-msg/error-msg.component';
 import { NgLoginComponent } from './ng-login/ng-login.component';
 import { UrlApiComponent } from './url-api/url-api.component';
+import { ApiProductDetailComponent } from './api-product-detail/api-product-detail.component';
 export const firebaseConfig = environment.firebaseConfig;
 
 @NgModule({
@@ -105,7 +106,8 @@ export const firebaseConfig = environment.firebaseConfig;
     LoginFirstComponent,
     ErrorMsgComponent,
     NgLoginComponent,
-    UrlApiComponent
+    UrlApiComponent,
+    ApiProductDetailComponent
   ],
   imports: [
     BrowserModule,

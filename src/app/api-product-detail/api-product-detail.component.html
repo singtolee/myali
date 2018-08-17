@@ -1,0 +1,36 @@
+<div *ngIf="product" class="container">
+  <div class="row">
+    <div class="preview col-md-6">
+      <div class="preview-pic tab-content">
+        <div class="tab-pane" *ngFor="let img of product.images; let k = index" [class.active]="!k" [id]="k">
+          <img [src]="img">
+        </div>
+      </div>
+      <ul class="preview-thumbnail nav nav-tabs">
+        <li *ngFor="let img of product.images; let j = index" [class.active]="!j">
+          <a [attr.data-target]="'#'+j" data-toggle="tab">
+            <img [src]="img">
+          </a>
+        </li>
+      </ul>
+    </div>
+    <div class="details col-md-6">
+      <h5 class="product-title p-2">{{product.thName}}</h5>
+      <table class="table table-sm table-hover alert-warning m-2">
+        <tbody>
+          <tr>
+            <th scope="row">ราคา</th>
+            <td><span class="text-danger font-weight-bold">{{product.trade_info[0].price | cny2thb}}</span></td>
+          </tr>
+          <tr>
+            <th scope="row">ปริมาณ</th>
+            <td> <span class="small">>={{product.trade_info[0].min_num}} pcs</span> </td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="p-1">
+        <app-calculator [pname]="product.thName" [sku]="product.sku" [pid]="product.pid" [info]="product.trade_info" [image]="product.images[0]" [uw]="product.uw"></app-calculator>
+      </div>
+    </div>
+  </div>
+</div>
