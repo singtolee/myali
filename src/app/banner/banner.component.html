@@ -6,8 +6,8 @@
     <span class="font-weight-bold text-dark">1688.COM</span> SOURCING AGENT</h6>
   <hr class="my-4">
   <div class="row" *ngIf="cms.costSheet">
-    <div class="col-12 col-md-4 mb-2">
-      <div class="card leftborder">
+    <div class="col-12 col-md-4 mb-2 py-2">
+      <div class="card leftborder h-100">
         <div class="card-body">
           <h5 class="font-weight-bold text-dark text-center">SHIPPING COST</h5>
           <p class="font-weight-bold text-dark text-left">
@@ -17,14 +17,18 @@
             <span><i class="fas fa-cube"></i></span>
             {{cms.costSheet.landCube}} BAHT/10CM*10CM*10CM
           </p>
+          <p class="font-weight-bold text-dark text-left">
+            <span><i class="fas fa-exchange-alt"></i></span>
+            REAL TIME EXCHANGE RATE, 1 CNY = {{cms.costSheet.rate}} BAHT
+          </p>
           <small class="font-weight-bold text-dark text-left">
             <span><i class="fas fa-exclamation-circle"></i></span>
             DEPENS ON THE PACKAGE SIZE AND WEIGHT</small>
         </div>
       </div>
     </div>
-    <div class="col-12 col-md-4 mb-2">
-      <div class="card leftborder">
+    <div class="col-12 col-md-4 mb-2 py-2">
+      <div class="card leftborder h-100">
         <div class="card-body">
           <h5 class="font-weight-bold text-dark text-center">SERVICE CHARGE</h5>
           <p class="font-weight-bold text-dark text-left">
@@ -40,8 +44,8 @@
         </div>
       </div>
     </div>
-    <div class="col-12 col-md-4 mb-2">
-      <div class="card leftborder">
+    <div class="col-12 col-md-4 mb-2 py-2">
+      <div class="card leftborder h-100">
         <div class="card-body">
           <h5 class="font-weight-bold text-dark text-center">SHIPPING DURATION</h5>
           <p class="font-weight-bold text-dark text-left">
