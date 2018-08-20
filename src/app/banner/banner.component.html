@@ -4,7 +4,19 @@
   <h6 class="text-center">
     <img src="./assets/alibaba.png" height="35px">
     <span class="font-weight-bold text-dark">1688.COM</span> SOURCING AGENT</h6>
-  <hr class="my-4">
+  <hr class="my-2">
+  <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-8">
+        <h4 class="text-center text-dark font-weight-bold p-3"><i class="fas fa-paste"></i> PASTE PRODUCT URLS </h4>
+        <input class="form-control" placeholder="Accept URLS from 1688.com and JD.com" (paste)="callApi($event)">
+      </div>
+      <div class="col col-sm-12 col-md-6">
+        <button type="button" [routerLink]="['/urlapi']" class="btn btn-warning btn-block mt-4 mb-3 font-weight-bold text-white" >
+          CHECK PRODUCT WITH URLS
+        </button>
+      </div>
+    </div>
+    <hr class="my-4"> 
   <div class="row" *ngIf="cms.costSheet">
     <div class="col-12 col-md-4 mb-3 py-2">
       <div class="card leftborder h-100">
@@ -93,13 +105,6 @@
         </p>
         <small class="my1688 font-weight-bold">ส่งถึงบ้าน</small>
       </div>
-    </div>
-  </div>
-  <hr class="my-4">
-  <div class="row justify-content-center">
-    <div class="col-sm-12 col-md-8">
-      <h4 class="text-center text-dark font-weight-bold p-3"><i class="fas fa-paste"></i> PASTE PRODUCT URLS </h4>
-      <input class="form-control" placeholder="Accept URLS from 1688.com and JD.com" (paste)="callApi($event)">
     </div>
   </div>
 </div>

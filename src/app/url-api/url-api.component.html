@@ -7,7 +7,9 @@
       <input class="form-control" placeholder="Paste Url here" [(ngModel)]="url">
       <br>
       <br>
-      <button type="button" class="btn btn-warning text-white" *ngIf="url" (click)="callApi()">BUY PRODUCT</button>
+      <button type="button" class="btn btn-warning btn-block text-white font-weight-bold" *ngIf="url" (click)="callApi()">CHECK
+        PRODUCT
+      </button>
       <br>
       <br>
       <app-loading-spinner *ngIf="showSpinner"></app-loading-spinner>
@@ -16,9 +18,18 @@
       </ngb-alert>
     </div>
   </div>
-  <div class="row">
-    <div *ngIf="prdData">
-      <app-api-product-detail></app-api-product-detail>
+  <div *ngIf="prdData" class="row justify-content-center">
+    <div class="col-sm-12 col-md-8 text-center">
+      <ngb-alert [dismissible]="false">
+        <strong>Notice! </strong>
+        <span> If the price is different from the original websiet, please contact us to change the price.</span>
+        <span class="text-success">
+          <a href="https://line.me/R/ti/p/%40rxc2757i" target="_blank">
+            <i class="fab fa-line fa-2x text-success"></i>
+          </a>
+        </span>
+      </ngb-alert>
     </div>
+    <app-api-product-detail></app-api-product-detail>
   </div>
 </div>

@@ -16,7 +16,7 @@ export class ApiProductDetailComponent implements OnInit, OnDestroy {
   pidSub:Subscription;
 
   public product:any;
-  dir = "APIPRODUCTS";
+  dir = "PRODUCTS";
 
   constructor(private db:AngularFirestore, private pidService:PassUrlService) {}
 

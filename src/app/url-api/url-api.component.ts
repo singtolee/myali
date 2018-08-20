@@ -27,7 +27,7 @@ export class UrlApiComponent implements OnInit, OnDestroy {
   retryCounter:number = 0;
   apiError:boolean = false;
   urlSub:Subscription;
-  dir = "APIPRODUCTS"
+  dir = "PRODUCTS"
 
   constructor(private db:AngularFirestore, 
               private http:HttpClient, 
