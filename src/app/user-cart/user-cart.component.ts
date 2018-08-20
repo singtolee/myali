@@ -93,32 +93,16 @@ export class UserCartComponent implements OnInit, OnDestroy {
       this.checkingout = !this.checkingout;
       var cal = this.cal()
       const data = {
-        paymentMe:this.paymentMethod,
-        billUrl:'',
+        billUrl:this.billUrl,
         done:false,
         uid: this.user.uid,
         time: new Date(),
-        total: cal.t,
-        shippingCost: cal.s,
+        subTotal: cal.t,
+        shippingCost: 0,
         cartArray:cal.arr,
-        grandTotal: cal.t + cal.s,
-        discount:0,
-        status:{s1:{time:new Date(),title:'confirmed'},s2:{time:new Date(),title:''}}
-      }
-
-      switch(this.paymentMethod){
-        case 'bank' :
-          data.discount = this.cms.costSheet.bankTransferDiscount;
-          data.billUrl = this.billUrl;
-          data.grandTotal -= this.cms.costSheet.bankTransferDiscount;
-          data.status.s2.title = 'paid';
-          break
-        case 'cod' :
-          data.status.s2.title = 'Cash on delivery';
-          break
-        default:
-          break
-          
+        serviceFee:cal.serviceFee,
+        grandTotal: cal.t + cal.serviceFee,
+        status:{s1:{time:new Date(),title:'Confirmed'},s2:{time:new Date(),title:'Paid'}}
       }
 
       this.db.collection('ORDERS').add(data).then(() => {
@@ -140,16 +124,18 @@ export class UserCartComponent implements OnInit, OnDestroy {
 
   cal(){
     var total = 0;
+    var serviceFee = 0;
     var sc = 0;
     var arr = [];
     for(var i=0;i<this.carts.length;i++){
       if(this.carts[i].data.checked){
         total = total + this.carts[i].data.subTotal
         sc = sc + this.carts[i].data.shippingCost
+        serviceFee = serviceFee + this.carts[i].data.serviceCharge
         arr.push(this.carts[i].id)
       }
     }
-    return {t:total,s:sc>this.cms.costSheet.minShippingCost? sc:this.cms.costSheet.minShippingCost, arr:arr}
+    return {t:total,s:sc>this.cms.costSheet.minShippingCost? sc:this.cms.costSheet.minShippingCost, arr:arr, serviceFee:serviceFee}
   }
   
   cartChecked(){

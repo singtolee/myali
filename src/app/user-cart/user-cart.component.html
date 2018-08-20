@@ -40,7 +40,7 @@
         <div class="card-footer">
           <div>
             <span class="badge badge-success">
-              <small>Total:{{cart.data.subTotal}} บาท</small>
+              <small>Total:{{cart.data.subTotal + cart.data.serviceCharge}} บาท</small>
             </span>
           </div>
         </div>
@@ -49,7 +49,9 @@
     <div *ngIf="items.length >0" class="container mt-2">
       <div class="row justify-content-md-center">
         <div *ngIf="cartChecked()" class="col col-12 col-md-8">
-          <p class="text-right font-weight-light small">Total: {{cal().t}} บาท</p>
+          <p class="text-right font-weight-light small">Sub Total: {{cal().t}} บาท</p>
+          <p class="text-right font-weight-light small">Service Charge: {{cal().serviceFee}} บาท</p>
+          <p class="text-right font-weight-bold small">Total: {{cal().t + cal().serviceFee}} บาท</p>
           <p class="text-right font-weight-light small"><span class="text-danger">*Minimiu shipping cost is {{cms.costSheet.minShippingCost}} บาท.</span> Estimated Shipping Cost: {{cal().s}} บาท</p>
           <p class="text-right font-weight-light small">Actual Shipping Fee is Calculated on Arrival</p>
           <p class="text-right text-dark small"><i class="fas fa-shipping-fast mr-1"></i>Get your order in {{cms.costSheet.landDuration}} days</p>
@@ -58,7 +60,7 @@
         <div *ngIf="cartChecked()" class="col col-12 col-md-8">
           <div>
             <h6 class="text-center text-dark mb-1">Scan QR code pay
-              <span class="text-danger">{{cal().t}} บาท</span>, and upload the bill.</h6>
+              <span class="text-danger">{{cal().t + cal().serviceFee}} บาท</span>, and upload the bill.</h6>
               <div class="container">
                   <div class="row justify-content-center">
                     <div class="col-8">

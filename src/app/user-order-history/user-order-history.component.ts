@@ -8,14 +8,15 @@ import { map } from 'rxjs/operators'
 
 interface Order {
   billUrl:string;
-  discount:number;
-  paymentMe:string;
+  done:boolean;
   grandTotal:number;
   shippingCost:number;
   time:Date;
-  total:number;
+  subTotal:number;
+  serviceFee:number;
   uid:string;
   cartArray:string[];
+  status:any;
 }
 
 @Component({
@@ -74,7 +75,7 @@ export class UserOrderHistoryComponent implements OnInit,OnDestroy {
   editStatus(cart:any){
 
     if(!this.isOver24h(cart)){
-      this.db.doc(this.dir + '/' + cart.id).update({'status.s3':{time:new Date(),title:'cancelled'}})
+      this.db.doc(this.dir + '/' + cart.id).update({'status.s3':{time:new Date(),title:'Cancelled'}})
     }
   }
 

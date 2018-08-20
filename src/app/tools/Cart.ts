@@ -9,7 +9,7 @@ export class Cart {
   qty:number;
   imageUrl:string;
   checked:boolean;
-  earn:number;
+  serviceCharge:number;
   shippingCost:number;
   ordered:boolean;
   

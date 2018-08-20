@@ -40,7 +40,9 @@
         <span *ngIf="!overMin()" class="small text-danger ml-2 mr-1">ซื้อขั้นต่ำ {{info[0].min_num}} pcs</span>
         <span class="ml-2 mr-1">Quantity:</span>{{p.tot}} pcs
       </p>
-      <p class="text-right small font-weight-bold"><span class="mr-1">Total</span>{{p.subTot}} บาท</p>
+      <p class="text-right small font-weight-light"><span class="mr-1">Sub Total</span>{{p.subTot}} บาท</p>
+      <p class="text-right small font-weight-light"><span class="mr-1">Service Charge</span>{{p.serviceCharge}} บาท</p>
+      <p class="text-right small font-weight-bold"><span class="mr-1">Total</span>{{p.subTot + p.serviceCharge}} บาท</p>
     </div>
   </ng-template>
 </div>

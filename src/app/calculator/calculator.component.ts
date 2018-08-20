@@ -67,26 +67,16 @@ export class CalculatorComponent implements OnInit, OnDestroy {
   }
 
   getTot() {
-
     //get items quantity
     var qtyArr = this.items.map(itemObj=>itemObj.qty);
     var totQty = qtyArr.reduce(((acc,num)=>acc+num),0);
-
     //get sub total in THB
     var subArr = this.items.map(itemObj=>itemObj.qty*Math.ceil(itemObj.size.price*this.cms.costSheet.rate))
     var subTotal = subArr.reduce(((acc,num)=>acc+num),0)
-
-    //get sub total with suggested sell price in THB
-    var sugArr = this.items.map(itemObj=>itemObj.qty*Math.ceil(itemObj.size.sugPrice*this.cms.costSheet.rate))
-    var sugTotal = sugArr.reduce(((acc,num)=>acc+num),0)
-
     //shipping cost in THB
     var sc = Math.ceil(totQty * this.uw * this.cms.costSheet.land)
-    //get potential earning
-    var earn = sugTotal - subTotal - sc
-    var total = sc + subTotal
-
-    return {tot:totQty,subTot:subTotal,shippingCost:sc,earn:earn,total:total}
+    var serviceCharge = Math.floor(subTotal*this.cms.costSheet.scr)
+    return {tot:totQty,subTot:subTotal,shippingCost:sc,serviceCharge:serviceCharge}
   }
 
   ngOnDestroy() {
@@ -115,12 +105,9 @@ export class CalculatorComponent implements OnInit, OnDestroy {
         qty: p.tot,
         shippingCost:p.shippingCost,
         imageUrl:this.image,
-        earn: p.earn,
+        serviceCharge:p.serviceCharge,
         checked:true
       }
-
-      console.log(data)
-
       this.afs.collection('CARTS').add(data).then(() => {
         this.adding = !this.adding;
         const modalRef = this.modalService.open(Add2cartSuccessComponent, {centered: true});
