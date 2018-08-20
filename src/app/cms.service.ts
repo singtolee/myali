@@ -4,10 +4,12 @@ import { take } from 'rxjs/operators';
 
 interface Cost {
   land:number;
+  landCube:number;
   landDuration:string;
   minShippingCost:number;
   bankTransferDiscount:number;
   rate:number;
+  scr:number;
 }
 
 
@@ -16,15 +18,11 @@ interface Cost {
 })
 export class CmsService {
 
-  //rate:number;
-
   dir = 'SHIPPINGCOST';
   dirDoc = 'shippingcost';
-  //costSheet:Observable<Cost>;
   costSheet:Cost;
 
   constructor(private afs:AngularFirestore) {
-   //this.costSheet = this.afs.doc<Cost>(`SHIPPINGCOST/shippingcost`).valueChanges()
    this.afs.doc<Cost>(`SHIPPINGCOST/shippingcost`).valueChanges().pipe(take(1)).subscribe(cc=>this.costSheet=cc)
 
   }

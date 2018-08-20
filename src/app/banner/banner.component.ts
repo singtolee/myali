@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PassUrlService } from '../pass-url.service';
+import { CmsService } from '../cms.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -9,7 +10,9 @@ import { Router } from '@angular/router';
 })
 export class BannerComponent implements OnInit {
 
-  constructor(private urlService:PassUrlService, private router:Router) {}
+  constructor(private urlService:PassUrlService, 
+              private router:Router,
+              private cms:CmsService) {}
 
   ngOnInit() {
   }

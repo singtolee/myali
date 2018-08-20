@@ -15,3 +15,7 @@
     padding-bottom: 4px;
     padding-top: 4px;
 }
+
+.leftborder {
+    border-left: 4px solid #dd0031;
+}
