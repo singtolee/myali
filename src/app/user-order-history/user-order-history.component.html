@@ -43,6 +43,7 @@
               <small>{{convert(cart.data.time) | date:'medium':'th'}}</small>
             </div>
           </div>
+          <p *ngIf="cart.data.shippingCost>0" class="text-dark font-weight-bold small">Shipping Cost: {{cart.data.shippingCost}} THB</p>
         </div>
       </div>
     </div>
