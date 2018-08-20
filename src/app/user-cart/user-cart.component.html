@@ -42,12 +42,6 @@
             <span class="badge badge-success">
               <small>Total:{{cart.data.subTotal}} บาท</small>
             </span>
-            <span class="badge badge-info ml-1">
-              <small>Shipping Cost:{{cart.data.shippingCost}} บาท</small>
-            </span>
-            <span class="badge badge-danger ml-1">
-              <small>Estimated Profit:{{cart.data.earn}} บาท</small>
-            </span>
           </div>
         </div>
       </div>
@@ -55,27 +49,16 @@
     <div *ngIf="items.length >0" class="container mt-2">
       <div class="row justify-content-md-center">
         <div *ngIf="cartChecked()" class="col col-12 col-md-8">
-          <p class="text-right font-weight-light small">Sub total: {{cal().t}} บาท</p>
-          <p class="text-right font-weight-light small"><span class="text-danger">*Minimiu shipping cost is {{cms.costSheet.minShippingCost}} บาท.</span> Shipping Cost: {{cal().s}} บาท</p>
-          <hr>
-          <p class="text-right font-weight-bold small">Grand Total: {{cal().t +cal().s}} บาท</p>
+          <p class="text-right font-weight-light small">Total: {{cal().t}} บาท</p>
+          <p class="text-right font-weight-light small"><span class="text-danger">*Minimiu shipping cost is {{cms.costSheet.minShippingCost}} บาท.</span> Estimated Shipping Cost: {{cal().s}} บาท</p>
+          <p class="text-right font-weight-light small">Actual Shipping Fee is Calculated on Arrival</p>
           <p class="text-right text-dark small"><i class="fas fa-shipping-fast mr-1"></i>Get your order in {{cms.costSheet.landDuration}} days</p>
           <hr>
         </div>
         <div *ngIf="cartChecked()" class="col col-12 col-md-8">
-          <p class="text-center text-dark font-weight-bold">Pay online get
-            <span class="text-danger font-italic">{{cms.costSheet.bankTransferDiscount}} บาท</span> discount.</p>
-          <mat-radio-group class="example-radio-group" [(ngModel)]="paymentMethod">
-            <mat-radio-button class="example-radio-button" color="warn" value="bank">
-              <small>Pay online, save {{cms.costSheet.bankTransferDiscount}} บาท.</small>  
-            </mat-radio-button>
-            <mat-radio-button class="example-radio-button" color="warn" value="cod">
-              <small>Cash on delivery</small>  
-            </mat-radio-button>
-          </mat-radio-group>
-          <div *ngIf="paymentMethod == 'bank';else cod">
-            <small class="text-info mb-1">Scan QR code pay
-              <span class="text-danger">{{cal().t+cal().s - cms.costSheet.bankTransferDiscount}} บาท</span>, and upload the bill.</small>
+          <div>
+            <h6 class="text-center text-dark mb-1">Scan QR code pay
+              <span class="text-danger">{{cal().t}} บาท</span>, and upload the bill.</h6>
               <div class="container">
                   <div class="row justify-content-center">
                     <div class="col-8">
@@ -97,12 +80,6 @@
               <img [src]="url" height="100" (click)="zoom(url)">
             </div>
           </div>
-          <ng-template #cod>
-            <div class="mb-1">
-              <small class="text-info">Please pay
-                <span class="text-danger">{{cal().t+cal().s}} บาท</span> upon collecting the parcel.</small>
-            </div>
-          </ng-template>
         </div>
         <div class="col col-12 col-md-8 mb-5">
           <button type="button" [disabled]="!paymentMethodChecked()" 

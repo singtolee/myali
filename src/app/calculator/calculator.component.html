@@ -36,14 +36,11 @@
   </div>
   <ng-template #over>
     <div *ngIf="getTot(); let p" class="mr-1">
-      <p class="text-right small font-weight-light"><span *ngIf="!overMin()" class="small text-danger mr-1">ซื้อขั้นต่ำ {{info[0].min_num}} pcs</span> <span class="mr-1">Quantity:</span>{{p.tot}} pcs</p>
-      <p class="text-right small font-weight-light"><span class="mr-1">Sub total</span>{{p.subTot}} บาท</p>
-      <p class="text-right small font-weight-light"><span class="small text-danger">
-        <i class="fas fa-exclamation-triangle"></i>Minimum shipping fee is {{cms.costSheet.minShippingCost}} บาท</span> <span class="mr-1 ml-1">Shipping Cost</span>{{p.shippingCost}} บาท</p>
-      <p class="text-right small font-weight-bold"><span class="mr-1">Total</span>{{p.total}} บาท</p>
-      <p class="text-right small font-weight-bold text-success"><span class="mr-1"><i class="fas fa-hand-holding-usd"></i></span>Potential profit: {{p.earn}} บาท</p>
-      <p class="text-right small text-dark">
-          <i class="fas fa-shipping-fast mr-1"></i>Shipping duration :{{cms.costSheet.landDuration}} days</p>
+      <p class="small font-weight-light text-right">
+        <span *ngIf="!overMin()" class="small text-danger ml-2 mr-1">ซื้อขั้นต่ำ {{info[0].min_num}} pcs</span>
+        <span class="ml-2 mr-1">Quantity:</span>{{p.tot}} pcs
+      </p>
+      <p class="text-right small font-weight-bold"><span class="mr-1">Total</span>{{p.subTot}} บาท</p>
     </div>
   </ng-template>
 </div>
