@@ -27,6 +27,7 @@
                     <img *ngIf="item.sku.image; else showMainImg" [src]="item.sku.image" class="rounded" height="35px" width="35px" [routerLink]="['/product',cart.data.pid]">
                     <ng-template #showMainImg>
                       <img [src]="cart.data.imageUrl" class="rounded" height="35px" width="35px" [routerLink]="['/product',cart.data.pid]">
+                      <span class="badge badge-light small">{{item.sku.thDesc}}</span>
                     </ng-template>
                     <span class="badge badge-light ml-1">
                       <small>{{item.size.thSkuS}}*{{item.qty}} pcs</small>
