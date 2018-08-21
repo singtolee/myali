@@ -1,9 +1,17 @@
 <div class="container">
   <div class="row justify-content-center">
     <div class="col-sm-12 col-md-8 text-center">
-      <h1 class="text-center text-dark font-weight-bold">1688.COM JD.COM</h1>
+      <a href="https://1688.com" target="_blank"><img src="./assets/1688.png" height="80px" width="80px" class="mr-5"></a>
+      <a href="https://www.jd.com" target="_blank"><img src="./assets/jd.jpg" height="80px" width="80px"></a>
+      <a href="https://1688.com" target="_blank"></a>
+      <h1 class="text-center mt-3">
+        <a href="https://1688.com" target="_blank"><span class="text-dark font-weight-bold">1688.COM</span></a>
+      </h1>
+      <h1 class="text-center">
+        <a href="https://www.jd.com" target="_blank"><span class="text-dark font-weight-bold">JD.COM</span></a>
+      </h1>
       <h4 class="text-center text-dark font-weight-bold p-3">
-        <i class="fas fa-paste"></i> Paste Url</h4>
+        <i class="fas fa-paste"></i> PASTE URL</h4>
       <input class="form-control" placeholder="Paste Url here" [(ngModel)]="url">
       <br>
       <br>
@@ -16,6 +24,9 @@
       <ngb-alert *ngIf="apiError" [dismissible]="false">
         <strong>Warning!</strong> Only accept URL from 1688.com and JD.com
       </ngb-alert>
+      <div *ngIf="!prdData">
+        <div class="emptybox"></div>
+      </div>
     </div>
   </div>
   <div *ngIf="prdData" class="row justify-content-center">
