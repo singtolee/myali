@@ -90,7 +90,7 @@ export class UrlApiComponent implements OnInit, OnDestroy {
     mydate.status = false;
     mydate.url = this.url;
     mydate.uw = 1;
-    mydate.thName = data.name;
+    mydate.thName = data.thName;
     mydate.name = data.name;
     mydate.trade_info = [{min_num:'1',original_price:data.original_price,price:data.price}];
     mydate.original_price = this.handlePrice(data.price);
@@ -128,7 +128,7 @@ export class UrlApiComponent implements OnInit, OnDestroy {
       if(val.image){
         mysku.image = val.image
       }
-      mysku.thDesc = val.desc;
+      mysku.thDesc = val.thDesc;
       for(const sd of skudtail){
         if(sd.sku_name.includes(val.desc)){
           var details = new Details();

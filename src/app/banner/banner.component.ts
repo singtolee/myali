@@ -12,7 +12,7 @@ export class BannerComponent implements OnInit {
 
   constructor(private urlService:PassUrlService, 
               private router:Router,
-              private cms:CmsService) {}
+              public cms:CmsService) {}
 
   ngOnInit() {
   }
