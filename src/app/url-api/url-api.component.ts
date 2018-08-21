@@ -8,6 +8,10 @@ import { AngularFirestore } from 'angularfire2/firestore';
 import { PassUrlService } from '../pass-url.service';
 import { Subscription } from 'rxjs';
 export const API = "https://singtostore.com?prdurl=";
+export const ALIURL = "https://detail.1688.com/offer/";
+export const JDURL = "https://item.jd.com/";
+export const MALI = "m.1688.com";
+export const MJD = "m.jd.com";
 
 interface Prd {
   loaded: boolean;
@@ -45,10 +49,31 @@ export class UrlApiComponent implements OnInit, OnDestroy {
     this.urlSub.unsubscribe();
   }
 
+  mobile2desktop(murl:string){
+    if(murl.includes(MALI)||murl.includes(MJD)){
+      console.log("Mobile Url Detected")
+      if(murl.includes(MALI)){
+        console.log("1688 Mobile Url")
+        var pidhtml = murl.match(/\d+.html/)
+        console.log(pidhtml)
+        return ALIURL.concat(pidhtml[0])
+      }
+      if(murl.includes(MJD)){
+        console.log("JD Mobile Url")
+        var pidhtml = murl.match(/\d+.html/)
+        console.log(pidhtml)
+        return JDURL.concat(pidhtml[0])
+      }
+    }else {
+      console.log("Desktop Url Detected")
+      return murl;
+    }
+  }
+
   callApi(){
     this.showSpinner = true;
     this.apiError = false;
-    const address = API.concat(this.url);
+    const address = API.concat(this.mobile2desktop(this.url));
     this.http.get<Prd>(address).subscribe((res)=>{
       this.showSpinner=false;
       if(res.loaded){
@@ -88,7 +113,7 @@ export class UrlApiComponent implements OnInit, OnDestroy {
     mydate.time = new Date();
     mydate.keyword = 'api';
     mydate.status = false;
-    mydate.url = this.url;
+    mydate.url = this.mobile2desktop(this.url);
     mydate.uw = 1;
     mydate.thName = data.thName;
     mydate.name = data.name;
