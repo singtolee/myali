@@ -54,8 +54,8 @@
           <p class="text-right font-weight-light small">Service Charge: {{cal().serviceFee}} บาท</p>
           <p class="text-right font-weight-bold small">Total: {{cal().t + cal().serviceFee}} บาท</p>
           <p class="text-right font-weight-light small"><span class="text-danger">*Minimiu shipping cost is {{cms.costSheet.minShippingCost}} บาท.</span> Estimated Shipping Cost: {{cal().s}} บาท</p>
-          <p class="text-right font-weight-light small">Actual Shipping Fee is Calculated on Arrival</p>
-          <p class="text-right text-dark small"><i class="fas fa-shipping-fast mr-1"></i>Get your order in {{cms.costSheet.landDuration}} days</p>
+          <p class="text-right font-weight-bold small">Actual Shipping Fee is Calculated on Arrival</p>
+          <p class="text-right font-weight-bold text-dark small"><i class="fas fa-shipping-fast mr-1"></i>Get your order in {{cms.costSheet.landDuration}} days</p>
           <hr>
         </div>
         <div *ngIf="cartChecked()" class="col col-12 col-md-8">
@@ -70,7 +70,7 @@
                   </div>
                 </div>
             <label class="btn btn-block btn-outline-info btn-sm mt-1">
-              <i class="fas fa-cloud-upload-alt mr-1"></i>upload tranfer bill
+              <i class="fas fa-cloud-upload-alt mr-1"></i>UPLOAD BILL
               <input type="file" (change)="startUpload($event.target.files)" accept="image/*" style="display: none;">
             </label>
             <app-loading-spinner *ngIf="isuploadingbill"></app-loading-spinner>
