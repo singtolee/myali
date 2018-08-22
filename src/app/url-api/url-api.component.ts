@@ -173,11 +173,12 @@ export class UrlApiComponent implements OnInit, OnDestroy {
           if(bb.length>1){
             details.skuC = bb[0];
             details.skuS = bb[1];
+            //details.thSkuS = sd.sku_thName;
             details.thSkuS = bb[1];
           }else{
             details.skuC = bb[0];
             details.skuS = bb[0];
-            details.thSkuS = bb[0];
+            details.thSkuS = sd.sku_thName;
           }
           details.sku_id = sd.sku_id;
           details.stock = Number(sd.sku_stock)? Number(sd.sku_stock):999;
