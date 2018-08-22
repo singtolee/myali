@@ -6,12 +6,13 @@ import { MySkuDetail } from '../tools/MySkuDetail';
 import { Details } from '../tools/Details';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { PassUrlService } from '../pass-url.service';
+import { ApiUrlsHistoryService } from '../api-urls-history.service';
 import { Subscription } from 'rxjs';
 export const API = "https://singtostore.com?prdurl=";
 export const ALIURL = "https://detail.1688.com/offer/";
 export const JDURL = "https://item.jd.com/";
 export const MALI = "m.1688.com";
-export const MJD = "m.jd.com";
+export const MJD = "item.m.jd.com";
 
 interface Prd {
   loaded: boolean;
@@ -31,13 +32,17 @@ export class UrlApiComponent implements OnInit, OnDestroy {
   retryCounter:number = 0;
   apiError:boolean = false;
   urlSub:Subscription;
-  dir = "PRODUCTS"
+  dir = "PRODUCTS";
+  localPrds:Array<Product>;
+  localPrdSub:Subscription;
 
   constructor(private db:AngularFirestore, 
               private http:HttpClient, 
-              private urlService:PassUrlService) { }
+              private urlService:PassUrlService,
+              private auhs:ApiUrlsHistoryService) { }
 
   ngOnInit() {
+    this.localPrdSub = this.auhs.prds.subscribe(p=>this.localPrds=p);
     this.urlSub = this.urlService.currentUrl.subscribe(u=>{
       this.url = u;
       if(this.url){
@@ -47,6 +52,7 @@ export class UrlApiComponent implements OnInit, OnDestroy {
   }
   ngOnDestroy(){
     this.urlSub.unsubscribe();
+    this.localPrdSub.unsubscribe();
   }
 
   mobile2desktop(murl:string){
@@ -60,9 +66,9 @@ export class UrlApiComponent implements OnInit, OnDestroy {
       }
       if(murl.includes(MJD)){
         console.log("JD Mobile Url")
-        var pidhtml = murl.match(/\d+.html/)
+        var pidhtml = murl.match(/\d+/)
         console.log(pidhtml)
-        return JDURL.concat(pidhtml[0])
+        return JDURL.concat(pidhtml[0]).concat(".html")
       }
     }else {
       console.log("Desktop Url Detected")
@@ -77,11 +83,12 @@ export class UrlApiComponent implements OnInit, OnDestroy {
     this.http.get<Prd>(address).subscribe((res)=>{
       this.showSpinner=false;
       if(res.loaded){
+        console.log(res);
         this.prdData = this.reformDate(res.data);
         this.urlService.changePid(this.prdData.pid);
         this.save2firestore();
+        //this.auhs.addItem(this.prdData);
         console.log(this.prdData);
-        console.log(res);
       }else {
         console.log(res)
         console.log("re try: " + this.retryCounter);
@@ -103,6 +110,7 @@ export class UrlApiComponent implements OnInit, OnDestroy {
   save2firestore(){
 
     this.db.collection(this.dir).add(JSON.parse( JSON.stringify(this.prdData)))
+    .then(success=>this.auhs.addItem(this.prdData))
   }
 
   reformDate(data){
@@ -120,12 +128,15 @@ export class UrlApiComponent implements OnInit, OnDestroy {
     mydate.trade_info = [{min_num:'1',original_price:data.original_price,price:data.price}];
     mydate.original_price = this.handlePrice(data.price);
     mydate.price = this.handlePrice(data.price);
-  
-    if(data.skus[0].values){
-      mydate.sku = this.handleSku(data.skus[0],data.sku_detail,mydate.price)
-    }else{
+
+    if(data.skus.length==0||!data.skus[0].values){
       mydate.sku = this.fakeSku(data)
+    }else {
+      if(data.skus[0].values){  //JD sku[] and sku_details are all empty, different with 1688.com
+        mydate.sku = this.handleSku(data.skus[0],data.sku_detail,mydate.price)
+      }
     }
+
     this.url = '';
     return mydate
 

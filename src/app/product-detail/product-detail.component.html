@@ -18,7 +18,11 @@
       </ul>
     </div>
     <div class="details col-md-6">
-      <h5 class="product-title p-2">{{product.thName}}</h5>
+      <h5 class="product-title p-2">{{product.thName}}
+        <a [href]="product.url" target="_blank" class="text-primary">
+          <i class="fas fa-external-link-square-alt"></i>
+        </a>
+      </h5>
       <table class="table table-sm table-hover alert-warning m-2">
         <tbody>
           <tr>

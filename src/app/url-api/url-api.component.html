@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" style="margin-top: 5%">
   <div class="row justify-content-center">
     <div class="col-sm-12 col-md-8 text-center">
       <a href="https://1688.com" target="_blank"><img src="./assets/1688.png" height="80px" width="80px" class="mr-5"></a>
@@ -24,11 +24,20 @@
       <ngb-alert *ngIf="apiError" [dismissible]="false">
         <strong>Warning!</strong> Only accept URL from 1688.com and JD.com
       </ngb-alert>
-      <div *ngIf="!prdData">
-        <div class="emptybox"></div>
-      </div>
     </div>
   </div>
+  <div class="row">
+    <span *ngFor="let prd of localPrds">
+      <img [src]="prd.images[0]" 
+      class="rounded-circle mr-1 mb-1" 
+      width="50px" height="50px"
+      [routerLink]="['/product',prd.pid]"
+      >
+    </span>
+  </div>
+  <div class="row" *ngIf="!prdData">
+      <div class="emptybox"></div>
+    </div>
   <div *ngIf="prdData" class="row justify-content-center">
     <div class="col-sm-12 col-md-8 text-center">
       <ngb-alert [dismissible]="false">

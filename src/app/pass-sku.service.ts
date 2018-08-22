@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 import { of } from 'rxjs';
 import { Item } from './tools/Item';
-//import { reduce } from '../../node_modules/rxjs/operators';
-import { map, reduce } from 'rxjs/operators'
 
 @Injectable({
   providedIn: 'root'
