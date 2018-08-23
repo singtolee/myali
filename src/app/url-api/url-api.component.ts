@@ -61,7 +61,7 @@ export class UrlApiComponent implements OnInit, OnDestroy {
     })
 
     this.links = this.db.collection<Link>(this.linksDir,ref=>{
-      return ref.orderBy('order')
+      return ref.orderBy('order','asc')
     }).valueChanges()
 
   }

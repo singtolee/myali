@@ -15,9 +15,9 @@
   <div class="row">
     <div class="col-12">
       <div class="card text-center w-100 p-3">
-        <h6 class="text-center text-dark">Popular Links</h6>
+        <h6 class="text-center text-dark font-weight-bold">Usefull Links</h6>
         <ul>
-          <li *ngFor="let link of links | async"><a [href]="link.url" target="_blank"><span>{{link.keyword}}</span></a></li>
+          <li *ngFor="let link of links | async"><a [href]="link.url" target="_blank"><span class="small">{{link.keyword}}</span></a></li>
         </ul>
       </div>
     </div>
