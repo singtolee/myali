@@ -16,7 +16,7 @@ export const MJD = "item.m.jd.com";
 
 interface Prd {
   loaded: boolean;
-  data:Product;
+  data: Product;
 }
 
 @Component({
@@ -26,79 +26,91 @@ interface Prd {
 })
 export class UrlApiComponent implements OnInit, OnDestroy {
 
-  showSpinner:boolean = false;
-  url:string;
-  prdData:Product;
-  retryCounter:number = 0;
-  apiError:boolean = false;
-  urlSub:Subscription;
-  dir = "PRODUCTS";
-  localPrds:Array<Product>;
-  localPrdSub:Subscription;
+  isJDUrl: boolean;
 
-  constructor(private db:AngularFirestore, 
-              private http:HttpClient, 
-              private urlService:PassUrlService,
-              private auhs:ApiUrlsHistoryService) { }
+  showSpinner: boolean = false;
+  url: string;
+  prdData: Product;
+  retryCounter: number = 0;
+  apiError: boolean = false;
+  urlSub: Subscription;
+  dir = "PRODUCTS";
+  localPrds: Array<Product>;
+  localPrdSub: Subscription;
+
+  constructor(private db: AngularFirestore,
+    private http: HttpClient,
+    private urlService: PassUrlService,
+    private auhs: ApiUrlsHistoryService) { }
 
   ngOnInit() {
-    this.localPrdSub = this.auhs.prds.subscribe(p=>this.localPrds=p);
-    this.urlSub = this.urlService.currentUrl.subscribe(u=>{
+    this.localPrdSub = this.auhs.prds.subscribe(p => this.localPrds = p);
+    this.urlSub = this.urlService.currentUrl.subscribe(u => {
       this.url = u;
-      if(this.url){
+      if (this.url) {
         this.callApi();
       }
     })
   }
-  ngOnDestroy(){
+  ngOnDestroy() {
     this.urlSub.unsubscribe();
     this.localPrdSub.unsubscribe();
   }
 
-  mobile2desktop(murl:string){
-    if(murl.includes(MALI)||murl.includes(MJD)){
+  mobile2desktop(murl: string) {
+    if (murl.includes(MALI) || murl.includes(MJD)) {
       console.log("Mobile Url Detected")
-      if(murl.includes(MALI)){
+      if (murl.includes(MALI)) {
         console.log("1688 Mobile Url")
         var pidhtml = murl.match(/\d+.html/)
         console.log(pidhtml)
         return ALIURL.concat(pidhtml[0])
       }
-      if(murl.includes(MJD)){
+      if (murl.includes(MJD)) {
         console.log("JD Mobile Url")
         var pidhtml = murl.match(/\d+/)
         console.log(pidhtml)
         return JDURL.concat(pidhtml[0]).concat(".html")
       }
-    }else {
+    } else {
       console.log("Desktop Url Detected")
       return murl;
     }
   }
 
-  callApi(){
+  isJD(url: string) {
+    if (url.includes("jd.com")) {
+      return true
+    } else {
+      return false
+    }
+  }
+
+  callApi() {
+    // is JD or ALIBABA
+    this.isJDUrl = this.isJD(this.url)
     this.showSpinner = true;
     this.apiError = false;
     const address = API.concat(this.mobile2desktop(this.url));
-    this.http.get<Prd>(address).subscribe((res)=>{
-      this.showSpinner=false;
-      if(res.loaded){
+    this.http.get<Prd>(address).subscribe((res) => {
+      this.showSpinner = false;
+      if (res.loaded) {
         console.log(res);
         this.prdData = this.reformDate(res.data);
         this.urlService.changePid(this.prdData.pid);
         this.save2firestore();
         //this.auhs.addItem(this.prdData);
         console.log(this.prdData);
-      }else {
+      } else {
         console.log(res)
         console.log("re try: " + this.retryCounter);
         //if failed call again , call 3 times then dispaly error mes???
-        if(this.retryCounter>2){
+        if (this.retryCounter > 2) {
           this.apiError = true;
           this.retryCounter = 0;
           return
-        }else{
-          this.retryCounter +=1;
+        } else {
+          this.retryCounter += 1;
           this.callApi();
         }
       }
@@ -107,17 +119,17 @@ export class UrlApiComponent implements OnInit, OnDestroy {
   }
 
 
-  save2firestore(){
+  save2firestore() {
 
-    this.db.collection(this.dir).add(JSON.parse( JSON.stringify(this.prdData)))
-    .then(success=>this.auhs.addItem(this.prdData))
+    this.db.collection(this.dir).add(JSON.parse(JSON.stringify(this.prdData)))
+      .then(success => this.auhs.addItem(this.prdData))
   }
 
-  reformDate(data){
+  reformDate(data) {
     var mydate = new Product();
-    mydate.images = data.images.map(item=>item.image_url);
+    mydate.images = data.images.map(item => item.image_url);
     mydate.pid = Number(data.pid);
-    mydate.score = Number(data.score)>5? 5:Number(data.score);  //Jing Dong use 100 grade, 1688 use 5 grade
+    mydate.score = Number(data.score) > 5 ? 5 : Number(data.score);  //Jing Dong use 100 grade, 1688 use 5 grade
     mydate.time = new Date();
     mydate.keyword = 'api';
     mydate.status = false;
@@ -125,15 +137,15 @@ export class UrlApiComponent implements OnInit, OnDestroy {
     mydate.uw = 1;
     mydate.thName = data.thName;
     mydate.name = data.name;
-    mydate.trade_info = [{min_num:'1',original_price:data.original_price,price:data.price}];
+    mydate.trade_info = [{ min_num: '1', original_price: data.original_price, price: data.price }];
     mydate.original_price = this.handlePrice(data.price);
     mydate.price = this.handlePrice(data.price);
 
-    if(data.skus.length==0||!data.skus[0].values){
+    if (data.skus.length == 0 || !data.skus[0].values) {
       mydate.sku = this.fakeSku(data)
-    }else {
-      if(data.skus[0].values){  //JD sku[] and sku_details are all empty, different with 1688.com
-        mydate.sku = this.handleSku(data.skus[0],data.sku_detail,mydate.price)
+    } else {
+      if (data.skus[0].values) {  //JD sku[] and sku_details are all empty, different with 1688.com
+        mydate.sku = this.handleSku(data.skus[0], data.sku_detail, mydate.price)
       }
     }
 
@@ -142,49 +154,66 @@ export class UrlApiComponent implements OnInit, OnDestroy {
 
   }
 
-  handlePrice(str){
+  handlePrice(str) {
     var num = str.split(/\-+/);
-    if(num.length>1){
+    if (num.length > 1) {
       return Number(num[1]);
     }
-    if(num.length==1){
+    if (num.length == 1) {
       return Number(num[0]);
     }
   }
 
-  handleSku(skus,skudtail,priceStr){
+  handleSku(skus, skudtail, priceStr) {
     var dsku = new Dsku();
     var myskuArray = new Array<MySkuDetail>();
     dsku.label = "颜色";
     dsku.thLabel = "สี";
-    for(const val of skus.values){
+    for (const val of skus.values) {
       var detailsArray = new Array<Details>();
       var mysku = new MySkuDetail();
       mysku.desc = val.desc;
-      if(val.image){
+      if (val.image) {
         mysku.image = val.image
       }
       mysku.thDesc = val.thDesc;
-      for(const sd of skudtail){
-        if(sd.sku_name.includes(val.desc)){
+      for (const sd of skudtail) {
+        if (sd.sku_name.includes(val.desc)) {
           var details = new Details();
           details.sku = sd.sku_name;
-          var bb = sd.sku_name.split(/\>/);
-          if(bb.length>1){
-            details.skuC = bb[0];
-            details.skuS = bb[1];
-            //details.thSkuS = sd.sku_thName;
-            details.thSkuS = bb[1];
-          }else{
-            details.skuC = bb[0];
-            details.skuS = bb[0];
-            details.thSkuS = sd.sku_thName;
+          if (this.isJDUrl) {
+            console.log("DEALING WITH JD URL")
+            var bb = sd.sku_name.split(/\s/);
+            if (bb.length > 1) {
+              details.skuS = bb[0];
+              details.skuC = bb[1];
+              //details.thSkuS = sd.sku_thName;
+              details.thSkuS = bb[0];
+            } else {
+              details.skuC = bb[0];
+              details.skuS = bb[0];
+              details.thSkuS = sd.sku_thName;
+            }
+
+          } else {
+            console.log("DEALING WITH 1688 URL")
+            var bb = sd.sku_name.split(/\>/);
+            if (bb.length > 1) {
+              details.skuC = bb[0];
+              details.skuS = bb[1];
+              //details.thSkuS = sd.sku_thName;
+              details.thSkuS = bb[1];
+            } else {
+              details.skuC = bb[0];
+              details.skuS = bb[0];
+              details.thSkuS = sd.sku_thName;
+            }
           }
           details.sku_id = sd.sku_id;
-          details.stock = Number(sd.sku_stock)? Number(sd.sku_stock):999;
-          console.log(typeof(sd.sku_price));
-          details.price = this.handlePrice(sd.sku_price)? this.handlePrice(sd.sku_price):priceStr;
-          details.sugPrice = Math.ceil(details.price*1.7);
+          details.stock = Number(sd.sku_stock) ? Number(sd.sku_stock) : 999;
+          console.log(typeof (sd.sku_price));
+          details.price = this.handlePrice(sd.sku_price) ? this.handlePrice(sd.sku_price) : priceStr;
+          details.sugPrice = Math.ceil(details.price * 1.7);
           detailsArray.push(details);
         }
       }
@@ -193,43 +222,43 @@ export class UrlApiComponent implements OnInit, OnDestroy {
     }
     dsku.values = myskuArray;
 
-    for(const cp of dsku.values){
+    for (const cp of dsku.values) {
       cp.skus.sort(this.compare)
     }
     return dsku;
   }
 
-  compare(a,b){
-    if(a.sku_id>b.sku_id){
-        return 1;
+  compare(a, b) {
+    if (a.sku_id > b.sku_id) {
+      return 1;
     }
-    if(a.sku_id<b.sku_id){
-        return -1;
+    if (a.sku_id < b.sku_id) {
+      return -1;
     }
     return 0;
-}
-
-  fakeSku(data){
-    return {
-      label:"สี",
-      values:[{
-          desc:"均码",
-          thDesc:"หนึ่งขนาด",
-          image:data.images[0].image_url,
-          skus:[{
-              sku:"均码",
-              stock:999,
-              sku_id:'1234567890',
-              price:this.handlePrice(data.price),
-              skuC:"均码",
-              skuS:"均码",
-              sugPrice:Math.ceil(this.handlePrice(data.price)*1.7),
-              thSkuS:"หนึ่งขนาด"
-          }]
-      }],
-      thLabel:"สี"
-
   }
+
+  fakeSku(data) {
+    return {
+      label: "สี",
+      values: [{
+        desc: "均码",
+        thDesc: "หนึ่งขนาด",
+        image: data.images[0].image_url,
+        skus: [{
+          sku: "均码",
+          stock: 999,
+          sku_id: '1234567890',
+          price: this.handlePrice(data.price),
+          skuC: "均码",
+          skuS: "均码",
+          sugPrice: Math.ceil(this.handlePrice(data.price) * 1.7),
+          thSkuS: "หนึ่งขนาด"
+        }]
+      }],
+      thLabel: "สี"
+
+    }
   }
 
 }

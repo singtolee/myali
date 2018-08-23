@@ -26,14 +26,19 @@
       </ngb-alert>
     </div>
   </div>
-  <div class="row">
-    <span *ngFor="let prd of localPrds">
+  <div *ngIf="localPrds.length>0" class="row justify-content-center" >
+    <div class="card text-center w-100 p-3">
+      <h5 class="text-center text-dark">Search History</h5>
+      <div class="card-body">
+      <span *ngFor="let prd of localPrds">
       <img [src]="prd.images[0]" 
       class="rounded-circle mr-1 mb-1" 
       width="50px" height="50px"
       [routerLink]="['/product',prd.pid]"
       >
     </span>
+    </div>
+    </div>
   </div>
   <div class="row" *ngIf="!prdData">
       <div class="emptybox"></div>
