@@ -7,7 +7,7 @@ import { Details } from '../tools/Details';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { PassUrlService } from '../pass-url.service';
 import { ApiUrlsHistoryService } from '../api-urls-history.service';
-import { Subscription } from 'rxjs';
+import { Subscription, Observable } from 'rxjs';
 export const API = "https://singtostore.com?prdurl=";
 export const ALIURL = "https://detail.1688.com/offer/";
 export const JDURL = "https://item.jd.com/";
@@ -17,6 +17,12 @@ export const MJD = "item.m.jd.com";
 interface Prd {
   loaded: boolean;
   data: Product;
+}
+
+interface Link {
+  url: string;
+  keyword:string;
+  order:number;
 }
 
 @Component({
@@ -35,6 +41,8 @@ export class UrlApiComponent implements OnInit, OnDestroy {
   apiError: boolean = false;
   urlSub: Subscription;
   dir = "PRODUCTS";
+  linksDir = "LINKS";
+  links:Observable<Link[]>;
   localPrds: Array<Product>;
   localPrdSub: Subscription;
 
@@ -51,6 +59,11 @@ export class UrlApiComponent implements OnInit, OnDestroy {
         this.callApi();
       }
     })
+
+    this.links = this.db.collection<Link>(this.linksDir,ref=>{
+      return ref.orderBy('order')
+    }).valueChanges()
+
   }
   ngOnDestroy() {
     this.urlSub.unsubscribe();
@@ -239,12 +252,16 @@ export class UrlApiComponent implements OnInit, OnDestroy {
   }
 
   fakeSku(data) {
+    var fakeImg = "https://firebasestorage.googleapis.com/v0/b/alitoyou-168.appspot.com/o/BANNER%2Fnoimg.png?alt=media&token=659ead91-75d6-4c36-8501-ec5e2d5c0ce0";
+    if(data.images.length>0){
+      fakeImg = data.images[0].image_url
+    }
     return {
       label: "สี",
       values: [{
         desc: "均码",
         thDesc: "หนึ่งขนาด",
-        image: data.images[0].image_url,
+        image: fakeImg,  //in case data.images.length is 0, for JD.com use placeholder to replace
         skus: [{
           sku: "均码",
           stock: 999,

@@ -10,6 +10,20 @@
       <h1 class="text-center">
         <a href="https://www.jd.com" target="_blank"><span class="text-dark font-weight-bold">JD.COM</span></a>
       </h1>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <div class="card text-center w-100 p-3">
+        <h6 class="text-center text-dark">Popular Links</h6>
+        <ul>
+          <li *ngFor="let link of links | async"><a [href]="link.url" target="_blank"><span>{{link.keyword}}</span></a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="row justify-content-center">
+    <div class="col-sm-12 col-md-8 text-center">
       <h4 class="text-center text-dark font-weight-bold p-3">
         <i class="fas fa-paste"></i> PASTE URL</h4>
       <input class="form-control" placeholder="Paste Url here" [(ngModel)]="url">
@@ -26,25 +40,21 @@
       </ngb-alert>
     </div>
   </div>
-  <div *ngIf="localPrds.length>0" class="row justify-content-center" >
+  <div *ngIf="localPrds.length>0" class="row justify-content-center">
     <div class="card text-center w-100 p-3">
-      <h5 class="text-center text-dark">Search History</h5>
+      <h6 class="text-center text-dark">Search History</h6>
       <div class="card-body">
-      <span *ngFor="let prd of localPrds">
-      <img [src]="prd.images[0]" 
-      class="rounded-circle mr-1 mb-1" 
-      width="50px" height="50px"
-      [routerLink]="['/product',prd.pid]"
-      >
-    </span>
-    </div>
+        <span *ngFor="let prd of localPrds">
+          <img [src]="prd.images[0]" class="rounded-circle mr-1 mb-1" width="50px" height="50px" [routerLink]="['/product',prd.pid]">
+        </span>
+      </div>
     </div>
   </div>
   <div class="row" *ngIf="!prdData">
-      <div class="emptybox"></div>
-    </div>
+    <div class="emptybox"></div>
+  </div>
   <div *ngIf="prdData" class="row justify-content-center">
-    <div class="col-sm-12 col-md-8 text-center">
+    <div class="col-sm-12 col-md-8 mt-2 text-center">
       <ngb-alert [dismissible]="false">
         <strong>Notice! </strong>
         <span> If the price is different from the original websiet, please contact us to change the price.</span>

@@ -22,3 +22,27 @@
       height: 50vh;
   }
 
+  ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+li {
+    float: left;
+}
+
+li a {
+    display: block;
+    color: dark;
+    text-align: center;
+    padding: 16px;
+    text-decoration: none;
+}
+
+li a:hover {
+    background-color: #111111;
+}
+
+
