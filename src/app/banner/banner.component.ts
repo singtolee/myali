@@ -52,6 +52,7 @@ export class BannerComponent implements OnInit, OnDestroy {
         var searchUrl = ALI.concat(this.resp.data);
         this.keyword = ''
         console.log(searchUrl)
+        window.open(searchUrl, "_blank");  //will be blocked by chrome
       }
     })
   }
