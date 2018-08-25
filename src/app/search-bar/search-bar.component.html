@@ -1,0 +1,8 @@
+<div class="input-group input-group-sm">
+  <input type="text" class="form-control" [(ngModel)]="keyword" placeholder="กางเกงยีนส์">
+  <div class="input-group-append">
+    <button class="btn btn-warning" type="button" [disabled]="isEmpty()" (click)="search()">
+      <span class="text-white"><i class="fas fa-search"></i></span>
+    </button>
+  </div>
+</div>

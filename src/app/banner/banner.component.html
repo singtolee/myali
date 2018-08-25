@@ -6,16 +6,7 @@
     <span class="font-weight-bold text-dark">1688.COM</span> SOURCING AGENT</h6>
   <hr class="my-2">
   <div class="row justify-content-center">
-    <h4 class="text-center text-dark font-weight-bold p-3">Search 100000000000 Millions Products from 1688.COM </h4>
     <div class="col-sm-12 col-md-8">
-      <div class="input-group mb-3">
-        <input type="text" class="form-control" [(ngModel)]="keyword" placeholder="Type Thai words to search">
-        <div class="input-group-append">
-          <button class="btn btn-warning" type="button" [disabled]="isEmpty()" (click)="search()">
-            <span class="text-white"><i class="fas fa-search"></i></span>
-          </button>
-        </div>
-      </div>
       <h4 class="text-center text-dark font-weight-bold p-3"><i class="fas fa-paste"></i> PASTE PRODUCT URLS </h4>
       <input class="form-control" placeholder="Accept URLS from 1688.com and JD.com" (paste)="callApi($event)">
     </div>
