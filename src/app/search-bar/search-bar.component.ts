@@ -1,12 +1,14 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 export const API = "https://singtostore.com/search/?kw=";
 export const ALI = "https://s.1688.com/selloffer/offer_search.htm?keywords=";
+export const MALI ="https://m.1688.com/offer_search/-6D7033.html?fromMode=supportBack&keywords="
 
 interface Gbk {
   toGBK: boolean;
-  data: string;
+  gbk: string;
+  cnkw:string;
 }
 
 @Component({
@@ -19,6 +21,9 @@ export class SearchBarComponent implements OnInit, OnDestroy {
   keyword:string;
   resp:Gbk;
   resSub:Subscription;
+  isSearching:boolean = false;
+  searchUrl:string;
+  mUrl:string;
 
   constructor(private http: HttpClient) { }
 
@@ -32,15 +37,22 @@ export class SearchBarComponent implements OnInit, OnDestroy {
   }
 
   search(){
+    this.isSearching = true
     const address = API.concat(this.keyword.trim());
-    console.log(address);
     this.resSub =  this.http.get<Gbk>(address).subscribe(res=>{
       this.resp = res;
-      if(this.resp.data){
-        var searchUrl = ALI.concat(this.resp.data);
+      console.log(this.resp)
+      if(this.resp.gbk){
+        this.searchUrl = ALI.concat(this.resp.gbk);
+        console.log(this.searchUrl)
+        this.mUrl = MALI.concat(this.resp.cnkw);
+        console.log(this.mUrl)
         this.keyword = ''
-        console.log(searchUrl)
-        window.open(searchUrl, "_blank");  //will be blocked by chrome
+        let el: HTMLElement = document.getElementById('myclick') as HTMLElement;
+        el.setAttribute('href',this.mUrl)//detect is mobile or tablet or desktop, then set the url accordingly
+        el.click()
+        console.log(el)
+        this.isSearching = false
       }
     })
   }
@@ -56,6 +68,12 @@ export class SearchBarComponent implements OnInit, OnDestroy {
     }else {
       return true
     }
+  }
+
+  logsth(){
+    //window.open(this.searchUrl, "_blank");
+    //window.open(this.mUrl,"_blank");
+
   }
 
 }

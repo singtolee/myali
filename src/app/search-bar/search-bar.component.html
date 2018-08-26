@@ -2,7 +2,11 @@
   <input type="text" class="form-control" [(ngModel)]="keyword" placeholder="กางเกงยีนส์">
   <div class="input-group-append">
     <button class="btn btn-warning" type="button" [disabled]="isEmpty()" (click)="search()">
-      <span class="text-white"><i class="fas fa-search"></i></span>
+      <span *ngIf="!isSearching" class="text-white"><i class="fas fa-search"></i></span>
+      <span *ngIf="isSearching" class="text-white"><i class="fas fa-spinner ispin"></i></span>
     </button>
   </div>
+</div>
+<div class="url">
+  <a id="myclick" href="" target="_blank"></a>
 </div>
