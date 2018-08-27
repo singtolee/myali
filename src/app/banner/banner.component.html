@@ -3,7 +3,7 @@
     <img src="./assets/icon.png" class="rounded-circle"> ALITOYOU.COM</h1>
   <h6 class="text-center">
     <img src="./assets/alibaba.png" height="35px">
-    <span class="font-weight-bold text-dark">1688.COM</span> SOURCING AGENT</h6>
+    <span class="font-weight-bold text-dark">1688.COM & JD.COM</span> SOURCING AGENT</h6>
   <hr class="my-2">
   <div class="row justify-content-center">
     <div class="col-sm-12 col-md-8">
@@ -24,18 +24,17 @@
           <h5 class="font-weight-bold text-dark text-center">SHIPPING COST</h5>
           <p class="font-weight-bold text-dark text-left">
             <span><i class="fas fa-weight"></i></span>
-            {{cms.costSheet.land}} BAHT/KG</p>
+            BY WEIGHT {{cms.costSheet.land}} BAHT/KG</p>
           <p class="font-weight-bold text-dark text-left">
             <span><i class="fas fa-cube"></i></span>
-            {{cms.costSheet.landCube}} BAHT/10CM*10CM*10CM
+            BY DEMENSION {{cms.costSheet.landCube}} BAHT/10CM*10CM*10CM
           </p>
           <p class="font-weight-bold text-dark text-left">
-            <span><i class="fas fa-exchange-alt"></i></span>
-            REAL TIME EXCHANGE RATE, 1 CNY = {{cms.costSheet.rate}} BAHT
-          </p>
-          <small class="font-weight-bold text-dark text-left">
+            <span><i class="fas fa-shipping-fast"></i></span>
+            SHIPPING DURATION {{cms.costSheet.landDuration}} DAYS</p>
+          <small class="font-weight-bold">
             <span><i class="fas fa-exclamation-circle"></i></span>
-            DEPENS ON THE PACKAGE SIZE AND WEIGHT</small>
+            NOTICE! IT MAY TAKE FEWS DAYS LONGER UNDER EXTRME WEATHER</small>
         </div>
       </div>
     </div>
@@ -44,15 +43,12 @@
         <div class="card-body">
           <h5 class="font-weight-bold text-dark text-center">SERVICE CHARGE</h5>
           <p class="font-weight-bold text-dark text-left">
+              <span><i class="fas fa-exchange-alt"></i></span>
+              REAL TIME EXCHANGE RATE, 1 CNY = {{cms.costSheet.rate}} BAHT
+            </p>
+          <p class="font-weight-bold text-dark text-left">
             <span class="text-warning"><i class="fas fa-chart-pie"></i></span>
             {{cms.costSheet.scr*100}}% OF TOTAL GOODS WORTH</p>
-          <p class="font-weight-bold text-dark text-left">
-            <span class="text-success"><i class="fas fa-check-circle"></i></span>
-            EASY RETURN IF NOT SATISFIED
-          </p>
-          <p class="font-weight-bold text-dark text-left">
-            <span class="text-success"><i class="fas fa-hand-holding-usd"></i></span>
-            MONEY BACK GUARANTEE IN CASE OF LOST OR DAMAGED PACKAGE</p>
           <small class="font-weight-bold">
             <span><i class="fas fa-exclamation-circle"></i></span>
             PAY SHIPPING FEE UPON COLLECTING PACKAGE</small>
@@ -62,13 +58,18 @@
     <div class="col-12 col-md-4 mb-3 py-2">
       <div class="card leftborder h-100">
         <div class="card-body">
-          <h5 class="font-weight-bold text-dark text-center">SHIPPING DURATION</h5>
+          <h5 class="font-weight-bold text-dark text-center"><i class="fas fa-check-circle text-warning"></i>WHY ALITOYOU</h5>
           <p class="font-weight-bold text-dark text-left">
-            <span><i class="fas fa-shipping-fast"></i></span>
-            {{cms.costSheet.landDuration}} DAYS</p>
-          <small class="font-weight-bold">
-            <span><i class="fas fa-exclamation-circle"></i></span>
-            NOTICE! IT MAY TAKE FEWS DAYS LONGER UNDER EXTRME WEATHER</small>
+              <span class="text-success"><i class="fas fa-undo"></i></span>
+              EASY RETURN IF NOT SATISFIED
+            </p>
+            <p class="font-weight-bold text-dark text-left">
+              <span class="text-success"><i class="fas fa-hand-holding-usd"></i></span>
+              MONEY BACK GUARANTEE IN CASE OF LOST OR DAMAGED PACKAGE</p>
+              <p class="font-weight-bold text-dark text-left">
+                  <span class="text-success"><i class="fas fa-money-check-alt"></i></span>
+                  PROFITABLE PRODUCTS SUGGESTION</p>
+            
         </div>
       </div>
     </div>

@@ -3,13 +3,19 @@
   aria-label="Toggle sidenav" 
   mat-icon-button (click)="drawer.toggle()" 
   *ngIf="isHandset$ | async">
+  <!--
     <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+  -->
+  <i class="fas fa-bars fa-lg"></i>
   </button>
-  <button mat-button routerLink="/home">
-    <img src="./assets/icon.png" height="30px" width="30px">
+  <button mat-icon-button routerLink="/home">
+    <!--
+      <img src="./assets/icon.png" height="30px" width="30px">
+    -->
+    <i class="fas fa-home fa-lg"></i>
   </button>
   <span class="navbar-center"></span>
-  <app-search-bar class="mr-2"></app-search-bar>
+  <app-search-bar class="mr-3"></app-search-bar>
   <app-user></app-user>
 </mat-toolbar>
 <mat-sidenav-container style="margin-top:50px !important;">

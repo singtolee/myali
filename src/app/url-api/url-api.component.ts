@@ -18,13 +18,13 @@ interface Prd {
   loaded: boolean;
   data: Product;
 }
-
+/*
 interface Link {
   url: string;
   keyword:string;
   order:number;
 }
-
+*/
 @Component({
   selector: 'app-url-api',
   templateUrl: './url-api.component.html',
@@ -41,8 +41,8 @@ export class UrlApiComponent implements OnInit, OnDestroy {
   apiError: boolean = false;
   urlSub: Subscription;
   dir = "PRODUCTS";
-  linksDir = "LINKS";
-  links:Observable<Link[]>;
+  //linksDir = "LINKS";
+  //links:Observable<Link[]>;
   localPrds: Array<Product>;
   localPrdSub: Subscription;
 
@@ -59,11 +59,11 @@ export class UrlApiComponent implements OnInit, OnDestroy {
         this.callApi();
       }
     })
-
+/*
     this.links = this.db.collection<Link>(this.linksDir,ref=>{
       return ref.orderBy('order','asc')
     }).valueChanges()
-
+*/
   }
   ngOnDestroy() {
     this.urlSub.unsubscribe();
@@ -135,7 +135,10 @@ export class UrlApiComponent implements OnInit, OnDestroy {
   save2firestore() {
 
     this.db.collection(this.dir).add(JSON.parse(JSON.stringify(this.prdData)))
-      .then(success => this.auhs.addItem(this.prdData))
+      .then(success =>{
+        this.auhs.addItem(this.prdData)
+        this.urlService.changeUrl('')//clear url
+      } )
   }
 
   reformDate(data) {
