@@ -1,9 +1,20 @@
-import { Component, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { DeviceDetectorService } from 'ngx-device-detector';
 import { Subscription } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-export const API = "https://singtostore.com/search/?kw=";
-export const ALI = "https://s.1688.com/selloffer/offer_search.htm?keywords=";
-export const MALI ="https://m.1688.com/offer_search/-6D7033.html?fromMode=supportBack&keywords="
+import { UrlSelectorComponent } from '../url-selector/url-selector.component';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+
+const API = "https://singtostore.com/search/?kw=";
+
+const ALI = "https://s.1688.com/selloffer/offer_search.htm?keywords=";
+const MALI ="https://m.1688.com/offer_search/-6D7033.html?fromMode=supportBack&keywords="
+
+const JDF = "https://search.jd.com/Search?keyword="
+const JDL = "&enc=utf-8"
+
+const MJDF = "http://so.m.jd.com/ware/search.action?keyword="
+const MJDL = "&searchFrom=home"
 
 interface Gbk {
   toGBK: boolean;
@@ -22,10 +33,14 @@ export class SearchBarComponent implements OnInit, OnDestroy {
   resp:Gbk;
   resSub:Subscription;
   isSearching:boolean = false;
-  searchUrl:string;
-  mUrl:string;
-
-  constructor(private http: HttpClient) { }
+  //ALI and JD desktop & mobile Urls
+  aliurl:string;
+  maliurl:string;
+  jdurl:string;
+  mjdurl:string;
+  constructor(private http: HttpClient,
+              private whatDevice:DeviceDetectorService,
+              private modalService: NgbModal) { }
 
   ngOnInit() {
   }
@@ -42,17 +57,30 @@ export class SearchBarComponent implements OnInit, OnDestroy {
     this.resSub =  this.http.get<Gbk>(address).subscribe(res=>{
       this.resp = res;
       console.log(this.resp)
-      if(this.resp.gbk){
-        this.searchUrl = ALI.concat(this.resp.gbk);
-        console.log(this.searchUrl)
-        this.mUrl = MALI.concat(this.resp.cnkw);
-        console.log(this.mUrl)
-        this.keyword = ''
-        let el: HTMLElement = document.getElementById('myclick') as HTMLElement;
-        el.setAttribute('href',this.mUrl)//detect is mobile or tablet or desktop, then set the url accordingly
-        el.click()
-        console.log(el)
-        this.isSearching = false
+      if(this.resp.gbk){ //success
+        this.makeUrls()
+        if(this.whatDevice.isDesktop()){
+          console.log("I am ON DESKTOP")
+          console.log(this.aliurl)
+          console.log(this.jdurl)
+          const modalRef = this.modalService.open(UrlSelectorComponent, { centered: true });
+          modalRef.componentInstance.info = {isDesktop:true,
+                                            keyword:this.keyword,
+                                            aliUrl:this.aliurl,
+                                            jdUrl:this.jdurl};
+        }else{
+          console.log("I am ON TABLET OR MOBILE")
+          console.log(this.maliurl)
+          console.log(this.mjdurl)
+          const modalRef = this.modalService.open(UrlSelectorComponent, { centered: true });
+          modalRef.componentInstance.info = {isDesktop:false,
+                                              keyword:this.keyword,
+                                              aliUrl:this.maliurl,
+                                              jdUrl:this.mjdurl};
+        }
+        this.keyword = '';
+      }else {
+        //Modal error to re try
       }
     })
   }
@@ -70,9 +98,13 @@ export class SearchBarComponent implements OnInit, OnDestroy {
     }
   }
 
-  logsth(){
-    //window.open(this.searchUrl, "_blank");
-    //window.open(this.mUrl,"_blank");
+  makeUrls(){
+    this.aliurl = ALI.concat(this.resp.gbk);
+    this.maliurl = MALI.concat(this.resp.cnkw);
+    this.jdurl = JDF.concat(this.resp.cnkw).concat(JDL);
+    this.mjdurl = MJDF.concat(this.resp.cnkw).concat(MJDL);
+    //reset state and clean keyword
+    this.isSearching = false
 
   }
 

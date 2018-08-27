@@ -5,6 +5,8 @@ import lcoaleTh from '@angular/common/locales/th';
 import { HttpModule } from '@angular/http';
 import { HttpClientModule} from '@angular/common/http';
 
+import { DeviceDetectorModule } from 'ngx-device-detector';
+
 registerLocaleData(lcoaleTh);
 import { NgModule, LOCALE_ID } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -68,6 +70,7 @@ import { NgLoginComponent } from './ng-login/ng-login.component';
 import { UrlApiComponent } from './url-api/url-api.component';
 import { ApiProductDetailComponent } from './api-product-detail/api-product-detail.component';
 import { SearchBarComponent } from './search-bar/search-bar.component';
+import { UrlSelectorComponent } from './url-selector/url-selector.component';
 export const firebaseConfig = environment.firebaseConfig;
 
 @NgModule({
@@ -109,7 +112,8 @@ export const firebaseConfig = environment.firebaseConfig;
     NgLoginComponent,
     UrlApiComponent,
     ApiProductDetailComponent,
-    SearchBarComponent
+    SearchBarComponent,
+    UrlSelectorComponent
   ],
   imports: [
     BrowserModule,
@@ -137,7 +141,8 @@ export const firebaseConfig = environment.firebaseConfig;
     MatListModule,
     MatDialogModule,
     MatTabsModule,
-    NgbModule.forRoot()
+    NgbModule.forRoot(),
+    DeviceDetectorModule.forRoot()
   ],
   entryComponents:[
     NgLoginComponent,
@@ -146,7 +151,8 @@ export const firebaseConfig = environment.firebaseConfig;
     ErrorMsgComponent,
     CarouselComponent,
     ImageZoomViewComponent,
-    MsgComponent
+    MsgComponent,
+    UrlSelectorComponent
   ],
   providers: [{provide:LOCALE_ID,useValue:'th'}],
   bootstrap: [AppComponent]

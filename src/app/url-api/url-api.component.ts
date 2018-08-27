@@ -8,11 +8,11 @@ import { AngularFirestore } from 'angularfire2/firestore';
 import { PassUrlService } from '../pass-url.service';
 import { ApiUrlsHistoryService } from '../api-urls-history.service';
 import { Subscription, Observable } from 'rxjs';
-export const API = "https://singtostore.com?prdurl=";
-export const ALIURL = "https://detail.1688.com/offer/";
-export const JDURL = "https://item.jd.com/";
-export const MALI = "m.1688.com";
-export const MJD = "item.m.jd.com";
+const API = "https://singtostore.com?prdurl=";
+const ALIURL = "https://detail.1688.com/offer/";
+const JDURL = "https://item.jd.com/";
+const MALI = "m.1688.com";
+const MJD = "item.m.jd.com";
 
 interface Prd {
   loaded: boolean;
