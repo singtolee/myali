@@ -1,17 +1,19 @@
 <div *ngIf="sku.values">
   <div class="card">
-    <div class="card-header bg-transparent">
+ <div class="card-header bg-transparent">
       {{sku.thLabel}}
     </div>
     <div class="card-body">
-      <span *ngFor="let val of sku.values" class="mr-1">
-        <span *ngIf="val.image;else noImage">
-          <img class="border border-secondary rounded mr-1" [src]="val.image" height="40px" width="40px" (click)="viewbig()">
-        </span>
-        <ng-template #noImage>
-          <span class="border border-secondary rounded mr-2 p-1 small">{{val.thDesc}}</span>
-        </ng-template>
-      </span>
+      <ul>
+        <li *ngFor="let val of sku.values">
+          <span *ngIf="val.image;else noImage">
+            <img class="border border-secondary rounded mr-1 mt-1" [src]="val.image" height="40px" width="40px" (click)="viewbig()">
+          </span>
+          <ng-template #noImage>
+            <li class="list-group-item border border-secondary rounded mr-1 mt-1 p-1 small "><a>{{val.thDesc}}</a></li>
+          </ng-template>
+        </li>
+      </ul>
     </div>
   </div>
 </div>

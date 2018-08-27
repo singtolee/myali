@@ -3,3 +3,16 @@
     border: 1px solid #ff5733;
     border-radius: 4px;
 }
+
+ul {
+    list-style-type: none;
+    overflow: hidden;
+}
+
+li {
+    float: left;
+}
+
+li a {
+    display: inline;
+}
