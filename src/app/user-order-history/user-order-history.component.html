@@ -33,7 +33,7 @@
             <span class="badge badge-success">
               <div>
                 <i class="fas fa-tags mr-1"></i>
-                <small>Total: {{cart.data.grandTotal}} THB</small>
+                <small>Total: {{cart.data.grandTotal}}</small>
               </div>
             </span>
             <img *ngIf="cart.data.billUrl" (click)="showbill(cart.data.billUrl)" [src]="cart.data.billUrl" class="ml-2 rounded" height="30px">
