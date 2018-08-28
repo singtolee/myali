@@ -1,25 +1,25 @@
-<div class="modal-body bg-success">
-  <p class="text-right text-white" (click)="activeModal.close('Close click')"><i class="fas fa-times-circle fa-2x"></i></p>
-  <h1 *ngIf="info.isDesktop" class="text-center text-white"><i class="fas fa-desktop fa-lg"></i></h1>
-  <h1 *ngIf="!info.isDesktop" class="text-center text-white"><i class="fas fa-mobile-alt fa-lg"></i></h1>
-  <p class="text-center text-white font-weight-bold">Check search results <span class="badge badge-warning text-white">{{info.keyword}}</span>
+<div class="modal-body bg-light">
+  <p class="text-right text-dark" (click)="activeModal.close('Close click')"><i class="fas fa-times-circle fa-lg"></i></p>
+  <h3 *ngIf="info.isDesktop" class="text-center text-dark"><i class="fas fa-desktop fa-lg"></i></h3>
+  <h3 *ngIf="!info.isDesktop" class="text-center text-dark"><i class="fas fa-mobile-alt fa-lg"></i></h3>
+  <p class="text-center text-dark font-weight-bold">Check search results <span class="badge badge-warning text-dark">{{info.keyword}}</span>
     from </p>
   <div class="row justify-content-center">
     <div class="col-6">
       <div class="text-center">
         <a [href]="info.aliUrl" target="_blank">
-          <img src="./assets/1688.png" height="60px" width="60px">
-          <p class="small text-white font-weight-bold">1688.COM</p>
-          <p class="small text-white font-weight-light">Good For Bulk Purchase</p>
+          <img src="./assets/1688.png" height="50px" width="50px">
+          <p class="small text-dark font-weight-bold">1688.COM</p>
+          <p class="small text-dark font-weight-light">Good For Bulk Purchase</p>
         </a>
       </div>
     </div>
     <div class="col-6">
       <div class="text-center">
         <a [href]="info.jdUrl" target="_blank">
-          <img src="./assets/jd.png" height="60px" width="60px">
-          <p class="small text-white font-weight-bold">JD.COM</p>
-          <p class="small text-white font-weight-light">No Minium Qty Limited </p>
+          <img src="./assets/jd.png" height="50px" width="50px">
+          <p class="small text-dark font-weight-bold">JD.COM</p>
+          <p class="small text-dark font-weight-light">No Minium Qty Limited </p>
         </a>
       </div>
     </div>
