@@ -48,7 +48,7 @@
       <h6 class="text-center text-dark">Search History</h6>
       <div class="card-body">
         <span *ngFor="let prd of localPrds">
-          <img [src]="prd.images[0]" class="rounded-circle mr-1 mb-1" width="50px" height="50px" [routerLink]="['/product',prd.pid]">
+          <img [src]="prd.images[0]" class="rounded-circle mr-1 mb-1" width="50px" height="50px" (click)="gotodetail(prd)" [routerLink]="['/product',prd.pid]">
         </span>
       </div>
     </div>

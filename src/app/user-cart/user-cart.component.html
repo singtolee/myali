@@ -53,7 +53,7 @@
           <p class="text-right font-weight-light small">Sub Total: {{cal().t}} บาท</p>
           <p class="text-right font-weight-light small">Service Charge: {{cal().serviceFee}} บาท</p>
           <p class="text-right font-weight-bold small">Total: {{cal().t + cal().serviceFee}} บาท</p>
-          <p class="text-right font-weight-light small"><span class="text-danger">*Minimiu shipping cost is {{cms.costSheet.minShippingCost}} บาท.</span> Estimated Shipping Cost: {{cal().s}} บาท</p>
+          <p class="text-right font-weight-bold small"><span class="text-danger"><i class="fas fa-exclamation-circle"></i>Minimiu shipping cost is {{cms.costSheet.minShippingCost}} บาท.</span></p>
           <p class="text-right font-weight-bold small">Actual Shipping Fee is Calculated on Arrival</p>
           <p class="text-right font-weight-bold text-dark small"><i class="fas fa-shipping-fast mr-1"></i>Get your order in {{cms.costSheet.landDuration}} days</p>
           <hr>

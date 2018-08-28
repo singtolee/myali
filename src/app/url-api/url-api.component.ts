@@ -6,8 +6,9 @@ import { MySkuDetail } from '../tools/MySkuDetail';
 import { Details } from '../tools/Details';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { PassUrlService } from '../pass-url.service';
+import { PassPrdObjectService } from '../pass-prd-object.service';
 import { ApiUrlsHistoryService } from '../api-urls-history.service';
-import { Subscription, Observable } from 'rxjs';
+import { Subscription } from 'rxjs';
 const API = "https://singtostore.com?prdurl=";
 const ALIURL = "https://detail.1688.com/offer/";
 const JDURL = "https://item.jd.com/";
@@ -49,6 +50,7 @@ export class UrlApiComponent implements OnInit, OnDestroy {
   constructor(private db: AngularFirestore,
     private http: HttpClient,
     private urlService: PassUrlService,
+    private passprd:PassPrdObjectService,
     private auhs: ApiUrlsHistoryService) { }
 
   ngOnInit() {
@@ -279,6 +281,11 @@ export class UrlApiComponent implements OnInit, OnDestroy {
       thLabel: "สี"
 
     }
+  }
+
+  gotodetail(prd:Product){
+    this.passprd.changeProduct(prd);
+
   }
 
 }

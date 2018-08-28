@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { Product } from '../tools/Product';
@@ -11,7 +11,7 @@ import { take } from 'rxjs/operators';
   templateUrl: './product-detail.component.html',
   styleUrls: ['./product-detail.component.css']
 })
-export class ProductDetailComponent implements OnInit {
+export class ProductDetailComponent implements OnInit, OnDestroy {
   id;
   showSpinner:boolean = false;
   product:Product;
@@ -41,6 +41,10 @@ export class ProductDetailComponent implements OnInit {
         });
     }
     
+  }
+
+  ngOnDestroy(){
+    this.data.changeProduct(new Product())
   }
 
   isObject(sth){
