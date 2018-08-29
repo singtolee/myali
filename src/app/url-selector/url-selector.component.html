@@ -2,15 +2,16 @@
   <p class="text-right text-dark" (click)="closeModal()"><i class="fas fa-times-circle fa-lg"></i></p>
   <h3 *ngIf="info.isDesktop" class="text-center text-dark"><i class="fas fa-desktop fa-lg"></i></h3>
   <h3 *ngIf="!info.isDesktop" class="text-center text-dark"><i class="fas fa-mobile-alt fa-lg"></i></h3>
-  <p class="text-center text-dark font-weight-bold">Check search results <span class="badge badge-warning text-dark">{{info.keyword}}</span>
-    from </p>
+  <p class="text-center text-dark font-weight-bold">ดูผลการค้นหาจาก 
+    <span class="badge badge-warning text-dark">{{info.keyword}}</span>
+  </p>
   <div class="row justify-content-center">
     <div class="col-6">
       <div class="text-center">
         <a [href]="info.aliUrl" target="_blank">
           <img src="./assets/1688.png" height="50px" width="50px">
           <p class="small text-dark font-weight-bold">1688.COM</p>
-          <p class="small text-dark font-weight-light">Good For Bulk Purchase</p>
+          <p class="small text-dark font-weight-light">ที่ดีสำหรับการสั่งซื้อจำนวนมาก</p>
         </a>
       </div>
     </div>
@@ -19,7 +20,7 @@
         <a [href]="info.jdUrl" target="_blank">
           <img src="./assets/jd.png" height="50px" width="50px">
           <p class="small text-dark font-weight-bold">JD.COM</p>
-          <p class="small text-dark font-weight-light">No Minium Qty Limited </p>
+          <p class="small text-dark font-weight-light">ไม่มีปริมาณการสั่งซื้อขั้นต่ำ</p>
         </a>
       </div>
     </div>

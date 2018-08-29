@@ -3,16 +3,16 @@
     <img src="./assets/icon.png" class="rounded-circle"> ALITOYOU.COM</h1>
   <h6 class="text-center">
     <img src="./assets/alibaba.png" height="35px">
-    <span class="font-weight-bold text-dark">1688.COM & JD.COM</span> SOURCING AGENT</h6>
+    <span class="font-weight-bold text-dark">1688.COM & JD.COM</span> <span class="font-weight-bold text-dark"> ตัวแทนจัดหา </span></h6>
   <hr class="my-2">
   <div class="row justify-content-center">
     <div class="col-sm-12 col-md-8">
-      <h4 class="text-center text-dark font-weight-bold p-3"><i class="fas fa-paste"></i> PASTE PRODUCT URLS </h4>
-      <input class="form-control" placeholder="Accept URLS from 1688.com and JD.com" (paste)="callApi($event)">
+      <h4 class="text-center text-dark font-weight-bold p-3"><i class="fas fa-paste"></i> คัดลอกและวาง URLS </h4>
+      <input class="form-control" placeholder="URLS มาจาก 1688.com และ JD.com" (paste)="callApi($event)">
     </div>
     <div class="col col-sm-12 col-md-6">
       <button type="button" [routerLink]="['/urlapi']" class="btn btn-warning btn-block mt-4 mb-3 font-weight-bold text-white">
-        CHECK PRODUCT WITH URLS
+        ไป
       </button>
     </div>
   </div>
