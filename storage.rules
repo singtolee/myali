@@ -1,7 +1,25 @@
 service firebase.storage {
   match /b/{bucket}/o {
-    match /{allPaths=**} {
-      allow read, write: if request.auth!=null;
+  
+    match /BANK-IMG/{image} {
+      allow read: if request.auth!=null;
+      allow write: if request.auth.uid = "pCzBRa7F0VRZK33F3smFwwDdr793";
+    }
+
+    match /BANKTRANSFERBILLS/{image} {
+      allow read,write: if request.auth!=null;
+
+    }
+
+    match /BANNER/{image} {
+      allow read;
+      allow write: if request.auth.uid = "pCzBRa7F0VRZK33F3smFwwDdr793";
+
+    }
+
+    match /CATEGORY_IMG/{image} {
+      allow read;
+      allow write: if request.auth.uid = "pCzBRa7F0VRZK33F3smFwwDdr793";
     }
   }
 }
