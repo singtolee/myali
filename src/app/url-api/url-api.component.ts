@@ -159,11 +159,14 @@ export class UrlApiComponent implements OnInit, OnDestroy {
     mydate.original_price = this.handlePrice(data.price);
     mydate.price = this.handlePrice(data.price);
 
-    if (data.skus.length == 0 || !data.skus[0].values) {
+    if (data.skus.length == 0 || !data.skus[0].values) {  // JD skus.length =0, ALI skus.length = 1 ['暂无']
       mydate.sku = this.fakeSku(data)
     } else {
-      if (data.skus[0].values) {  //JD sku[] and sku_details are all empty, different with 1688.com
+
+      if(data.skus[0].label != "尺码") {
         mydate.sku = this.handleSku(data.skus[0], data.sku_detail, mydate.price)
+      }else {
+        mydate.sku = this.copySku(data)
       }
     }
 
@@ -254,6 +257,34 @@ export class UrlApiComponent implements OnInit, OnDestroy {
       return -1;
     }
     return 0;
+  }
+
+  copySku(data) {
+    var fakeImg = "https://firebasestorage.googleapis.com/v0/b/alitoyou-168.appspot.com/o/BANNER%2Fnoimg.png?alt=media&token=659ead91-75d6-4c36-8501-ec5e2d5c0ce0";
+    if(data.images.length>0){
+      fakeImg = data.images[0].image_url
+    }
+    var onlysize = data.sku_detail.map(item =>{return {
+      sku: item.sku_name,
+      stock: 999,
+      sku_id: item.sku_id,
+      price: this.handlePrice(item.sku_price),
+      skuC: item.sku_name,
+      skuS: item.sku_name,
+      sugPrice: Math.ceil(this.handlePrice(item.sku_price) * 1.7),
+      thSkuS: item.sku_name
+    }})
+    return {
+      label: "สี",
+      values: [{
+        desc: "可选尺码",
+        thDesc: "ขนาดที่มีจำหน่าย",
+        image: fakeImg,  //in case data.images.length is 0, for JD.com use placeholder to replace
+        skus: onlysize
+      }],
+      thLabel: "สี"
+    }
+
   }
 
   fakeSku(data) {
