@@ -47,6 +47,9 @@ export class UrlApiComponent implements OnInit, OnDestroy {
   localPrds: Array<Product>;
   localPrdSub: Subscription;
 
+  timePassed:number = 0;
+  timerID:any;
+
   constructor(private db: AngularFirestore,
     private http: HttpClient,
     private urlService: PassUrlService,
@@ -70,6 +73,14 @@ export class UrlApiComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.urlSub.unsubscribe();
     this.localPrdSub.unsubscribe();
+  }
+
+  startTimeCount(){
+    this.timerID = setInterval(()=>{this.timePassed+=1},1000)
+  }
+  stopTimeCount(){
+    clearInterval(this.timerID);
+    this.timePassed = 0
   }
 
   mobile2desktop(murl: string) {
@@ -103,6 +114,7 @@ export class UrlApiComponent implements OnInit, OnDestroy {
 
   callApi() {
     // is JD or ALIBABA
+    this.startTimeCount()
     this.isJDUrl = this.isJD(this.url)
     this.showSpinner = true;
     this.apiError = false;
@@ -140,6 +152,7 @@ export class UrlApiComponent implements OnInit, OnDestroy {
       .then(success =>{
         this.auhs.addItem(this.prdData)
         this.urlService.changeUrl('')//clear url
+        this.stopTimeCount()
       } )
   }
 

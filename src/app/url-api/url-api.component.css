@@ -46,4 +46,11 @@ li a:hover {
     background-color: #ff5733;
 }
 
+.ispin {
+    animation-name: spin;
+    animation-duration: 1500ms;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out; 
+}
+
 
