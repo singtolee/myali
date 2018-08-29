@@ -24,7 +24,7 @@ service cloud.firestore {
 
     match /CARTS/{cart} {
       allow create: if request.auth.uid !=null;
-      allow delete: if resource.data.uid == request.auth.uid;
+      allow update,delete: if resource.data.uid == request.auth.uid;
     }
 
     match /ORDERS/{order} {
