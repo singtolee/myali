@@ -1,5 +1,5 @@
 <div class="modal-body bg-light">
-  <p class="text-right text-dark" (click)="activeModal.close('Close click')"><i class="fas fa-times-circle fa-lg"></i></p>
+  <p class="text-right text-dark" (click)="closeModal()"><i class="fas fa-times-circle fa-lg"></i></p>
   <h3 *ngIf="info.isDesktop" class="text-center text-dark"><i class="fas fa-desktop fa-lg"></i></h3>
   <h3 *ngIf="!info.isDesktop" class="text-center text-dark"><i class="fas fa-mobile-alt fa-lg"></i></h3>
   <p class="text-center text-dark font-weight-bold">Check search results <span class="badge badge-warning text-dark">{{info.keyword}}</span>

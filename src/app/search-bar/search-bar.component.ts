@@ -3,6 +3,7 @@ import { DeviceDetectorService } from 'ngx-device-detector';
 import { Subscription } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { UrlSelectorComponent } from '../url-selector/url-selector.component';
+import { ErrorMsgComponent } from '../error-msg/error-msg.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 const API = "https://singtostore.com/search/?kw=";
@@ -56,22 +57,15 @@ export class SearchBarComponent implements OnInit, OnDestroy {
     const address = API.concat(this.keyword.trim());
     this.resSub =  this.http.get<Gbk>(address).subscribe(res=>{
       this.resp = res;
-      console.log(this.resp)
       if(this.resp.gbk){ //success
         this.makeUrls()
         if(this.whatDevice.isDesktop()){
-          console.log("I am ON DESKTOP")
-          console.log(this.aliurl)
-          console.log(this.jdurl)
           const modalRef = this.modalService.open(UrlSelectorComponent, { centered: true });
           modalRef.componentInstance.info = {isDesktop:true,
                                             keyword:this.keyword,
                                             aliUrl:this.aliurl,
                                             jdUrl:this.jdurl};
         }else{
-          console.log("I am ON TABLET OR MOBILE")
-          console.log(this.maliurl)
-          console.log(this.mjdurl)
           const modalRef = this.modalService.open(UrlSelectorComponent, { centered: true });
           modalRef.componentInstance.info = {isDesktop:false,
                                               keyword:this.keyword,
@@ -80,7 +74,10 @@ export class SearchBarComponent implements OnInit, OnDestroy {
         }
         this.keyword = '';
       }else {
+        const modalRef = this.modalService.open(ErrorMsgComponent, { centered: true });
+        modalRef.componentInstance.msg = "ข้อผิดพลาดทางอินเทอร์เน็ต" //internet error
         //Modal error to re try
+        console.log("ERROR")
       }
     })
   }
