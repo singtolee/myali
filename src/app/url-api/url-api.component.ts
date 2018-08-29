@@ -266,13 +266,13 @@ export class UrlApiComponent implements OnInit, OnDestroy {
     }
     var onlysize = data.sku_detail.map(item =>{return {
       sku: item.sku_name,
-      stock: 999,
+      stock: 9999,
       sku_id: item.sku_id,
       price: this.handlePrice(item.sku_price),
       skuC: item.sku_name,
       skuS: item.sku_name,
       sugPrice: Math.ceil(this.handlePrice(item.sku_price) * 1.7),
-      thSkuS: item.sku_name
+      thSkuS: item.sku_thName
     }})
     return {
       label: "สี",
