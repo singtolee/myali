@@ -129,10 +129,12 @@ export class UrlApiComponent implements OnInit, OnDestroy {
         //this.auhs.addItem(this.prdData);
         console.log(this.prdData);
       } else {
+        this.stopTimeCount();
         console.log(res)
         console.log("re try: " + this.retryCounter);
         //if failed call again , call 3 times then dispaly error mes???
         if (this.retryCounter > 2) {
+          this.startTimeCount();
           this.apiError = true;
           this.retryCounter = 0;
           return
