@@ -75,7 +75,7 @@ export class UserOrderHistoryComponent implements OnInit,OnDestroy {
   editStatus(cart:any){
 
     if(!this.isOver12h(cart)){
-      this.db.doc(this.dir + '/' + cart.id).update({'status.s3':{time:new Date(),title:'Cancelled'}})
+      this.db.doc(this.dir + '/' + cart.id).update({'status.s3':{time:new Date(),title:'ยกเลิกแล้ว'}})
     }
   }
 

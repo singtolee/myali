@@ -1,7 +1,13 @@
 <span *ngFor="let ss of status | keyvalue; last as l">
-    <small *ngIf="l" class="badge badge-pill badge-success mr-1" 
-    [class.badge-danger]="ss.value.title == 'cancelled'"
-    [class.badge-warning]="ss.value.title == 'done'"
-    [class.badge-warning]="ss.value.title == 'paid'"
-     >{{ss.value.title}}</small>
+    <small ngbDropdown  *ngIf="l" class="badge badge-success mr-1" 
+    [class.badge-danger]="ss.value.title == 'ยกเลิกแล้ว'"
+     ><span class="text-white" id="statusBar" ngbDropdownToggle>{{ss.value.title}}</span>
+     <div class="bg-light" ngbDropdownMenu aria-labelledby="statusBar">
+         <ul>
+             <li *ngFor="let sta of status | keyvalue">
+                 <span class="small">{{sta.value.title}} @</span><span class="small p-2">{{convert(sta.value.time) | date:'medium':'th'}}</span>
+            </li>
+         </ul>
+      </div>
+    </small>
 </span>
