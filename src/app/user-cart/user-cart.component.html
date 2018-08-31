@@ -50,9 +50,9 @@
     <div *ngIf="items.length >0" class="container mt-2">
       <div class="row justify-content-md-center">
         <div *ngIf="cartChecked()" class="col col-12 col-md-8">
-          <p class="text-right font-weight-light small">Sub Total: {{cal().t}} บาท</p>
-          <p class="text-right font-weight-light small">Service Charge: {{cal().serviceFee}} บาท</p>
-          <p class="text-right font-weight-bold small">Total: {{cal().t + cal().serviceFee}} บาท</p>
+          <p class="text-right font-weight-light small">รวม: {{cal().t}} บาท</p>
+          <p class="text-right font-weight-light small">ค่าบริการ: {{cal().serviceFee}} บาท</p>
+          <p class="text-right font-weight-bold small">รวมทั้งสิ้น: {{cal().t + cal().serviceFee}} บาท</p>
           <p class="text-right font-weight-bold small"><span class="text-danger"><i class="fas fa-exclamation-circle"></i>Minimiu shipping cost is {{cms.costSheet.minShippingCost}} บาท.</span></p>
           <p class="text-right font-weight-bold small">Actual Shipping Fee is Calculated on Arrival</p>
           <p class="text-right font-weight-bold text-dark small"><i class="fas fa-shipping-fast mr-1"></i>Get your order in {{cms.costSheet.landDuration}} days</p>
@@ -60,7 +60,7 @@
         </div>
         <div *ngIf="cartChecked()" class="col col-12 col-md-8">
           <div>
-            <h6 class="text-center text-dark mb-1">Scan QR code pay
+            <h6 class="text-center text-dark mb-1">สแกนโค้ด QR เพื่อชำระเงิน
               <span class="text-danger">{{cal().t + cal().serviceFee}} บาท</span>, and upload the bill.</h6>
               <div class="container">
                   <div class="row justify-content-center">
@@ -70,7 +70,7 @@
                   </div>
                 </div>
             <label class="btn btn-block btn-outline-info btn-sm mt-1">
-              <i class="fas fa-cloud-upload-alt mr-1"></i>UPLOAD BILL
+              <i class="fas fa-cloud-upload-alt mr-1"></i>อัปโหลด
               <input type="file" (change)="startUpload($event.target.files)" accept="image/*" style="display: none;">
             </label>
             <app-loading-spinner *ngIf="isuploadingbill"></app-loading-spinner>
@@ -87,7 +87,7 @@
         <div class="col col-12 col-md-8 mb-5">
           <button type="button" [disabled]="!paymentMethodChecked()" 
           class="btn btn-success btn-sm btn-block" (click)="checkout()">
-             <span *ngIf="!checkingout">CHECK OUT</span> <app-small-spinner *ngIf="checkingout">
+             <span *ngIf="!checkingout"> เช็คเอาท์ </span> <app-small-spinner *ngIf="checkingout">
              </app-small-spinner> </button>
         </div>
       </div>
