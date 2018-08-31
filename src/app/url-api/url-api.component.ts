@@ -204,7 +204,7 @@ export class UrlApiComponent implements OnInit, OnDestroy {
     var dsku = new Dsku();
     var myskuArray = new Array<MySkuDetail>();
     dsku.label = "颜色";
-    dsku.thLabel = "สี";
+    dsku.thLabel = "สสีที่มีให้";
     for (const val of skus.values) {
       var detailsArray = new Array<Details>();
       var mysku = new MySkuDetail();
@@ -247,7 +247,6 @@ export class UrlApiComponent implements OnInit, OnDestroy {
           }
           details.sku_id = sd.sku_id;
           details.stock = Number(sd.sku_stock) ? Number(sd.sku_stock) : 999;
-          console.log(typeof (sd.sku_price));
           details.price = this.handlePrice(sd.sku_price) ? this.handlePrice(sd.sku_price) : priceStr;
           details.sugPrice = Math.ceil(details.price * 1.7);
           detailsArray.push(details);
