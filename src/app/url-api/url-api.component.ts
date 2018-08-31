@@ -9,8 +9,8 @@ import { PassUrlService } from '../pass-url.service';
 import { PassPrdObjectService } from '../pass-prd-object.service';
 import { ApiUrlsHistoryService } from '../api-urls-history.service';
 import { Subscription } from 'rxjs';
-//const API = "https://singtostore.com?prdurl=";
-const API = "https://us-central1-alitoyou-168.cloudfunctions.net/apicall?text=";
+const API = "https://singtostore.com?prdurl=";
+//const API = "https://us-central1-alitoyou-168.cloudfunctions.net/apicall?text=";
 const ALIURL = "https://detail.1688.com/offer/";
 const JDURL = "https://item.jd.com/";
 const MALI = "m.1688.com";
@@ -39,7 +39,6 @@ export class UrlApiComponent implements OnInit, OnDestroy {
   showSpinner: boolean = false;
   url: string;
   prdData: Product;
-  retryCounter: number = 0;
   apiError: boolean = false;
   urlSub: Subscription;
   dir = "PRODUCTS";
@@ -126,23 +125,15 @@ export class UrlApiComponent implements OnInit, OnDestroy {
         console.log(res);
         this.prdData = this.reformDate(res.data);
         this.urlService.changePid(this.prdData.pid);
+        this.stopTimeCount();
+        this.auhs.addItem(this.prdData)
+        this.urlService.changeUrl('')
         this.save2firestore();
         //this.auhs.addItem(this.prdData);
         console.log(this.prdData);
       } else {
         this.stopTimeCount();
         console.log(res)
-        console.log("re try: " + this.retryCounter);
-        //if failed call again , call 3 times then dispaly error mes???
-        if (this.retryCounter > 2) {
-          this.startTimeCount();
-          this.apiError = true;
-          this.retryCounter = 0;
-          return
-        } else {
-          this.retryCounter += 1;
-          this.callApi();
-        }
       }
     });
 
@@ -150,13 +141,7 @@ export class UrlApiComponent implements OnInit, OnDestroy {
 
 
   save2firestore() {
-
     this.db.collection(this.dir).add(JSON.parse(JSON.stringify(this.prdData)))
-      .then(success =>{
-        this.auhs.addItem(this.prdData)
-        this.urlService.changeUrl('')//clear url
-        this.stopTimeCount()
-      } )
   }
 
   reformDate(data) {

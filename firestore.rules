@@ -19,7 +19,7 @@ service cloud.firestore {
 
     match /PRODUCTS/{product} {
       //everyone can create, but data must be Product Object
-      allow create;
+      allow create: if request.auth.uid != null;
     }
 
     match /CARTS/{cart} {
