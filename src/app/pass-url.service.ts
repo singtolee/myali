@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
+import { Product } from './tools/Product';
+
 
 @Injectable({
   providedIn: 'root'
@@ -9,8 +11,8 @@ export class PassUrlService {
   private urlSource = new BehaviorSubject('');
   currentUrl = this.urlSource.asObservable();
 
-  private pidSource = new BehaviorSubject<number>(0)
-  currentPid = this.pidSource.asObservable();
+  private prdSource = new BehaviorSubject(new Product())
+  currentPrd = this.prdSource.asObservable();
 
   constructor() { }
 
@@ -18,7 +20,7 @@ export class PassUrlService {
     this.urlSource.next(url)
   }
 
-  changePid(pid:number){
-    this.pidSource.next(pid)
+  changePrd(prd:Product){
+    this.prdSource.next(prd)
   }
 }
