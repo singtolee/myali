@@ -6,6 +6,7 @@ import { MySkuDetail } from '../tools/MySkuDetail';
 import { Details } from '../tools/Details';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { PassUrlService } from '../pass-url.service';
+import { AuthService } from '../auth.service';
 import { PassPrdObjectService } from '../pass-prd-object.service';
 import { ApiUrlsHistoryService } from '../api-urls-history.service';
 import { Subscription } from 'rxjs';
@@ -34,6 +35,9 @@ interface Link {
 })
 export class UrlApiComponent implements OnInit, OnDestroy {
 
+  private user;
+  userSub:Subscription;
+
   isJDUrl: boolean;
 
   showSpinner: boolean = false;
@@ -52,11 +56,13 @@ export class UrlApiComponent implements OnInit, OnDestroy {
 
   constructor(private db: AngularFirestore,
     private http: HttpClient,
+    private auth: AuthService,
     private urlService: PassUrlService,
     private passprd:PassPrdObjectService,
     private auhs: ApiUrlsHistoryService) { }
 
   ngOnInit() {
+    this.userSub = this.auth.user.subscribe(u=>this.user=u)
     this.localPrdSub = this.auhs.prds.subscribe(p => this.localPrds = p);
     this.urlSub = this.urlService.currentUrl.subscribe(u => {
       this.url = u;
@@ -71,6 +77,7 @@ export class UrlApiComponent implements OnInit, OnDestroy {
 */
   }
   ngOnDestroy() {
+    this.userSub.unsubscribe();
     this.urlSub.unsubscribe();
     this.localPrdSub.unsubscribe();
   }
@@ -127,8 +134,13 @@ export class UrlApiComponent implements OnInit, OnDestroy {
         this.urlService.changePid(this.prdData.pid);
         this.stopTimeCount();
         this.auhs.addItem(this.prdData)
-        this.urlService.changeUrl('')
-        this.save2firestore();
+        this.urlService.changeUrl('');
+        if(this.user){
+          console.log("USER LOGGEDIN")
+          this.save2firestore();
+        }else {
+          console.log("NOT LOG IN YET")
+        }
         //this.auhs.addItem(this.prdData);
         console.log(this.prdData);
       } else {
