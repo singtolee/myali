@@ -1,5 +1,5 @@
-<ngb-carousel *ngIf="sku">
-  <ng-template ngbSlide *ngFor="let item of sku">
+<ngb-carousel *ngIf="newSku">
+  <ng-template ngbSlide *ngFor="let item of newSku">
     <img [src]="item.image">
       <div class="carousel-caption">
       <h3 class="text-info">{{item.thDesc}}</h3>

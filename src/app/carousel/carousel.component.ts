@@ -7,11 +7,14 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class CarouselComponent implements OnInit {
 
+  newSku;
+
   @Input() sku;
 
   constructor() { }
 
   ngOnInit() {
+    this.newSku = this.sku.filter(item=>item.image)
   }
 
 }
