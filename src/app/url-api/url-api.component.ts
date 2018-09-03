@@ -10,8 +10,8 @@ import { AuthService } from '../auth.service';
 import { PassPrdObjectService } from '../pass-prd-object.service';
 import { ApiUrlsHistoryService } from '../api-urls-history.service';
 import { Subscription } from 'rxjs';
-const API = "https://singtostore.com?prdurl=";
-//const API = "https://us-central1-alitoyou-168.cloudfunctions.net/apicall?text=";
+const APIP = "https://singtostore.com?prdurl=";
+const APIF = "https://us-central1-alitoyou-168.cloudfunctions.net/apicall?text=";
 const ALIURL = "https://detail.1688.com/offer/";
 const JDURL = "https://item.jd.com/";
 const MALI = "m.1688.com";
@@ -19,6 +19,7 @@ const MJD = "item.m.jd.com";
 
 interface Prd {
   loaded: boolean;
+  error_code:number;
   data: Product;
 }
 
@@ -113,10 +114,10 @@ export class UrlApiComponent implements OnInit, OnDestroy {
     this.isJDUrl = this.isJD(this.url)
     this.showSpinner = true;
     this.apiError = false;
-    const address = API.concat(this.mobile2desktop(this.url));
+    const address = APIF.concat(this.mobile2desktop(this.url));
     this.http.get<Prd>(address).subscribe((res) => {
       this.showSpinner = false;
-      if (res.loaded) {
+      if (res.loaded&&res.error_code==0) {
         console.log(res);
         this.prdData = this.reformDate(res.data);
         this.urlService.changePrd(this.prdData);
@@ -124,16 +125,17 @@ export class UrlApiComponent implements OnInit, OnDestroy {
         this.auhs.addItem(this.prdData)
         this.urlService.changeUrl('');
         if(this.user){
-          console.log("USER LOGGEDIN")
+          //console.log("USER LOGGEDIN")
           this.save2firestore();
         }else {
-          console.log("NOT LOG IN YET")
+          //console.log("NOT LOG IN YET")
         }
-        //this.auhs.addItem(this.prdData);
         console.log(this.prdData);
       } else {
         this.stopTimeCount();
         console.log(res)
+        this.apiError = true
+        this.url = ''
       }
     });
 
