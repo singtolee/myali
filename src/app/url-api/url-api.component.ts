@@ -10,7 +10,7 @@ import { AuthService } from '../auth.service';
 import { PassPrdObjectService } from '../pass-prd-object.service';
 import { ApiUrlsHistoryService } from '../api-urls-history.service';
 import { Subscription } from 'rxjs';
-const APIP = "https://singtostore.com?prdurl=";
+//const APIP = "https://singtostore.com?prdurl=";
 const APIF = "https://us-central1-alitoyou-168.cloudfunctions.net/apicall?text=";
 const ALIURL = "https://detail.1688.com/offer/";
 const JDURL = "https://item.jd.com/";
