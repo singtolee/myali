@@ -225,8 +225,8 @@ export class UrlApiComponent implements OnInit, OnDestroy {
             if (bb.length > 1) {
               details.skuC = bb[0];
               details.skuS = bb[1];
-              //details.thSkuS = sd.sku_thName;
-              details.thSkuS = bb[1];
+              details.thSkuS = sd.sku_thName;
+              //details.thSkuS = bb[1];
             } else {
               details.skuC = bb[0];
               details.skuS = bb[0];
