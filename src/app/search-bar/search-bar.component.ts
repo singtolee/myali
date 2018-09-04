@@ -74,6 +74,7 @@ export class SearchBarComponent implements OnInit, OnDestroy {
         }
         this.keyword = '';
       }else {
+        this.isSearching = false
         const modalRef = this.modalService.open(ErrorMsgComponent, { centered: true });
         modalRef.componentInstance.msg = "ข้อผิดพลาดทางอินเทอร์เน็ต" //internet error
         //Modal error to re try
