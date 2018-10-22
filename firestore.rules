@@ -32,6 +32,12 @@ service cloud.firestore {
       allow update: if resource.data.uid == request.auth.uid;
     }
 
+    match /MYORDERS/{order} {
+      allow create: if request.auth.uid !=null;
+      allow update: if resource.data.uid == request.auth.uid;
+      allow delete: if resource.data.uid == request.auth.uid;
+    }
+
 
 
     
